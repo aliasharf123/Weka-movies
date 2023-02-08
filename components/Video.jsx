@@ -96,21 +96,22 @@ function Video() {
             <div className="flex flex-row gap-4 ml-7  w-[8000px] pb-8">
                    {movies && movies.map(movie =>{
                        return (
+                        <div className="gap-5 cursor-pointer flex-wrap relative text-center">
                            <div className=' gap-5 cursor-pointer flex-wrap relative transition hover:scale-105' onClick={() =>{ 
-                            handleToggle()
-                            setMovieNow(movie.id)
+                               handleToggle()
+                               setMovieNow(movie.id)
                             }}   key={movie.id}>
                             {movie.backdrop_path && <Image className="object-cover rounded-lg w-[520px] h-[240px]"  alt={movie.id} width={520} height={240} src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}/>}
                             <PlayCircleOutlineIcon className="absolute top-[45%] left-[42%] text-5xl"/>
+                            </div>
                             {movie.title || movie.name} 
-
                         </div>
 
                     )
                 })} 
-               {open && <div className="fixed z-40 bg-trans  pl-[23%] pt-[10%] top-0 left-0 w-full h-screen">
+               {open && <div className="fixed z-40 bg-trans  lg:pl-[23%] lg:pt-[10%] pl-[10%] pt-[50%] top-0 left-0 w-full h-screen">
                     <button onClick={handleToggle} > Close</button>  
-                    <iframe id="player" type="text/html" className="" width="840" height="490"
+                    <iframe  id="player" type="text/html" className="lg:w-[840px] lg:h-[490px] "  
                             src={`http://www.youtube.com/embed/${videoKey}?enablejsapi=1&origin=http://example.com`}
                             frameborder="0"></iframe>
                 </div>}
