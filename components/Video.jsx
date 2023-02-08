@@ -62,9 +62,9 @@ function Video() {
     }
     return ( 
         <div>
-            <div className='flex flex-row gap-6 '>
+            <div className='flex flex-row gap-6  '>
                 <h1 className="text-header">Trailer</h1>
-                <div className='flex border-2 border-[#F4181C] px-2 gap-[3.2rem]  rounded-full w-80 h-8 relative mt-1'>
+                <div className='flex border-2 border-[#F4181C] px-2 gap-[3.2rem]  rounded-full lg:w-80 h-8 relative mt-1'>
                     <button onClick={() => {
                         setEnabled('In Theaters')
                         setUrl(`https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.NEXT_PUBLIC_DB_key}&language=en-US&page=1`)
@@ -102,6 +102,7 @@ function Video() {
                             }}   key={movie.id}>
                             {movie.backdrop_path && <Image className="object-cover rounded-lg w-[520px] h-[240px]"  alt={movie.id} width={520} height={240} src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}/>}
                             <PlayCircleOutlineIcon className="absolute top-[45%] left-[42%] text-5xl"/>
+                            {movie.title || movie.name} 
 
                         </div>
 
