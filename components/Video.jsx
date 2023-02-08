@@ -93,10 +93,10 @@ function Video() {
                 </div>
             </div>
             <div className="overflow-scroll   overflow-y-hidden  pt-8">
-            <div className="flex flex-row gap-4 ml-7  w-[8000px] pb-8">
+            <div className="flex flex-row gap-4 ml-7  w-[8000px] pb-8" >
                    {movies && movies.map(movie =>{
                        return (
-                        <div className="gap-5 cursor-pointer flex-wrap relative text-center" > 
+                        <div className="gap-5 cursor-pointer flex-wrap relative text-center" key={movie.id}> 
                            <div className=' gap-5 cursor-pointer flex-wrap relative transition hover:scale-105' onClick={() =>{ 
                                handleToggle()
                                setMovieNow(movie.id)
