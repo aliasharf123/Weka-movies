@@ -96,11 +96,11 @@ function Video() {
             <div className="flex flex-row gap-4 ml-7  w-[8000px] pb-8">
                    {movies && movies.map(movie =>{
                        return (
-                        <div className="gap-5 cursor-pointer flex-wrap relative text-center">
+                        <div className="gap-5 cursor-pointer flex-wrap relative text-center" key={movie.id}> 
                            <div className=' gap-5 cursor-pointer flex-wrap relative transition hover:scale-105' onClick={() =>{ 
                                handleToggle()
                                setMovieNow(movie.id)
-                            }}   key={movie.id}>
+                            }}   >
                             {movie.backdrop_path && <Image className="object-cover rounded-lg w-[520px] h-[240px]"  alt={movie.id} width={520} height={240} src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}/>}
                             <PlayCircleOutlineIcon className="absolute top-[45%] left-[42%] text-5xl"/>
                             </div>
