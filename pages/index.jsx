@@ -27,7 +27,7 @@ export default function Home({data}) {
       </Head>
       <main className=' lg:px-40 flex flex-col gap-9'> 
         <div className='relative'>
-          <Image width={100000} height={1000000}  className='object-cover w-full h-[600px] brightness-50 relative' src={`https://www.themoviedb.org/t/p/w1280${data}`} alt="" />
+          <Image width={100000} height={1000000}  className='object-cover w-full h-[600px] brightness-50 relative' src={`https://www.themoviedb.org/t/p/w1280${data}`} alt="main" />
             <div className='absolute z-10  text-slate-100 -top-0 ml-3 lg:m-24 mt-60 lg:mt-72 w-9/12  h-36 gap-3 flex flex-col'>
               <div>
                 <h1 className='text-5xl '>Welcome ,</h1>

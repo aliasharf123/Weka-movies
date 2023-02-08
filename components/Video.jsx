@@ -8,9 +8,11 @@ function Video() {
     const [enabled, setEnabled] = useState('In Theaters');
     const [url, setUrl] = useState(`https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.NEXT_PUBLIC_DB_key}&language=en-US&page=1`)
     const [movies , setMovies] = useState()
-    const [TVorMovie, setTVorMovie] = useState()
+    const [TVorMovie, setTVorMovie] = useState('movie')
+    const [vaild, setvaild] = useState(false)
     const [open, setOpen] = useState(false);
-
+    const [movieNow , setMovieNow] = useState('')
+    const [videoKey, setVideoKey] = useState('');
     const handleClose = () => {
       setOpen(false);
     };
@@ -25,13 +27,28 @@ function Video() {
             setMovies(data.results)
         }
     }
-    const fetchVideo = async (url) =>{
-           
+    const fetchVideo = async () =>{
+        if(movieNow){
+            const response = await fetch(`https://api.themoviedb.org/3/${TVorMovie}/${movieNow}/videos?api_key=509549351051b91b5de5e8af705b6972&language=en-US`);
+            if(response.ok){
+                const data = await response.json();
+                setvaild(true)
+                const video = data.results.filter(movie => movie.type === 'Trailer')[0]
+                setVideoKey(video.key) ;
+            }
+            else {
+                setvaild(false)
+            }
+        }        
     }
     
     useEffect(() =>{
         fetchMovies();
     }, [url]) 
+    useEffect(() =>{
+        fetchVideo();
+    }, [movieNow]) 
+    
     const handleToggleState = () =>{
         if(enabled === 'In Theaters'){
             return 'w-28 left-0'
@@ -68,7 +85,7 @@ function Video() {
                     </button>
                     <button onClick={() => {
                         setEnabled('Streaming')
-                        setUrl(`https://api.themoviedb.org/3/discover/tv?api_key=${process.env.NEXT_PUBLIC_DB_key}&with_watch_providers=337&watch_region=CA`)
+                        setUrl(`https://api.themoviedb.org/3/discover/tv?api_key=${process.env.NEXT_PUBLIC_DB_key}&with_watch_providers=337&watch_region=US`)
                         setTVorMovie('tv')
                         }} className={`z-20    ${enabled === 'Streaming'&& 'text-black'}  `}>
                        Streaming
@@ -79,24 +96,23 @@ function Video() {
             <div className="flex flex-row gap-4 ml-7  w-[8000px] pb-8">
                    {movies && movies.map(movie =>{
                        return (
-                           <div className=' gap-5 cursor-pointer flex-wrap relative transition hover:scale-105' onClick={handleToggle}   key={movie.id}>
-                            {movie.backdrop_path && <Image className="rounded-lg " width={520} height={240} src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}/>}
+                           <div className=' gap-5 cursor-pointer flex-wrap relative transition hover:scale-105' onClick={() =>{ 
+                            handleToggle()
+                            setMovieNow(movie.id)
+                            }}   key={movie.id}>
+                            {movie.backdrop_path && <Image className="object-cover rounded-lg w-[520px] h-[240px]"  alt={movie.id} width={520} height={240} src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}/>}
                             <PlayCircleOutlineIcon className="absolute top-[45%] left-[42%] text-5xl"/>
 
-                            <Backdrop
-                                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                                open={open}
-                                onClick={handleClose}
-                            >
-                                <div>
-                                    <iframe id="player" type="text/html" width="640" height="390"
-                                        src={`http://www.youtube.com/embed/${fetchVideo(`https://api.themoviedb.org/3/movie/315162/videos?api_key=${process.env.NEXT_PUBLIC_DB_key}&language=en-US`)}?enablejsapi=1&origin=http://example.com`}
-                                        frameborder="0"></iframe>
-                                </div>
-                            </Backdrop>
                         </div>
+
                     )
                 })} 
+               {open && <div className="fixed z-40 bg-trans  pl-[23%] pt-[10%] top-0 left-0 w-full h-screen">
+                    <button onClick={handleToggle} > Close</button>  
+                    <iframe id="player" type="text/html" className="" width="840" height="490"
+                            src={`http://www.youtube.com/embed/${videoKey}?enablejsapi=1&origin=http://example.com`}
+                            frameborder="0"></iframe>
+                </div>}
             </div>
             </div>
         </div> 
