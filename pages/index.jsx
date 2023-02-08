@@ -9,13 +9,15 @@ import MoviesList from '@/components/movies';
 import { useRouter } from 'next/router';
 import Video from '@/components/Video';
 
+
 export default function Home({data}) {
   const [enabled, setEnabled] = useState(false);
+  const [search , setSearch] = useState('');
   const router = useRouter()
  
   const handleSubmit = (e) =>{
     e.preventDefault()
-    router.push('/Movies')
+    router.push(`/Search/${search}`)
   }
   return (
     <>
@@ -28,14 +30,14 @@ export default function Home({data}) {
       </Head>
       <main className=' lg:px-40 flex flex-col gap-9'> 
         <div className='relative'>
-          <Image width={100000} height={1000000}  className='object-cover w-full h-[600px] brightness-50 relative' src={`https://www.themoviedb.org/t/p/w1280${data}`} alt="main" />
+           <Image width={100000} height={1000000}  className='object-cover w-full h-[600px] brightness-50 relative' src={`https://www.themoviedb.org/t/p/w1280${data}`} alt="main" />
             <div className='absolute z-10  text-slate-100 -top-0 ml-3 lg:m-24 mt-60 lg:mt-72 w-9/12  h-36 gap-3 flex flex-col'>
               <div>
                 <h1 className='text-5xl '>Welcome ,</h1>
                 <p className='text-2xl'><span className='text-[#F4181C]'>Ali ashraf</span>  to my frist big website</p>
               </div>
               <form className='bg-white rounded-full w-full h-1/3   ' onSubmit={handleSubmit}>
-                <input type="text " className='rounded-full w-[80%] lg:w-[90%]  px-3 focus-within:outline-none text-gray-700' placeholder='Search for Movies and Tv show '/>
+                <input type="text " value={search} onChange={(e) => setSearch(e.target.value) } className='rounded-full w-[80%] lg:w-[90%]  px-3 focus-within:outline-none text-gray-700' placeholder='Search for Movies and Tv show '/>
                 <button type="submit" className='bg-[#F4181C] rounded-full w-[20%] lg:w-[10%] h-[48px] '>Search</button>
               </form>
             </div>

@@ -6,6 +6,7 @@ import DehazeIcon from '@mui/icons-material/Dehaze';
 import Image from 'next/image';
 import logo from '../public/static/large-WOMJa9L29-transformed.png'
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 const navigation = [
   { name: 'Home', href: '/', current: false },
   { name: 'Movies', href: '/Movies', current: false },
@@ -18,6 +19,13 @@ function classNames(...classes) {
 }
 
 export default function Header() {
+  const [search , setSearch] = useState('');
+  const router = useRouter()
+ 
+  const handleSubmit = (e) =>{
+    e.preventDefault()
+    router.push(`/Search/${search}`)
+  }
   const [opened, setOpen] = useState(false);
   return (
     <Disclosure as="nav" className="bg-[#121212]">
@@ -85,7 +93,10 @@ export default function Header() {
                     leaveTo="transform opacity-0 scale-95"
                   >
                     <Menu.Items className="absolute right-0 z-10 mt-2 w-80 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5  poin">
-                          <input type="text"  placeholder='Search... ' className=' w-full rounded-md border-gray-300 pl-7 pr-12  focus:outline-none'/>
+                          <form onSubmit={handleSubmit} className='flex flex-row'>
+                              <input type="text"  value={search} onChange={(e) => setSearch(e.target.value)} placeholder='Search... ' className=' w-full rounded-md border-gray-300 pl-7 pr-12  focus:outline-none'/>
+                                <button>Search</button>
+                          </form>
                     </Menu.Items>
                   </Transition>
                 </Menu>      
