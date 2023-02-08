@@ -96,7 +96,7 @@ function Video() {
             <div className="flex flex-row gap-4 ml-7  w-[8000px] pb-8">
                    {movies && movies.map(movie =>{
                        return (
-                        <div className="gap-5 cursor-pointer flex-wrap relative text-center" key={movie.id}> 
+                        <div className="gap-5 cursor-pointer flex-wrap relative text-center" > 
                            <div className=' gap-5 cursor-pointer flex-wrap relative transition hover:scale-105' onClick={() =>{ 
                                handleToggle()
                                setMovieNow(movie.id)
@@ -111,7 +111,7 @@ function Video() {
                 })} 
                {open && <div className="fixed z-40 bg-trans  lg:pl-[23%] lg:pt-[10%] pl-[10%] pt-[50%] top-0 left-0 w-full h-screen">
                     <button onClick={handleToggle} > Close</button>  
-                    <iframe  id="player" type="text/html" className="lg:w-[840px] lg:h-[490px] "  height={490} width={840}
+                    <iframe  id="player" type="text/html" className="lg:w-[840px] lg:h-[490px] "  
                             src={`http://www.youtube.com/embed/${videoKey}?enablejsapi=1&origin=http://example.com`}
                             frameborder="0"></iframe>
                 </div>}
