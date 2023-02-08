@@ -111,7 +111,7 @@ function Video() {
                 })} 
                {open && <div className="fixed z-40 bg-trans  lg:pl-[23%] lg:pt-[10%] pl-[10%] pt-[50%] top-0 left-0 w-full h-screen">
                     <button onClick={handleToggle} > Close</button>  
-                    <iframe  id="player" type="text/html" className="lg:w-[840px] lg:h-[490px] "  
+                    <iframe  id="player" type="text/html" className="lg:w-[840px] lg:h-[490px] "  height={490} width={840}
                             src={`http://www.youtube.com/embed/${videoKey}?enablejsapi=1&origin=http://example.com`}
                             frameborder="0"></iframe>
                 </div>}
