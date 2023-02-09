@@ -57,7 +57,7 @@ export default function Home({data}) {
                 </button>
              </div>
           </div>
-          <MoviesList url={`https://api.themoviedb.org/3/trending/all/${enabled ? 'week' : 'day'}?api_key=${process.env.NEXT_PUBLIC_DB_key}`}/>
+          <MoviesList url={`https://api.themoviedb.org/3/trending/all/${enabled ? 'week' : 'day'}?`}/>
           <Video/>
         </div>
 

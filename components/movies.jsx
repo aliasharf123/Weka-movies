@@ -2,23 +2,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import StarIcon from '@mui/icons-material/Star';
+import useFetch from "@/src/useFetch";
 
 
 function MoviesList({url}) {
-    const [movies , setMovies] = useState()
-    const fetchMovies = async () =>{
-        const response = await fetch(url);
-        const data = await response.json();
-        setMovies(data.results)
-        
-    }
-    useEffect(() =>{
-        fetchMovies();
-    }, [url]) 
+    const {data , loading} = useFetch(url)
+
     return (           
     <div className='overflow-scroll   overflow-y-hidden'>
     <div className='flex flex-row gap-3  w-[4000px]  ml-6' >
-      {movies && movies.map(movie =>{
+      {data.results && data.results.map(movie =>{
         return(
           <div key={movie.id} className='w-56 flex-wrap '>
             <Link  href={movie.media_type === 'movie' ? `/Movies/${movie.id}` : `/TvShow/${movie.id}`}  passHref>

@@ -3,33 +3,23 @@ import { useEffect, useState } from "react";
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import useFetch from "@/src/useFetch";
 
 function Video() {
     const [enabled, setEnabled] = useState('In Theaters');
-    const [url, setUrl] = useState(`https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.NEXT_PUBLIC_DB_key}&language=en-US&page=1`)
-    const [movies , setMovies] = useState()
+    const [url, setUrl] = useState(`https://api.themoviedb.org/3/movie/now_playing?&language=en-US&page=1`)
     const [TVorMovie, setTVorMovie] = useState('movie')
-    const [vaild, setvaild] = useState(false)
+    const {data , loading} =  useFetch(url)
     const [open, setOpen] = useState(false);
     const [movieNow , setMovieNow] = useState('')
     const [videoKey, setVideoKey] = useState('');
-    const handleClose = () => {
-      setOpen(false);
-    };
-
+ 
     const handleToggle = () => {
       setOpen(!open);
     };
-    const fetchMovies = async () =>{
-        if(url){
-            const response = await fetch(url);
-            const data = await response.json();
-            setMovies(data.results)
-        }
-    }
     const fetchVideo = async () =>{
         if(movieNow){
-            const response = await fetch(`https://api.themoviedb.org/3/${TVorMovie}/${movieNow}/videos?api_key=509549351051b91b5de5e8af705b6972&language=en-US`);
+            const response = await fetch(`https://api.themoviedb.org/3/${TVorMovie}/${movieNow}/videos?api_key=${process.env.NEXT_PUBLIC_DB_key}&language=en-US`);
             if(response.ok){
                 const data = await response.json();
                 setvaild(true)
@@ -42,9 +32,7 @@ function Video() {
         }        
     }
     
-    useEffect(() =>{
-        fetchMovies();
-    }, [url]) 
+
     useEffect(() =>{
         fetchVideo();
     }, [movieNow]) 
@@ -67,7 +55,7 @@ function Video() {
                 <div className='flex border-2 border-[#F4181C] px-2 gap-[3.2rem]  rounded-full lg:w-80 h-8 relative mt-1'>
                     <button onClick={() => {
                         setEnabled('In Theaters')
-                        setUrl(`https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.NEXT_PUBLIC_DB_key}&language=en-US&page=1`)
+                        setUrl(`https://api.themoviedb.org/3/movie/now_playing?&language=en-US&page=1`)
                         setTVorMovie('movie')
                        }} className={`z-20 ${enabled === 'In Theaters' && 'text-black'}`}>
                         In Theaters 
@@ -77,7 +65,7 @@ function Video() {
                     </div>
                     <button onClick={() => {
                         setEnabled('On Tv')
-                        setUrl(`https://api.themoviedb.org/3/tv/on_the_air?api_key=${process.env.NEXT_PUBLIC_DB_key}&language=en-US&page=1`)
+                        setUrl(`https://api.themoviedb.org/3/tv/on_the_air?&language=en-US&page=1`)
                         setTVorMovie('tv')
 
                         }} className={`z-20    ${enabled === 'On Tv'&& 'text-black'}  `}>
@@ -85,7 +73,7 @@ function Video() {
                     </button>
                     <button onClick={() => {
                         setEnabled('Streaming')
-                        setUrl(`https://api.themoviedb.org/3/discover/tv?api_key=${process.env.NEXT_PUBLIC_DB_key}&with_watch_providers=337&watch_region=US`)
+                        setUrl(`https://api.themoviedb.org/3/discover/tv?&with_watch_providers=337&watch_region=US`)
                         setTVorMovie('tv')
                         }} className={`z-20    ${enabled === 'Streaming'&& 'text-black'}  `}>
                        Streaming
@@ -94,7 +82,7 @@ function Video() {
             </div>
             <div className="overflow-scroll   overflow-y-hidden  pt-8">
             <div className="flex flex-row gap-4 ml-7  w-[8000px] pb-8" >
-                   {movies && movies.map(movie =>{
+                   {data.results && data.results.map(movie =>{
                        return (
                         <div className="gap-5 cursor-pointer flex-wrap relative text-center" key={movie.id}> 
                            <div className=' gap-5 cursor-pointer flex-wrap relative transition hover:scale-105' onClick={() =>{ 
