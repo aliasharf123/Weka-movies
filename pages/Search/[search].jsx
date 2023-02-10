@@ -35,7 +35,7 @@ function Search() {
                         return(
                             <Link key={result.id} href={`/Movies/${result.id}`} className='flex flex-row  bg-[#121212] rounded-lg hover:scale-105 transform' passHref>
                             {result.poster_path ? <Image width={200} className='w-[100px] h-full object-cover rounded-l-lg' height={300} src={`https://www.themoviedb.org/t/p/w220_and_h330_face${result.poster_path}`} alt={result.original_title} /> :  <Image width={200}  className='bg-slate-400 w-[100px] h-[150px] rounded-l-lg' height={300} src='https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg' alt={result.original_title} />}
-                                <div className=" m-6">
+                                <div className="m-6">
                                     <h3 className="text-1xl font-bold">{result.original_title || result.name}</h3>
                                     <p className="text-gray-300 mb-2">{result.release_date || result.first_air_date}</p>
                                     <p className="font-serif">{result.overview.slice(0,200)}...</p>
