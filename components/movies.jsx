@@ -14,7 +14,7 @@ function MoviesList({url}) {
         return(
           <div key={movie.id} className='w-56 flex-wrap '>
             <Link  href={movie.media_type === 'movie' ? `/Movies/${movie.id}` : `/TvShow/${movie.id}`}  passHref>
-                {movie.poster_path && <Image  src={`https://www.themoviedb.org/t/p/w220_and_h330_face${movie.poster_path}`} alt={movie.id} width={320} height={330}/>}
+                {movie.poster_path && <Image  src={`https://www.themoviedb.org/t/p/w220_and_h330_face${movie.poster_path}`} alt={movie.id} width={10000} height={10000}/>}
             </Link>
             <div className=" bg-[#121212] h-28 p-2 rounded-b-lg ">
               <div className="flex flex-row">

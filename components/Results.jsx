@@ -1,7 +1,7 @@
 
 
 
-function ResultsControl({children  , resultstate , setResultsState}) {
+function ResultsControl({children  , resultstate , setResultsState ,setPage}) {
    
    
     return (  
@@ -11,8 +11,14 @@ function ResultsControl({children  , resultstate , setResultsState}) {
                     <h1 className="font-bold text-2xl">Search results</h1>
                 </div>
                 <div className="flex lg:flex-col flex-row p-9 gap-20 ">
-                    <button className={resultstate ==='movie' && `text-[#F4181C]`}  onClick={() => setResultsState('movie')}>Movies</button>
-                    <button className={`lg:pb-4 ${resultstate ==='tv' && 'text-[#F4181C]'}`}   onClick={() => setResultsState('tv')}>Tv Show</button>
+                    <button className={resultstate ==='movie' && `text-[#F4181C]`}  onClick={() => {
+                        setResultsState('movie')
+                        setPage(1)
+                        }}>Movies</button>
+                    <button className={`lg:pb-4 ${resultstate ==='tv' && 'text-[#F4181C]'}`}   onClick={() => {
+                        setResultsState('tv')
+                        setPage(1)
+                        }}>Tv Show</button>
                 </div>
             </div>
         {children}

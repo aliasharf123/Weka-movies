@@ -26,6 +26,7 @@ export default function Header() {
     e.preventDefault()
     router.push(`/Search/${search}`)
   }
+
   const [opened, setOpen] = useState(false);
   return (
     <Disclosure as="nav" className="bg-[#121212]">
@@ -67,7 +68,7 @@ export default function Header() {
                       <Link
                         key={item.name}
                         href={item.href}
-                        className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
+                        className='text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
                         aria-current={item.current ? 'page' : undefined}
                         passHref
                       >
@@ -78,28 +79,26 @@ export default function Header() {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <Menu as="div" className="relative ml-3">
-                   <Menu.Button className="rounded-full  p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                      <span className="sr-only">View notifications</span>
-                      <SearchIcon className="h-6 w-6" aria-hidden="true" />
-                    </Menu.Button>
-                    <Transition
-                    as={Fragment}
-                    enter="transition ease-out duration-100"
-                    enterFrom="transform opacity-0 scale-95"
-                    enterTo="transform opacity-100 scale-100"
-                    leave="transition ease-in duration-75"
-                    leaveFrom="transform opacity-100 scale-100"
-                    leaveTo="transform opacity-0 scale-95"
-                  >
-                    <Menu.Items className="absolute right-0 z-10 mt-2 w-80 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5  poin">
-                          <form onSubmit={handleSubmit} className='flex flex-row'>
-                              <input type="text"  value={search} onChange={(e) => setSearch(e.target.value)} placeholder='Search... ' className=' w-full rounded-md border-gray-300 pl-7 pr-12  focus:outline-none'/>
-                                <button>Search</button>
-                          </form>
-                    </Menu.Items>
-                  </Transition>
-                </Menu>      
+               <div>
+                <button onClick={() => setOpen(!opened)}>
+                    <SearchIcon className="h-6 w-6 text-white" aria-hidden="true" />
+                </button>
+
+              { opened && <form  onSubmit={handleSubmit} className='absolute z-20 mt-5 right-0 pl-7  lg:pl-0  w-screen  lg:w-full'>
+                  <input
+                    type="text"
+                    placeholder="Search"
+                    className="px-3 py-2 rounded-md w-full placeholder-gray-400 text-gray-900 bg-white focus:outline-none drop-shadow-lg sm:text-sm"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                  />
+                  <button
+                    type="submit"  className='absolute right-1 top-1'>
+                       <SearchIcon className="h-6 w-6 text-black" aria-hidden="true" />
+                    </button>
+
+                </form>}
+               </div>
                
 
                 
