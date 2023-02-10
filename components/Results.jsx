@@ -5,8 +5,8 @@ function ResultsControl({children  , resultstate , setResultsState}) {
    
    
     return (  
-        <div className="text-white flex flex-col mt-10 lg:flex-row">
-            <div className="flex flex-col  bg-[#121212] w-72 rounded-lg lg:h-72 ml-10 mt-16 lg:mb-[1000px] ">
+        <div className="text-white flex flex-col mt-10 lg:flex-row ">
+            <div className="flex flex-col  bg-[#121212] w-80   rounded-lg lg:h-72 ml-10 mt-16 lg:mb-[1000px]  ">
                 <div className="bg-[#F4181C]  text-center rounded-t-lg  p-6">
                     <h1 className="font-bold text-2xl">Search results</h1>
                 </div>
