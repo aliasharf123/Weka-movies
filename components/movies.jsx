@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import StarIcon from '@mui/icons-material/Star';
 import useFetch from "@/src/useFetch";
 
