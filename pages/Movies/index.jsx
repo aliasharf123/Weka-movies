@@ -89,7 +89,7 @@ function Movies() {
                             {data.results.map(result =>{
                                 return(
                                     <Link key={result.id} href={`/Movies/${result.id}`} className='flex flex-row  bg-[#121212] rounded-lg ' passHref>
-                                    {result.poster_path ? <Image width={200} className='w-[140px]  object-cover sm:rounded-l-lg  ml-0'  height={300} src={`https://image.tmdb.org/t/p/w780${result.poster_path}`} alt={result.original_title} /> :  <Image width={200}  className='bg-slate-400 w-[100px] h-[150px] rounded-l-lg' height={300} src='https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg' alt={result.original_title} />}
+                                    {result.poster_path ? <Image width={200} className='w-[140px]  object-cover sm:rounded-l-lg  ml-0'  height={300} src={`https://image.tmdb.org/t/p/w780${result.poster_path}`} alt={result.original_title}  unoptimized/> :  <Image width={200}  className='bg-slate-400 w-[100px] h-[150px] rounded-l-lg' height={300} src='https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg' alt={result.original_title} />}
                                         <div className="m-2 sm:m-6 ">
                                             <h3 className="sm:text-1xl  font-bold text-sm ">{result.original_title || result.name}</h3>
                                             <p className="text-gray-300 text-sm mb-2 sm:text-1xl">{result.release_date || result.first_air_date}</p>
@@ -99,7 +99,7 @@ function Movies() {
                                 )
                             })}
                         </div>
-                        <PaginationMovies value={data.total_pages}  setPage={setPage}/>
+                        {data.total_pages  > 1 &&<PaginationMovies value={data.total_pages}   setPage={setPage}/>}
                 </div> :
                 <div className="flex justify-center flex-col">
                     <div className='grid lg:grid-cols-5  md:grid-cols-3 grid-cols-2 w-full gap-3   sm:px-10 px-0  mb-5 mt-16 ' >
@@ -107,7 +107,7 @@ function Movies() {
                             return(
                                 <div key={movie.id} className=' flex-wrap   w-auto '>
                             <Link   href={ `/Movies/${movie.id}` }   passHref>
-                                {movie.poster_path  ? <Image  src={`https://image.tmdb.org/t/p/w780${movie.poster_path}`} alt={movie.id} width={10000} height={10000}/> :<Image width={10000} className='bg-slate-400 h-[325px] rounded-l-lg' height={10000} src='https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg' alt={movie.original_title} />}
+                                {movie.poster_path  ? <Image  src={`https://image.tmdb.org/t/p/w780${movie.poster_path}`} alt={movie.id} width={10000} height={10000} unoptimized/> :<Image width={10000} className='bg-slate-400 h-[325px] rounded-l-lg' height={10000} src='https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg' alt={movie.original_title} />}
                             </Link>
                             <div className=" bg-[#121212] h-28 p-2 rounded-b-lg ">
                                 <div className="flex flex-row">
