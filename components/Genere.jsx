@@ -70,7 +70,7 @@ function GenereMovies() {
                      <select  placeholder="String" onClick={(e) => handleLanguges(e.target.value , '&with_original_language=')}  className='mx-5  my-2 text-black  rounded-sm'>
                         {languges.map( lang => {
                             return(
-                                <option value={lang.iso_639_1}>{lang.english_name}</option>
+                                <option key={lang.iso_639_1} value={lang.iso_639_1}>{lang.english_name}</option>
                             )
                         })}
                     </select>
