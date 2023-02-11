@@ -11,8 +11,9 @@ import { MoviesContext } from '@/pages/Movies';
 
 function GenereMovies() {
     const [open , setOpen] =useState(false);
-    const {setGenere ,genere , setLanguges, setPage  } =useContext(MoviesContext);
-
+    const [vaild , setVild] =useState('');
+    const [vaild1 , setVild1] =useState('');
+    const {setGenere ,genere  , setKeyword, setLanguges, setPage , setYears } =useContext(MoviesContext);
     const handleGenere = (id , type) =>{
         if(genere.includes(id)){
             setGenere(genere.replace(id , ''))
@@ -33,6 +34,18 @@ function GenereMovies() {
         }
         setPage(1)
     }
+    const handleYears =(e) =>{
+        e.preventDefault()
+        setYears(`${'&primary_release_year='}${vaild}`)
+        setPage(1)
+
+    }
+    const handleKeyword =(e) =>{
+        e.preventDefault()
+        setKeyword(`${'&with_keywords='}${vaild1}`)
+        setPage(1)
+
+    }
 
     return ( 
         <div className='   w-56 rounded-lg divide-y m-auto sm:m-0'>
@@ -45,7 +58,7 @@ function GenereMovies() {
             </div> 
             
            {open && 
-           <div className='divide-y absolute'>
+           <div className='divide-y absolute '>
                 <div className=' text-gray-200  bg-[#121212] '>
                     <div>
                        <h1 className='px-5 py-4'>Genres</h1>
@@ -62,12 +75,14 @@ function GenereMovies() {
                 </div>  
                 <div className=' text-gray-200  bg-[#121212]  flex flex-col rounded-sm pb-3'>
                     <h1   className='px-5 py-4 '>Release Dates</h1>
-                    <input type="date" className='focus:outline-none  p-1 m-auto text-black  rounded-sm'/>
-
+                    <form onSubmit={handleYears} method="get" className='mx-5 my-2'>
+                        <input type="text" onChange={(e) => setVild(e.target.value)}   className='focus:outline-none  p-1 m-auto text-black  rounded-sm'/>
+                    </form>
+                    
                 </div>
                 <div className=' text-gray-200  bg-[#121212]  flex flex-col rounded-sm pb-3 '>
                      <h1 className='px-5 py-4'>Country</h1>
-                     <select  placeholder="String" onClick={(e) => handleLanguges(e.target.value , '&with_original_language=')}  className='mx-5  my-2 text-black  rounded-sm'>
+                     <select  placeholder="String" onChange={(e) => handleLanguges(e.target.value , '&with_original_language=')}  className='mx-5  my-2 text-black  rounded-sm'>
                         {languges.map( lang => {
                             return(
                                 <option key={lang.iso_639_1} value={lang.iso_639_1}>{lang.english_name}</option>
@@ -77,7 +92,9 @@ function GenereMovies() {
                 </div>
                 <div className=' text-gray-200  bg-[#121212]  flex flex-col rounded-sm pb-3 '>
                      <h1 className='px-5 py-4'>keywords</h1>
-                     <input type="text"  className='mx-5 my-2 text-black p-1 focus:outline-none rounded-sm focus:ring-1 focus:border-[#F4181C] border-2  focus:ring-offset-[#F4181C]' placeholder='Enter keyword'/>
+                     <form onSubmit={handleKeyword}>
+                        <input type="text" className='mx-5 my-2 text-black p-1 focus:outline-none rounded-sm focus:ring-1 focus:border-[#F4181C] border-2  focus:ring-offset-[#F4181C]' onChange={(e) => setVild1(e.target.value)}   placeholder='Enter keyword'/>
+                     </form>
                 </div>
            </div>
             }      
