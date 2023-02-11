@@ -43,6 +43,7 @@ function GenereMovies() {
     const handleKeyword =(e) =>{
         e.preventDefault()
         setKeyword(`${'&with_keywords='}${vaild1}`)
+        
         setPage(1)
 
     }
@@ -58,15 +59,15 @@ function GenereMovies() {
             </div> 
             
            {open && 
-           <div className='divide-y absolute '>
+           <div className='divide-y absolute w-full left-0   md:w-auto md:relative'>
                 <div className=' text-gray-200  bg-[#121212] '>
                     <div>
                        <h1 className='px-5 py-4'>Genres</h1>
-                       <div  className='grid grid-cols-2 pb-4'>
+                       <div  className='grid grid-cols-5 pb-4 md:grid-cols-2'>
                         {Genere.genres.map(gener =>{
                             return (
                                 <button onClick={() => handleGenere(gener.id , '&with_genres=')} key={gener.id} className={` text-white text-center border-2 hover:bg-[#F4181C] border-solid hover:border-none py-1 px-0 m-2 rounded-full  ${genere.includes(gener.id) && 'bg-[#F4181C] border-none'}`}>
-                                    <div className='m-auto text-[12px] px-1 '>{gener.name}</div>
+                                    <div className='m-auto text-[8px]  md:text-[12px]'>{gener.name}</div>
                                 </button>
                             )
                         })}
@@ -80,7 +81,7 @@ function GenereMovies() {
                     </form>
                     
                 </div>
-                <div className=' text-gray-200  bg-[#121212]  flex flex-col rounded-sm pb-3 '>
+                <div className=' text-gray-200  bg-[#121212]  flex flex-col rounded-b-lg pb-3 '>
                      <h1 className='px-5 py-4'>Country</h1>
                      <select  placeholder="String" onChange={(e) => handleLanguges(e.target.value , '&with_original_language=')}  className='mx-5  my-2 text-black  rounded-sm'>
                         {languges.map( lang => {
@@ -90,12 +91,7 @@ function GenereMovies() {
                         })}
                     </select>
                 </div>
-                <div className=' text-gray-200  bg-[#121212]  flex flex-col rounded-sm pb-3 '>
-                     <h1 className='px-5 py-4'>keywords</h1>
-                     <form onSubmit={handleKeyword}>
-                        <input type="text" className='mx-5 my-2 text-black p-1 focus:outline-none rounded-sm focus:ring-1 focus:border-[#F4181C] border-2  focus:ring-offset-[#F4181C]' onChange={(e) => setVild1(e.target.value)}   placeholder='Enter keyword'/>
-                     </form>
-                </div>
+               
            </div>
             }      
         </div>

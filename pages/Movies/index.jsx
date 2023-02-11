@@ -23,6 +23,28 @@ function Movies() {
     const {data , loading } = useFetch(`https://api.themoviedb.org/3/discover/movie?language=en-US&sort_by=${sort}&include_adult=false&include_video=false&page=${page}&with_watch_monetization_types=flatrate${genere}${languge}${years}${keyword}`)
 
 
+
+    if( !loading && data.total_pages == 0 ) {
+        return (
+            <MoviesContext.Provider value={{setSort , setPage , setYears  , setKeyword , setLanguges , setGenere , genere}}>
+            <div className={`m-11 ${loading && 'mb-[1000px]'} flex flex-col lg:flex-row `}>
+                <div className="flex  gap-4 flex-col  m-auto my-16" >
+                    <div className={`flex justify-between  text-white   bg-[#121212]  px-1 py-2 rounded-lg w-56 `}>
+                        <button className={`m-auto`} onClick={() =>setStyle(false)}>
+                            <GridOnIcon className={!style && 'text-[#F4181C]' }/>
+                        </button>
+                        <button className={`m-auto`} onClick={() =>setStyle(true)}>
+                            <TableRowsIcon className={style && 'text-[#F4181C]' }/>
+                        </button>
+                    </div> 
+                    <MenuDrop/>
+                    <GenereMovies/>
+                </div>
+                <div className="text-white mt-16 mb-5 w-full p-10"> There are no movies that matched your Filters.</div>
+            </div>
+        </MoviesContext.Provider>
+        )
+    }
     if(loading){
         return(
             <MoviesContext.Provider value={{setSort , setPage , setYears  , setKeyword , setLanguges , setGenere , genere}}>
@@ -39,7 +61,7 @@ function Movies() {
                     <MenuDrop/>
                     <GenereMovies/>
                 </div>
-                <div className="text-white mt-16 mb-5 w-full"> Loading</div>
+                <div className="text-white mt-16 mb-5 w-full  p-10"> Loading</div>
             </div>
         </MoviesContext.Provider>
         )
@@ -67,7 +89,7 @@ function Movies() {
                             {data.results.map(result =>{
                                 return(
                                     <Link key={result.id} href={`/Movies/${result.id}`} className='flex flex-row  bg-[#121212] rounded-lg ' passHref>
-                                    {result.poster_path ? <Image width={200} className='w-[120px]  object-cover sm:rounded-l-lg  ml-0'  height={300} src={`https://image.tmdb.org/t/p/w780${result.poster_path}`} alt={result.original_title} /> :  <Image width={200}  className='bg-slate-400 w-[100px] h-[150px] rounded-l-lg' height={300} src='https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg' alt={result.original_title} />}
+                                    {result.poster_path ? <Image width={200} className='w-[140px]  object-cover sm:rounded-l-lg  ml-0'  height={300} src={`https://image.tmdb.org/t/p/w780${result.poster_path}`} alt={result.original_title} /> :  <Image width={200}  className='bg-slate-400 w-[100px] h-[150px] rounded-l-lg' height={300} src='https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg' alt={result.original_title} />}
                                         <div className="m-2 sm:m-6 ">
                                             <h3 className="sm:text-1xl  font-bold text-sm ">{result.original_title || result.name}</h3>
                                             <p className="text-gray-300 text-sm mb-2 sm:text-1xl">{result.release_date || result.first_air_date}</p>
@@ -102,7 +124,7 @@ function Movies() {
                             
                     }) }
                     </div> 
-                    <PaginationMovies value={data.total_pages}   setPage={setPage}/>
+                    {data.total_pages  > 1 &&<PaginationMovies value={data.total_pages}   setPage={setPage}/>}
                 </div>
                 }
             </div>
