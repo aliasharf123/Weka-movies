@@ -1,14 +1,15 @@
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import 'animate.css';
-
+import { MoviesContext } from '@/pages/Movies';
 
 function MenuDrop() {
     const [open , setOpen] =useState(false);
-
+    const {setSort ,setPage} = useContext(MoviesContext)
+ 
     return ( 
-        <div className='   w-56 rounded-lg divide-y'>
+        <div className='   w-56 rounded-lg divide-y m-auto sm:m-0'>
             <div className={`flex  text-white  bg-[#121212]  px-1 py-4 ${open ? 'rounded-t-lg' : 'rounded-lg'}`}>
                 <button className={`flex  justify-between  w-full gap-14 `} onClick={() =>{setOpen(!open)}}>
                     <div className='m-auto font-bold'>Sort</div>
@@ -20,7 +21,11 @@ function MenuDrop() {
            {open && 
            <div className=''>
                 <div className='bg-[#121212] rounded-lg'>
-                    <select  placeholder="String" className='m-3  bg-slate-50'>
+                    <select  placeholder="String" onChange={(e) => {
+                        setSort(e.target.value)
+                        setPage(1)
+                         }
+                        } className='m-3  bg-slate-50'>
                         <option value=""></option>
                         <option value="popularity.asc">popularity.asc</option>
                         <option value="popularity.desc">popularity.desc</option>

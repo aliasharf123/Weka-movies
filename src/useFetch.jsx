@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 const key = process.env.NEXT_PUBLIC_DB_key
 
 function useFetch (url) {
+    
     const [data , setData] = useState({})
     const [loading , setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -19,6 +20,7 @@ function useFetch (url) {
         }
     }
     useEffect (() => {fetchData(url+`&api_key=${key}`)} , [url])
+    console.log(url+`&api_key=${key}`);
     return { data, loading, error } ; 
 }
 

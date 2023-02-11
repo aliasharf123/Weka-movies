@@ -11,12 +11,12 @@ function PaginationMovies({value , setPage}) {
     return ( 
 
         <Stack spacing={2} className='m-auto mt-8 bg-white'>
-            <Pagination count={value} sx={{
+            <Pagination   count={value} sx={{
                 '& .MuiPagination-text	':{
                     color: 'white'
                 }
                 
-            }} variant="text"  shape="rounded" onChange={handleChange}/>
+            }} variant="text" className='w-auto'  shape="rounded" onChange={handleChange}/>
         </Stack> 
     
         
