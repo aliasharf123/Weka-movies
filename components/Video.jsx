@@ -20,13 +20,10 @@ function Video() {
             const response = await fetch(`https://api.themoviedb.org/3/${TVorMovie}/${movieNow}/videos?api_key=${process.env.NEXT_PUBLIC_DB_key}&language=en-US`);
             if(response.ok){
                 const data = await response.json();
-                setvaild(true)
                 const video = data.results.filter(movie => movie.type === 'Trailer')[0]
                 setVideoKey(video.key) ;
             }
-            else {
-                setvaild(false)
-            }
+           
         }        
     }
     
