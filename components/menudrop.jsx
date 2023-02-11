@@ -19,7 +19,7 @@ function MenuDrop() {
             </div> 
             
            {open && 
-           <div className=''>
+           <div className='absolute'>
                 <div className='bg-[#121212] rounded-lg'>
                     <select  placeholder="String" onChange={(e) => {
                         setSort(e.target.value)

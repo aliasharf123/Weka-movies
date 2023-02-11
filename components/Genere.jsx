@@ -45,7 +45,7 @@ function GenereMovies() {
             </div> 
             
            {open && 
-           <div className='divide-y'>
+           <div className='divide-y absolute'>
                 <div className=' text-gray-200  bg-[#121212] '>
                     <div>
                        <h1 className='px-5 py-4'>Genres</h1>
