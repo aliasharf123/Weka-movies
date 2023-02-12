@@ -20,7 +20,6 @@ function useFetch (url) {
         }
     }
     useEffect (() => {fetchData(url+`&api_key=${key}`)} , [url])
-    console.log(url+`&api_key=${key}`)
     return { data, loading, error } ; 
 }
 
