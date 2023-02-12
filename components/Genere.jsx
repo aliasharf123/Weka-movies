@@ -3,17 +3,15 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useContext, useState } from 'react';
 import 'animate.css';
 import {Genere} from '../src/data'
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
 import { languges } from '../src/data';
-import { MoviesContext } from '@/pages/Movies';
+import {Autocomplete} from '@mantine/core'
 
 
-function GenereMovies() {
+function GenereMovies({setGenere ,genere  , setLanguges, setPage ,dataSort , setYears }) {
     const [open , setOpen] =useState(false);
     const [vaild , setVild] =useState('');
     const [vaild1 , setVild1] =useState('');
-    const {setGenere ,genere  , setKeyword, setLanguges, setPage , setYears } =useContext(MoviesContext);
+    
     const handleGenere = (id , type) =>{
         if(genere.includes(id)){
             setGenere(genere.replace(id , ''))
@@ -36,17 +34,17 @@ function GenereMovies() {
     }
     const handleYears =(e) =>{
         e.preventDefault()
-        setYears(`${'&primary_release_year='}${vaild}`)
+        if(dataSort.length > 7 ){
+            setYears(`${'&primary_release_year='}${vaild}`)
+        }
+        else{
+            setYears(`${'&first_air_date_year='}${vaild}`)
+
+        }
         setPage(1)
 
     }
-    const handleKeyword =(e) =>{
-        e.preventDefault()
-        setKeyword(`${'&with_keywords='}${vaild1}`)
-        
-        setPage(1)
-
-    }
+    
 
     return ( 
         <div className='   w-56 rounded-lg divide-y m-auto sm:m-0'>
@@ -83,13 +81,30 @@ function GenereMovies() {
                 </div>
                 <div className=' text-gray-200  bg-[#121212]  flex flex-col rounded-b-lg pb-3 '>
                      <h1 className='px-5 py-4'>Country</h1>
-                     <select  placeholder="String" onChange={(e) => handleLanguges(e.target.value , '&with_original_language=')}  className='mx-5  my-2 text-black  rounded-sm'>
+                     {/* <select  placeholder="String" onChange={(e) => handleLanguges(e.target.value , '&with_original_language=')}  className='mx-5  my-2 text-black  rounded-sm'>
                         {languges.map( lang => {
                             return(
                                 <option key={lang.iso_639_1} value={lang.iso_639_1}>{lang.english_name}</option>
                             )
                         })}
-                    </select>
+                    </select> */}
+                       <Autocomplete
+                        className='mx-5 my-2'
+                        onChange={(e) =>{
+                            const lang  = languges.filter((lang) => lang.english_name === e);
+                        
+                            if(lang.length){
+                                handleLanguges(lang[0].iso_639_1 , '&with_original_language=')
+                                setPage(1)      
+                            } 
+                        }}
+                        transition="pop-top-left"
+                        transitionDuration={80}
+                        transitionTimingFunction="ease"
+                        placeholder="Pick one"
+                        limit={5}
+                        data={languges.map(lang => {return lang.english_name} )}
+                        />
                 </div>
                
            </div>
