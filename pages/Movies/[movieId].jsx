@@ -10,18 +10,17 @@ import 'animate.css'
 import Link from 'next/link';
 
 const selection = [ 'Cast' , 'Reviews' , 'Photos']
-function SingleMovie({movie ,video}) {
+function SingleMovie({movie ,video }) {
     const router = useRouter()
     const [more , setMore] = useState(false)
     const [select , setSelect] = useState('Cast')
-    
-    const {data : Cast , loading: loadingCast} = useFetch(`https://api.themoviedb.org/3/movie/${movie.id}/credits?`)
-    const {data : Reviews , loading: loadingReviews} = useFetch(`https://api.themoviedb.org/3/movie/${movie.id}/reviews?`)
-    const {data : Photos, loading: loadingPhotos} = useFetch(`https://api.themoviedb.org/3/movie/${movie.id}/images?language=en-US&include_image_language=null`)
+    const {data : Cast , loading: loadingCast} = useFetch(`https://api.themoviedb.org/3/movie/${movie && movie.id}/credits?`)
+    const {data : Reviews , loading: loadingReviews} = useFetch(`https://api.themoviedb.org/3/movie/${movie && movie.id}/reviews?`)
+    const {data : Photos, loading: loadingPhotos} = useFetch(`https://api.themoviedb.org/3/movie/${movie && movie.id}/images?language=en-US&include_image_language=null`)
     if(router.isFallback){
         return <div>Loading...</div>
     }
-    
+ 
     return ( 
         <div>
             <div className=' text-white relative  border-b-[#F4181C] border-b-2'>
@@ -51,7 +50,7 @@ function SingleMovie({movie ,video}) {
                                 </h1>
                                 <h1>Release year: {' '}{ movie.release_date}</h1>
                                 <h1>Running Time: {' '}{movie.runtime} min</h1>
-                                <h1>Country:{' '} <span className='text-[#F4181C]'>{movie.production_countries[0].iso_3166_1 }</span> </h1>
+                                <h1>Country:{' '} <span className='text-[#F4181C]'>{movie.production_countries[0]&& movie.production_countries[0].iso_3166_1 }</span> </h1>
                                 
                                 <p className='mt-4 transition  duration-700' >{more ?  movie.overview : `${movie.overview.slice(0,250)}..`}</p>
                                 {movie.overview.length > 210 && <button className='m-auto' onClick={() =>{setMore(!more)} }>
@@ -88,7 +87,7 @@ function SingleMovie({movie ,video}) {
                             (  !loadingCast ?  <div className='animate__animated animate__fadeIn mb-10'>
                                     <h1 className='text-4xl p-4'>Cast</h1>
                                     <div className='grid grid-cols-3 gap-5'>
-                                        { Cast.cast.map(Actor =>{
+                                        { Cast.cast && Cast.cast.map(Actor =>{
                                             return(
                                                 
                                                 <div key={Actor.id} className='flex flex-row gap-6'>
@@ -107,7 +106,7 @@ function SingleMovie({movie ,video}) {
                                     </div>
                                     <h1 className='text-4xl p-4 '>Crew</h1>
                                     <div className='grid grid-cols-3 gap-5'>
-                                        {Cast.crew.map(Actor =>{
+                                        {Cast.crew && Cast.crew.map(Actor =>{
                                             return(
                                                 
                                                 <div key={Actor.id} className='flex flex-row gap-3'>
@@ -129,7 +128,7 @@ function SingleMovie({movie ,video}) {
                             {select ==='Reviews' &&  
                                (!loadingReviews ? <div className='animate__animated animate__fadeIn mt-10 mb-10'>
                                     <div className='flex flex-col  gap-10'>
-                                        {Reviews.results.map((review =>{
+                                        {Reviews.results && Reviews.results.map((review =>{
                                             return(
                                                 <div className=' gap-5'>
                                                         <div className='flex flex-col justify-center gap-5'>
@@ -156,7 +155,7 @@ function SingleMovie({movie ,video}) {
                             }
                             {select ==='Photos' &&(!loadingPhotos ? 
                                 <div className='grid grid-cols-3 gap-6 mt-10  animate__animated animate__fadeIn'>
-                                    {Photos.backdrops.map( photo =>{
+                                    {Photos.backdrops && Photos.backdrops.map( photo =>{
                                         return(
                                             <Link href={`https://image.tmdb.org/t/p/original${photo.file_path}`} passHref>
                                                 <Image className='rounded-md w-72' src={`https://image.tmdb.org/t/p/original${photo.file_path}`} width={1250} height={1250} alt={photo.file_path} unoptimized/>
@@ -205,16 +204,19 @@ export const getStaticProps = async (ctx) => {
     const movieid = ctx?.params.movieId;
     const res = await fetch(`https://api.themoviedb.org/3/movie/${movieid}?api_key=${process.env.NEXT_PUBLIC_DB_key}&language=en-US`)
     const response = await fetch(`https://api.themoviedb.org/3/movie/${movieid}/videos?api_key=${process.env.NEXT_PUBLIC_DB_key}&language=en-US`);
-    const movie = await res.json();
     if(response.ok){
         const data = await response.json();
-        var video = data.results.filter(movie => movie.type === 'Trailer')[0]
-        
+        if(data.results){
+            var video = data.results.filter(movie => movie.type === 'Trailer')[0]
+        }
+    }
+    if(res.ok){
+        var movie = await res.json();
     }
     return {
         props: {
             movie,
-            video
+            video :  video ? video : 'sdsdsdd',
         }
     }
 }
