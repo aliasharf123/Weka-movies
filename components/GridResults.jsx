@@ -12,7 +12,7 @@ function GridResults({data , setPage , media}) {
                     return(
                         <div key={movie.id} className=' flex-wrap   w-auto '>
                     <Link   href={ `/${media}/${movie.id}` }   passHref>
-                        {movie.poster_path  ? <Image  src={`https://image.tmdb.org/t/p/w780${movie.poster_path}`} alt={movie.id} width={1000} height={1000} unoptimized/> :<Image width={1000} className='bg-slate-400 h-[325px] rounded-l-lg' height={1000} src='https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg' alt={movie.original_title} />}
+                        {movie.poster_path  ? <Image  src={`https://image.tmdb.org/t/p/w780${movie.poster_path}`} alt={movie.id} width={1000} height={1000} unoptimized/> :<Image width={1000} className='bg-slate-400 h-[325px] ' height={1000} src='https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg' alt={movie.original_title} unoptimized/>}
                     </Link>
                     <div className=" bg-[#121212] h-28 p-2 rounded-b-lg ">
                         <div className="flex flex-row">
