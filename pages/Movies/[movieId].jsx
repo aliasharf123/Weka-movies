@@ -20,7 +20,6 @@ function SingleMovie({movie ,video ,recommendations}) {
     if(router.isFallback){
         return <div>Loading...</div>
     }
-    console.log(recommendations.results)
     return ( 
         <div className=''>
             <div style={{backgroundImage:  `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),url(https://www.themoviedb.org/t/p/original${movie.backdrop_path})` }} className='text-white bg-center   border-b-[#F4181C] border-b-2 bg-cover bg-no-repeat w-full '>
