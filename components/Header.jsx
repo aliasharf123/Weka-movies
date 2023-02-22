@@ -7,7 +7,6 @@ import Image from 'next/image';
 import logo from '../public/static/large-WOMJa9L29-transformed.png'
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-
 const navigation = [
   { name: 'Home', href: '/', current: false },
   { name: 'Movies', href: '/Movies', current: false },
@@ -29,7 +28,6 @@ export default function Header() {
   }
 
   const [opened, setOpen] = useState(false);
-
   return (
     <Disclosure as="nav" className="bg-[#121212]">
       {({ open }) => (
@@ -109,12 +107,9 @@ export default function Header() {
                   <div>
                     <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="sr-only">Open user menu</span>
-                      <Image
-                        width={100}
-                        height={100}
+                      <img
                         className="h-8 w-8 rounded-full"
-                        src={'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'}
-                        unoptimized
+                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                         alt=""
                       />
                     </Menu.Button>
@@ -143,17 +138,7 @@ export default function Header() {
                       <Menu.Item>
                         {({ active }) => (
                           <a
-                            href="/api/auth/login"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                          >
-                            Sign in
-                          </a>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="/api/auth/logout"
+                            href="#"
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
                             Sign out
