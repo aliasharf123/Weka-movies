@@ -114,6 +114,7 @@ export default function Header() {
                         height={100}
                         className="h-8 w-8 rounded-full"
                         src={'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'}
+                        unoptimized
                         alt=""
                       />
                     </Menu.Button>
