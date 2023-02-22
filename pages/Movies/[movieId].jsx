@@ -175,7 +175,7 @@ function SingleMovie({movie ,video ,recommendations}) {
                                         {recommendations.results && recommendations.results.map(movie =>{
                                             return(
                                                 <div key={movie.id} className=' flex-wrap   w-auto '>
-                                                    <Link   href={ `/${movie.media_type}/${movie.id}` }   passHref>
+                                                    <Link   href={ `/Movies/${movie.id}` }   passHref>
                                                         {movie.poster_path  ? <Image  src={`https://image.tmdb.org/t/p/w780${movie.poster_path}`} alt={movie.id} width={1000} height={1000} unoptimized/> :<Image width={1000} height={1000} className='bg-slate-400 '  src='https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg' alt={movie.original_title} unoptimized/>}
                                                     </Link>
                                                     <div className=" bg-[#121212] h-28 p-2 rounded-b-lg ">
@@ -183,7 +183,7 @@ function SingleMovie({movie ,video ,recommendations}) {
                                                             <StarIcon className="text-yellow-400 "/>
                                                             <p className=" text-gray-300">{movie.vote_average}</p>
                                                         </div>
-                                                        <Link  href={ `/${movie.media_type}/${movie.id}` }  passHref>
+                                                        <Link  href={ `/Movies/${movie.id}` }  passHref>
                                                             <h1 className="font-bold hover:text-[#F4181C] text-white xl:text-base text-xs">{movie.title || movie.name}</h1>
                                                         </Link>
                                                         <p className="text-gray-300 ">{movie.release_date || movie.first_air_date}</p>

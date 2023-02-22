@@ -7,6 +7,8 @@ import Image from 'next/image';
 import logo from '../public/static/large-WOMJa9L29-transformed.png'
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import {useAuthState} from 'react-firebase-hooks/auth'
+import {auth } from "@/firebase/Clients";
 const navigation = [
   { name: 'Home', href: '/', current: false },
   { name: 'Movies', href: '/Movies', current: false },
@@ -21,13 +23,20 @@ function classNames(...classes) {
 export default function Header() {
   const [search , setSearch] = useState('');
   const router = useRouter()
- 
+  const [user, loading , error] = useAuthState(auth)
+  const [opened, setOpen] = useState(false);
+
   const handleSubmit = (e) =>{
     e.preventDefault()
     router.push(`/Search/${search}`)
   }
+  if(loading){
+    return (<div>Loading..</div>)
+  }
+  if(error){
+      return(<div>error...</div>)
+  }
 
-  const [opened, setOpen] = useState(false);
   return (
     <Disclosure as="nav" className="bg-[#121212]">
       {({ open }) => (
@@ -109,7 +118,7 @@ export default function Header() {
                       <span className="sr-only">Open user menu</span>
                       <img
                         className="h-8 w-8 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        src={user ? user.photoURL : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'}
                         alt=""
                       />
                     </Menu.Button>
@@ -133,6 +142,16 @@ export default function Header() {
                           >
                             Your Profile
                           </Link>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <a
+                            href="/signin"
+                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                          >
+                            Sign in
+                          </a>
                         )}
                       </Menu.Item>
                       <Menu.Item>
