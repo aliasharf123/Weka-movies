@@ -7,7 +7,6 @@ import Image from 'next/image';
 import logo from '../public/static/large-WOMJa9L29-transformed.png'
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useUser } from "@auth0/nextjs-auth0/client";
 
 const navigation = [
   { name: 'Home', href: '/', current: false },
@@ -23,7 +22,6 @@ function classNames(...classes) {
 export default function Header() {
   const [search , setSearch] = useState('');
   const router = useRouter()
-  const { user, error, isLoading } = useUser();
  
   const handleSubmit = (e) =>{
     e.preventDefault()
@@ -32,8 +30,6 @@ export default function Header() {
 
   const [opened, setOpen] = useState(false);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>{error.message}</div>;
   return (
     <Disclosure as="nav" className="bg-[#121212]">
       {({ open }) => (
@@ -117,7 +113,7 @@ export default function Header() {
                         width={100}
                         height={100}
                         className="h-8 w-8 rounded-full"
-                        src={user ? user.picture : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'}
+                        src={'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'}
                         alt=""
                       />
                     </Menu.Button>
