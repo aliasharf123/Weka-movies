@@ -2,17 +2,21 @@ import Image from "next/image";
 import Link from "next/link";
 import StarIcon from '@mui/icons-material/Star';
 import useFetch from "@/src/useFetch";
-
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import BookmarkIcon from '@mui/icons-material/Bookmark';  
+import { auth  } from '@/firebase/Clients';
 
 function MoviesList({url}) {
     const {data , loading} = useFetch(url)
-
     return (           
     <div className='overflow-scroll   overflow-y-hidden'>
     <div className='flex flex-row gap-3  w-[4000px]  ml-6' >
       {data.results && data.results.map(movie =>{
         return(
-          <div key={movie.id} className='w-56 flex-wrap '>
+          <div key={movie.id} className='w-56 flex-wrap  relative '>
+            <button className="absolute top-0 bg-[rgba(0,0,0,0.4)]" >
+              <BookmarkBorderIcon/>
+            </button>
             <Link  href={movie.media_type === 'movie' ? `/Movies/${movie.id}` : `/TvShow/${movie.id}`}  passHref>
                 {movie.poster_path && <Image  src={`https://www.themoviedb.org/t/p/w500${movie.poster_path}`} alt={movie.id} width={10000} height={10000}/>}
             </Link>

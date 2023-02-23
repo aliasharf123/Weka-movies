@@ -59,7 +59,7 @@ function SingleMovie({movie ,video ,recommendations}) {
                             </div>
                             <div className='rounded-md w-[45%] h-[300px]  max-lg:w-full'>
                                 <iframe   id="player" type="text/html"  className="rounded-md w-full h-full "
-                                            src={`http://www.youtube.com/embed/${video.key}?enablejsapi=1&origin=http://example.com`}
+                                            src={`https://www.youtube.com/embed/${video.key}?enablejsapi=1&origin=https://example.com`}
                                             frameborder="0"></iframe>
                             </div>
                         </div>

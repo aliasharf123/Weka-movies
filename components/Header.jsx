@@ -14,8 +14,6 @@ import { Menu, Button ,Burger ,Drawer ,useMantineTheme  } from '@mantine/core';
 
 
 export default function Header() {
-  const theme = useMantineTheme();
-
   const [search , setSearch] = useState('');
   const router = useRouter()
   const [user, loading , error] = useAuthState(auth)
@@ -37,13 +35,12 @@ export default function Header() {
   if(error){
       return(<div>error...</div>)
   }
-  console.log(user)
   return (
     <nav className=' flex flex-col justify-center  shadow-lg   relative '>
       <div className='h-16 flex w-full p-2  z-[200] bg-[#121212] m-auto'>
         <div className='flex mx-auto'>
-          <Image className='h-full object-contain m-auto p-1' src={logo} width={200} height={200} unoptimized/>
-          <ul className='text-white flex gap-8 m-auto max-lg:hidden'>
+          <Link href='/' passHref><Image className='h-full object-contain p-1 ' src={logo} width={100} height={200} unoptimized alt='logo'/></Link>
+          <ul className='text-[rgba(255,255,255,0.8)]  flex gap-8 m-auto max-lg:hidden'>
             <li><Link className='hover:text-[#F4181C] duration-300' href="/" passHref>HOME</Link></li>
             <li><Link className='hover:text-[#F4181C] duration-300' href="/Movies" passHref>MOVIE</Link></li>
             <li><Link className='hover:text-[#F4181C] duration-300' href="TvShow" passHref>TV SHOW</Link></li>
@@ -55,7 +52,7 @@ export default function Header() {
           {!user ? <Button className='bg-[#F4181C] hover:bg-red-600 m-auto' ><Link href="/signin">SIGN IN</Link></Button> :
             <Menu >
               <Menu.Target>
-                <button><Image src={user.photoURL ? user.photoURL: logo1} width={200} height={200} className='rounded-full w-full h-full  object-cover' unoptimized/></button>
+                <button><Image alt='avatar' src={user.photoURL ? user.photoURL: logo1} width={200} height={200} className='rounded-full w-full h-full  object-cover' unoptimized/></button>
               </Menu.Target>
               <Menu.Dropdown>
                 <Menu.Item><Link href='/profile' passHref>Profile</Link> </Menu.Item>

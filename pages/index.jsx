@@ -1,19 +1,22 @@
 import Head from 'next/head'
 import Image from 'next/image'
 
-import {  useState } from 'react';
+import { useState } from 'react';
 import MoviesList from '@/components/movies';
 import { useRouter } from 'next/router';
 import Video from '@/components/Video';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useRef } from 'react';
-
+import { auth  } from '@/firebase/Clients';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 export default function Home({data}) {
   const [enabled, setEnabled] = useState('day');
   const [search , setSearch] = useState('');
   const router = useRouter()
+  const [user , loading , error] = useAuthState(auth)
+
   const [open , setOpen] = useState(false);
   const refButton = useRef(null)
   const handleSubmit = (e) =>{
@@ -34,8 +37,8 @@ export default function Home({data}) {
            <Image width={100000} height={1000000}  className='object-cover w-full h-[600px] brightness-50 relative ' src={`https://www.themoviedb.org/t/p/w1280${data}`} alt="main" />
             <div className='absolute z-10  text-slate-100 -top-0 ml-3 lg:m-24 mt-60 lg:mt-72 md:w-9/12 w-[85%] h-36 gap-3 flex flex-col '>
               <div>
-                <h1 className='text-5xl '>Welcome ,</h1>
-                <p className='text-2xl'><span className='text-[#F4181C]'>Ali ashraf</span>  to my frist big website</p>
+                <h1 className='text-5xl '>Welcome </h1>
+               {user && <p className='text-2xl'><span className='text-[#F4181C]'>{user.email.slice(0 , user.email.indexOf('@'))}</span>  to my frist big website</p>}
               </div>
               <form className='bg-white rounded-full w-full h-1/3   ' onSubmit={handleSubmit}>
                 <input type="text " value={search} onChange={(e) => setSearch(e.target.value) } className='rounded-full w-[70%] lg:w-[85%]  px-3 focus-within:outline-none text-gray-700' placeholder='Search for Movies and Tv show '/>

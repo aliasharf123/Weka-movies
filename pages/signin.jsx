@@ -47,7 +47,7 @@ function Signin() {
                     // ...
                 })
                 .catch((error) => {
-                    console.log(error.code)
+                    // console.log(error.code)
                     seterrorMessage(error.message)
                     setTimeout(() => seterrorMessage(''),3000)
                     // ..
