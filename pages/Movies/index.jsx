@@ -39,8 +39,8 @@ function Movies() {
 
     if( !loading && data.total_pages == 0 ) {
         return (
-            <div className={`m-11 ${loading && 'mb-[1000px]'} flex flex-col lg:flex-row `}>
-                <div className="flex  gap-4 flex-col  m-auto my-16" >
+            <div className={`m-11 ${loading && 'mb-[1000px]'} flex flex-col lg:flex-row  mt-[5.2rem]`}>
+                <div className="flex  gap-4 flex-col   mx-auto " >
                     <div className={`flex justify-between  text-white   bg-[#121212]  px-1 py-2 rounded-lg w-56 `}>
                         <button className={`m-auto`} onClick={() =>setStyle(false)}>
                             <GridOnIcon className={!style && 'text-[#F4181C]' }/>
@@ -58,8 +58,8 @@ function Movies() {
     }
     if(loading){
         return(
-            <div className={`m-11 ${loading && 'mb-[1000px]'} flex flex-col lg:flex-row `}>
-                <div className="flex  gap-4 flex-col  m-auto my-16" >
+            <div className={`m-11 ${loading && 'mb-[1000px]'} flex flex-col lg:flex-row  mt-[5.2rem]`}>
+                <div className="flex  gap-4 flex-col   mx-auto " >
                     <div className={`flex justify-between  text-white   bg-[#121212]  px-1 py-2 rounded-lg w-56 `}>
                         <button className={`m-auto`} onClick={() =>setStyle(false)}>
                             <GridOnIcon className={!style && 'text-[#F4181C]' }/>
@@ -77,8 +77,8 @@ function Movies() {
     }
     
     return ( 
-            <div className={`m-11 ${loading && 'mb-[1000px]'} flex flex-col md:flex-row `}>
-                <div className="flex  gap-4 flex-col  m-auto my-16" >
+            <div className={`m-11 ${loading && 'mb-[1000px]'} flex flex-col md:flex-row mt-[5.2rem]`}>
+                <div className="flex  gap-4 flex-col  mx-auto " >
                     <div className={`flex justify-between  text-white   bg-[#121212]  px-1 py-2 rounded-lg w-56 `}>
                         <button className={`m-auto`} onClick={() =>setStyle(false)}>
                             <GridOnIcon className={!style && 'text-[#F4181C]' }/>

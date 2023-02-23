@@ -5,8 +5,8 @@ import PaginationMovies from "./PaginationMovies";
 
 function FlexResults({data , setPage , media}) {
     return ( 
-        <div className="flex flex-col justify-center mt-16 mb-5 text-white">
-            <div className=" w-full sm:px-10 px-0 flex flex-col gap-2 ">
+        <div className="flex flex-col justify-center   text-white">
+            <div className=" w-full sm:px-10 px-2 flex flex-col gap-2 ">
                 {data.results.map(result =>{
                     return(
                         <Link key={result.id} href={`/${media}/${result.id}`} className='flex flex-row  bg-[#121212] rounded-lg ' passHref>

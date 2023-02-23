@@ -7,7 +7,7 @@ import PaginationMovies from './PaginationMovies';
 function GridResults({data , setPage , media}) {
     return ( 
         <div className="flex justify-center flex-col">
-        <div className='grid lg:grid-cols-5  md:grid-cols-3 grid-cols-2 w-full gap-3   sm:px-10 px-0  mb-5 mt-16 ' >
+        <div className='grid lg:grid-cols-5  md:grid-cols-3 grid-cols-2 w-full gap-3   sm:px-10 px-2  mb-5' >
                 {data.results && data.results.map(movie =>{
                     return(
                         <div key={movie.id} className=' flex-wrap   w-auto '>

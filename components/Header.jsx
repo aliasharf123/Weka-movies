@@ -1,4 +1,4 @@
-import {   useState } from 'react'
+import {   useContext, useState } from 'react'
 import SearchIcon from '@mui/icons-material/Search';
 
 import Image from 'next/image';
@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import {useAuthState} from 'react-firebase-hooks/auth'
 import {auth } from "@/firebase/Clients";
 import { Menu, Button ,Burger ,Drawer ,useMantineTheme  } from '@mantine/core';
+import { searchProvider } from '@/pages/_app';
 
 
 
@@ -19,6 +20,7 @@ export default function Header() {
   const [user, loading , error] = useAuthState(auth)
   const [opened, setOpen] = useState(false);
   const [opened1, setOpened] = useState(false);
+  const {setSearch:setSearch1} = useContext(searchProvider)
 
   const title = opened ? 'Close navigation' : 'Open navigation';
   const handleSubmit = (e) =>{
@@ -26,6 +28,7 @@ export default function Header() {
     if(search){
       setOpen(false)
       setSearch('')
+      setSearch1(search)
       router.push(`/Search/${search}`)
     }
   }

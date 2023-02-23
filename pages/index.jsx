@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import MoviesList from '@/components/movies';
 import { useRouter } from 'next/router';
 import Video from '@/components/Video';
@@ -10,17 +10,20 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useRef } from 'react';
 import { auth  } from '@/firebase/Clients';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { searchProvider } from './_app';
 
 export default function Home({data}) {
   const [enabled, setEnabled] = useState('day');
   const [search , setSearch] = useState('');
   const router = useRouter()
+  const {setSearch:setSearch1} = useContext(searchProvider)
   const [user , loading , error] = useAuthState(auth)
 
   const [open , setOpen] = useState(false);
   const refButton = useRef(null)
   const handleSubmit = (e) =>{
     e.preventDefault()
+    setSearch1(search)
     router.push(`/Search/${search}`)
   }
   return (
