@@ -1,34 +1,35 @@
-import { Fragment, useState } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
+import {   useState } from 'react'
 import SearchIcon from '@mui/icons-material/Search';
-import ClearIcon from '@mui/icons-material/Clear';
-import DehazeIcon from '@mui/icons-material/Dehaze';
+
 import Image from 'next/image';
 import logo from '../public/static/large-WOMJa9L29-transformed.png'
+import logo1 from '../public/static/Profile-PNG-File.jpg'
+
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import {useAuthState} from 'react-firebase-hooks/auth'
 import {auth } from "@/firebase/Clients";
-const navigation = [
-  { name: 'Home', href: '/', current: false },
-  { name: 'Movies', href: '/Movies', current: false },
-  { name: 'TV Show', href: '/TvShow', current: false },
-  { name: 'More', href: '/', current: false },
-]
+import { Menu, Button ,Burger ,Drawer ,useMantineTheme  } from '@mantine/core';
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
+
 
 export default function Header() {
+  const theme = useMantineTheme();
+
   const [search , setSearch] = useState('');
   const router = useRouter()
   const [user, loading , error] = useAuthState(auth)
   const [opened, setOpen] = useState(false);
+  const [opened1, setOpened] = useState(false);
 
+  const title = opened ? 'Close navigation' : 'Open navigation';
   const handleSubmit = (e) =>{
     e.preventDefault()
-    router.push(`/Search/${search}`)
+    if(search){
+      setOpen(false)
+      setSearch('')
+      router.push(`/Search/${search}`)
+    }
   }
   if(loading){
     return (<div>Loading..</div>)
@@ -36,161 +37,62 @@ export default function Header() {
   if(error){
       return(<div>error...</div>)
   }
-
+  console.log(user)
   return (
-    <Disclosure as="nav" className="bg-[#121212]">
-      {({ open }) => (
-        <>
-          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-            <div className="relative flex h-16 items-center justify-between">
-              <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-                {/* Mobile menu button*/}
-                <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
-                  <span className="sr-only">Open main menu</span>
-                  {open ? (
-                    <ClearIcon className="block h-6 w-6" aria-hidden="true" />
-                  ) : (
-                    <DehazeIcon className="block h-6 w-6" aria-hidden="true" />
-                  )}
-                </Disclosure.Button>
-              </div>
-              <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                <div className="flex flex-shrink-0 items-center">
-                  <Image
-                    className="block h-8 w-auto lg:hidden"
-                    src={logo}
-                    alt="Your Company"
-                    width={200}
-                    height={200}
-                  />
-                  <Image
-                    className="hidden h-8 w-auto lg:block"
-                    src={logo}
-                    alt="Your Company"
-                    width={200}
-                    height={200}
-                  />
-                </div>
-                <div className="hidden sm:ml-6 sm:block">
-                  <div className="flex space-x-4">
-                    {navigation.map((item) => (
-                      <Link
-                        key={item.name}
-                        href={item.href}
-                        className='text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
-                        aria-current={item.current ? 'page' : undefined}
-                        passHref
-                      >
-                        {item.name}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              </div>
-              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-               <div>
-                <button onClick={() => setOpen(!opened)}>
-                    <SearchIcon className="h-6 w-6 text-white" aria-hidden="true" />
-                </button>
+    <nav className=' flex flex-col justify-center  shadow-lg   relative '>
+      <div className='h-16 flex w-full p-2  z-[200] bg-[#121212] m-auto'>
+        <div className='flex mx-auto'>
+          <Image className='h-full object-contain m-auto p-1' src={logo} width={200} height={200} unoptimized/>
+          <ul className='text-white flex gap-8 m-auto max-lg:hidden'>
+            <li><Link className='hover:text-[#F4181C] duration-300' href="/" passHref>HOME</Link></li>
+            <li><Link className='hover:text-[#F4181C] duration-300' href="/Movies" passHref>MOVIE</Link></li>
+            <li><Link className='hover:text-[#F4181C] duration-300' href="TvShow" passHref>TV SHOW</Link></li>
+            <li><Link className='hover:text-[#F4181C] duration-300' href="/" passHref>ABOUT</Link></li>
+          </ul>
+        </div>
+        <div className='m-auto gap-4 flex h-full p-1 justify-center '>
+          <button className='text-white my-auto'onClick={() => setOpen(!opened)} ><SearchIcon/></button>
+          {!user ? <Button className='bg-[#F4181C] hover:bg-red-600 m-auto' ><Link href="/signin">SIGN IN</Link></Button> :
+            <Menu >
+              <Menu.Target>
+                <button><Image src={user.photoURL ? user.photoURL: logo1} width={200} height={200} className='rounded-full w-full h-full  object-cover' unoptimized/></button>
+              </Menu.Target>
+              <Menu.Dropdown>
+                <Menu.Item><Link href='/profile' passHref>Profile</Link> </Menu.Item>
+                <Menu.Divider />
+                <Menu.Item color="red" onClick={() => auth.signOut()}>Delete my account</Menu.Item>
+              </Menu.Dropdown>
+            </Menu>
+              }
+        <Burger
+          opened={opened1}
+          onClick={() => setOpened((o) => !o)}
+          title={title}
+          color='white'
+          className='lg:hidden my-auto'
+        />
+        <Drawer
+          opened={opened1}
+          onClose={() => setOpened(false)}
+          padding="lg"
+          size="md"
+        >
+          <ul className='flex flex-col gap-8 m-auto '>
+            <li><Link className='hover:text-[#F4181C] duration-300 text-black' href="/" onClick={() => setOpened(false)} passHref>HOME</Link></li>
+            <li><Link className='hover:text-[#F4181C] duration-300' href="/Movies"  onClick={() => setOpened(false)} passHref>MOVIE</Link></li>
+            <li><Link className='hover:text-[#F4181C] duration-300' href="TvShow"  onClick={() => setOpened(false)} passHref>TV SHOW</Link></li>
+            <li><Link className='hover:text-[#F4181C] duration-300' href="/"  onClick={() => setOpened(false)} passHref>ABOUT</Link></li>
+          </ul>
+        </Drawer>
+        </div>
+      </div>
+        <div className={`bottom-0 h-14  bg-[#121212] text-white justify-center flex w-full border-t-[0.5px] border-[#F4181C] duration-300 transition-all z-50  absolute ${!opened ? '' : ' translate-y-full'} `}>
+            <form onSubmit={handleSubmit} className='bg-[#1F1F1F]  flex w-[70%] px-2'>
+               <input value={search} type="text" onChange={(e)=> setSearch(e.target.value)} className='outline-none text-white p-2 w-full bg-[#1F1F1F]' placeholder='i am looking for...'/>
+               <Button className='bg-[#F4181C] hover:bg-red-600  m-auto' type='submit'>Search</Button>
 
-              { opened && <form  onSubmit={handleSubmit} className='absolute z-20 mt-5 right-0 pl-7  lg:pl-0  w-screen  lg:w-full'>
-                  <input
-                    type="text"
-                    placeholder="Search"
-                    className="px-3 py-2 rounded-md w-full placeholder-gray-400 text-gray-900 bg-white focus:outline-none drop-shadow-lg sm:text-sm"
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                  />
-                  <button
-                    type="submit"  className='absolute right-1 top-1'>
-                       <SearchIcon className="h-6 w-6 text-black" aria-hidden="true" />
-                    </button>
-
-                </form>}
-               </div>
-               
-
-                
-                {/* Profile dropdown */}
-                <Menu as="div" className="relative ml-3">
-                  <div>
-                    <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                      <span className="sr-only">Open user menu</span>
-                      <img
-                        className="h-8 w-8 rounded-full"
-                        src={user ? user.photoURL : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'}
-                        alt=""
-                      />
-                    </Menu.Button>
-                  </div>
-                  <Transition
-                    as={Fragment}
-                    enter="transition ease-out duration-100"
-                    enterFrom="transform opacity-0 scale-95"
-                    enterTo="transform opacity-100 scale-100"
-                    leave="transition ease-in duration-75"
-                    leaveFrom="transform opacity-100 scale-100"
-                    leaveTo="transform opacity-0 scale-95"
-                  >
-                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      <Menu.Item>
-                        {({ active }) => (
-                          <Link
-                            href="/profile"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                            passHref
-                          >
-                            Your Profile
-                          </Link>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="/signin"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                          >
-                            Sign in
-                          </a>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                          >
-                            Sign out
-                          </a>
-                        )}
-                      </Menu.Item>
-                    </Menu.Items>
-                  </Transition>
-                </Menu>
-              </div>
-            </div>
-          </div>
-
-          <Disclosure.Panel className="sm:hidden">
-            <div className="space-y-1 px-2 pt-2 pb-3">
-              {navigation.map((item) => (
-                <Disclosure.Button
-                  key={item.name}
-                  as="a"
-                  href={item.href}
-                  className={classNames(
-                    item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                    'block px-3 py-2 rounded-md text-base font-medium'
-                  )}
-                  aria-current={item.current ? 'page' : undefined}
-                >
-                  {item.name}
-                </Disclosure.Button>
-              ))}
-            </div>
-          </Disclosure.Panel>
-        </>
-      )}
-    </Disclosure>
+            </form>
+        </div>
+    </nav>
   )
 }
