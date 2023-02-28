@@ -8,6 +8,7 @@ import useFetch from '@/src/useFetch';
 import { Avatar } from '@mui/material';
 import 'animate.css'
 import Link from 'next/link';
+import AddFavorite from '@/components/Favorite';
 
 const selection = [ 'Cast' , 'Reviews' , 'Photos']
 function SingleMovie({movie ,video ,recommendations}) {
@@ -34,9 +35,10 @@ function SingleMovie({movie ,video ,recommendations}) {
                                     <Image width={100000} height={1000000}  className='object-cover w-[210px] rounded-md container' src={`https://www.themoviedb.org/t/p/original${movie.poster_path}`} alt="mai1n" unoptimized/>
                                 </div>
                                 <div className='lg:w-80 text-[rgba(255,255,255,0.7)] flex flex-col justify-center'>
-                                    <div className='flex'>
+                                    <div className='flex relative w-20'>
                                         <StarIcon className='text-[#F4181C]' />
                                         <p className=' text-lg'>{movie.vote_average.toString().slice(0,3)}</p>
+                                        <AddFavorite movie={movie} Flex={true} single={true}/>
                                     </div>
                                     <h1>Genere: {' '}
                                     {movie.genres.map( genere =>{

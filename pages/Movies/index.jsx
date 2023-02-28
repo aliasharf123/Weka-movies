@@ -7,6 +7,7 @@ import useFetch from "@/src/useFetch";
 import React from "react";
 import GridResults from "@/components/GridResults";
 import FlexResults from "@/components/FlexResults";
+import { Loader } from "@mantine/core";
 
 
 const dataSort =[
@@ -40,7 +41,7 @@ function Movies() {
     if( !loading && data.total_pages == 0 ) {
         return (
             <div className={`m-11 ${loading && 'mb-[1000px]'} flex flex-col lg:flex-row  mt-[5.2rem]`}>
-                <div className="flex  gap-4 flex-col   mx-auto " >
+                <div className="flex  gap-4 flex-col   mx-auto   mb-10 " >
                     <div className={`flex justify-between  text-white   bg-[#121212]  px-1 py-2 rounded-lg w-56 `}>
                         <button className={`m-auto`} onClick={() =>setStyle(false)}>
                             <GridOnIcon className={!style && 'text-[#F4181C]' }/>
@@ -59,7 +60,7 @@ function Movies() {
     if(loading){
         return(
             <div className={`m-11 ${loading && 'mb-[1000px]'} flex flex-col lg:flex-row  mt-[5.2rem]`}>
-                <div className="flex  gap-4 flex-col   mx-auto " >
+                <div className="flex  gap-4 flex-col   mx-auto   mb-10 " >
                     <div className={`flex justify-between  text-white   bg-[#121212]  px-1 py-2 rounded-lg w-56 `}>
                         <button className={`m-auto`} onClick={() =>setStyle(false)}>
                             <GridOnIcon className={!style && 'text-[#F4181C]' }/>
@@ -71,14 +72,15 @@ function Movies() {
                     <MenuDrop setPage={setPage} setSort={setSort} dataSort={dataSort}/> 
                     <GenereMovies setGenere={setGenere} genere={genere}   dataSort={dataSort}  setLanguges={setLanguges} setPage={setPage}  setYears={setYears} />
                 </div>
-                <div className="text-white mt-16 mb-5 w-full  p-10"> Loading</div>
+                <Loader color='red' size='lg' className="w-full"/>
+
             </div>
         )
     }
     
     return ( 
             <div className={`m-11 ${loading && 'mb-[1000px]'} flex flex-col md:flex-row mt-[5.2rem]`}>
-                <div className="flex  gap-4 flex-col  mx-auto " >
+                <div className="flex  gap-4 flex-col  mx-auto   mb-10 " >
                     <div className={`flex justify-between  text-white   bg-[#121212]  px-1 py-2 rounded-lg w-56 `}>
                         <button className={`m-auto`} onClick={() =>setStyle(false)}>
                             <GridOnIcon className={!style && 'text-[#F4181C]' }/>

@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import MoviesList from '@/components/movies';
 import { useRouter } from 'next/router';
 import Video from '@/components/Video';
@@ -10,22 +10,22 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useRef } from 'react';
 import { auth  } from '@/firebase/Clients';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { searchProvider } from './_app';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import WatchList from '@/components/warchList';
 
 export default function Home({data}) {
   const [enabled, setEnabled] = useState('day');
   const [search , setSearch] = useState('');
   const router = useRouter()
-  const {setSearch:setSearch1} = useContext(searchProvider)
-  const [user , loading , error] = useAuthState(auth)
+  const [user , loading ,error] = useAuthState(auth)
 
   const [open , setOpen] = useState(false);
   const refButton = useRef(null)
   const handleSubmit = (e) =>{
     e.preventDefault()
-    setSearch1(search)
     router.push(`/Search/${search}`)
   }
+ 
   return (
     <>
       <Head>
@@ -37,7 +37,7 @@ export default function Home({data}) {
       </Head>
       <main className=' lg:px-40 flex flex-col gap-9'> 
         <div className='relative'>
-           <Image width={100000} height={1000000}  className='object-cover w-full h-[600px] brightness-50 relative ' src={`https://www.themoviedb.org/t/p/w1280${data}`} alt="main" />
+           <Image width={100000} height={1000000} priority  className='object-cover w-full h-[600px] brightness-50 relative ' src={`https://www.themoviedb.org/t/p/w1280${data}`} alt="main" />
             <div className='absolute z-10  text-slate-100 -top-0 ml-3 lg:m-24 mt-60 lg:mt-72 md:w-9/12 w-[85%] h-36 gap-3 flex flex-col '>
               <div>
                 <h1 className='text-5xl '>Welcome </h1>
@@ -48,6 +48,23 @@ export default function Home({data}) {
                 <button type="submit" className='bg-[#F4181C] rounded-full w-[30%] lg:w-[15%] h-[48px] '>Search</button>
               </form>
             </div>
+        </div>
+        <div className='text-white  flex flex-col '>
+          <h1 className='text-header mb-4'>What to watch</h1>
+           {!loading ? user ? 
+               <WatchList /> 
+            : 
+            <div className='flex flex-col py-10'>
+                <BookmarkBorderIcon className='text-6xl  bg-[rgba(0,0,0,0.4)] text-white m-auto'/>
+                <div className='m-auto text-center'>
+                  <p className='font-bold'>Sign in to see suggetion</p>
+                  <p>Save shows and movies to keep track of what you want to watch.</p>
+                  <button onClick={()=>router.push('/signin') } className='text-[#F4181C] mt-6    p-2 px-6 rounded-sm font-medium bg-[#121212]'>
+                    Sign in to weka
+                  </button>
+                </div>
+            </div>  
+           :<h1>Loading...</h1> }
         </div>
         <div className='text-white  flex flex-col  gap-6'>
           <div className='flex flex-row gap-6 '>

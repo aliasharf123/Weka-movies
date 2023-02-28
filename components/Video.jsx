@@ -160,7 +160,7 @@ function Video() {
                                handleToggle()
                                setMovieNow(movie.id)
                             }}   >
-                            {movie.backdrop_path && <Image className="object-cover rounded-lg w-[520px] h-[240px] s"  alt={movie.id} width={520} height={240} src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}/>}
+                            {movie.backdrop_path && <Image className="object-cover rounded-lg w-auto h-auto"  alt={movie.id} width={520} height={240} src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}/>}
                             <PlayCircleOutlineIcon className="absolute top-[45%] left-[42%] text-5xl"/>
                             </div>
                             {movie.title || movie.name} 
