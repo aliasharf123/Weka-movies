@@ -98,7 +98,7 @@ export default function Home({data}) {
                 }   
                 }}>
                     <h1 ref={refButton} >{!(enabled === 'day' )? 'This Week' : 'Today'}</h1> 
-                    {open ? <ExpandMoreIcon/>:<ArrowForwardIosIcon className='text-lg mt-1'/>}
+                    <ExpandMoreIcon/>
                 </button>
               {open &&
                   <button className='absolute top-8 text-white bg-[#F4181C]  w-32 py-1 rounded-b-lg z-50' onClick={() =>  {

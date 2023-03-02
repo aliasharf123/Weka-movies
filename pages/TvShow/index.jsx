@@ -71,8 +71,8 @@ function TvShow() {
     
     return ( 
             <div className={`m-11 ${loading && 'mb-[1000px]'} flex flex-col md:flex-row mt-[5.2rem]`}>
-                <div className="flex  gap-4 flex-col  mx-auto  mb-10" >
-                    <div className={`flex justify-between  text-white   bg-[#121212]  px-1 py-2 rounded-lg w-56 `}>
+                <div className="flex  gap-4 flex-col  mx-auto  mb-10 max-lg:w-full" >
+                    <div className={`flex justify-between  text-white   bg-[#121212]  px-1 py-2 rounded-lg lg:w-56 `}>
                         <button className={`m-auto`} onClick={() =>setStyle(false)}>
                             <GridOnIcon className={!style && 'text-[#F4181C]' }/>
                         </button>

@@ -20,10 +20,10 @@ function Search() {
 
 
    
-    if( !loading && data.total_pages == 0 ) {
+    if( !loading && data.results.length ===0 ) {
         return (
             <ResultsControl search={search} resultstate={resultstate} setResultsState={setResultsState} setPage={setPage}>
-                <h1 className="w-full  px-8 text-white">There are no movies that matched your query.</h1>
+                <h1 className="w-full  px-8 text-white text-center">There are no movies that matched your query.</h1>
              </ResultsControl>
         )
     }
