@@ -47,7 +47,7 @@ function GenereMovies({setGenere ,genere  , setLanguges, setPage ,dataSort , set
     
 
     return ( 
-        <div className='   w-56 rounded-lg divide-y m-auto sm:m-0'>
+        <div className='  w-80 lg:w-56 rounded-lg divide-y m-auto sm:m-0'>
             <div className={`flex  text-white  bg-[#121212]  px-1 py-4 ${open ? 'rounded-t-lg' : 'rounded-lg'}`}>
                 <button className={`flex  justify-between  w-full gap-14 `} onClick={() =>{setOpen(!open)}}>
                     <div className='m-auto font-bold'>Filters</div>
@@ -57,7 +57,7 @@ function GenereMovies({setGenere ,genere  , setLanguges, setPage ,dataSort , set
             </div> 
             
            {open && 
-           <div className='divide-y absolute w-full left-0   md:w-auto md:relative'>
+           <div className='divide-y  w-full left-0   md:w-auto md:relative'>
                 <div className=' text-gray-200  bg-[#121212] '>
                     <div>
                        <h1 className='px-5 py-4'>Genres</h1>
