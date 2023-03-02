@@ -8,7 +8,7 @@ function MenuDrop({setSort ,setPage ,dataSort}) {
   
  
     return ( 
-        <div className='   w-80 lg:w-56 rounded-lg divide-y m-auto sm:m-0'>
+        <div className='  w-full lg:w-56 rounded-lg divide-y m-auto sm:m-0'>
             <div className={`flex  text-white  bg-[#121212]  px-1 py-4 ${open ? 'rounded-t-lg' : 'rounded-lg'}`}>
                 <button className={`flex  justify-between  w-full gap-14 `} onClick={() =>{setOpen(!open)}}>
                     <div className='m-auto font-bold'>Sort</div>

@@ -3,6 +3,8 @@ import Link from "next/link";
 import StarIcon from '@mui/icons-material/Star';
 import useFetch from "@/src/useFetch";
 import AddFavorite from "./Favorite";
+import { Loader } from "@mantine/core";
+import Skeleton from '@mui/material/Skeleton';
 
 function MoviesList({url}) {
     const {data , loading} = useFetch(url) 
@@ -12,7 +14,7 @@ function MoviesList({url}) {
     return (           
     <div className='overflow-scroll   overflow-y-hidden  '>
     <div className='flex flex-row gap-3  w-[4000px]   ml-6 ' >
-      {!loading && data.results.map(movie =>{
+      {!loading ? data.results.map(movie =>{
         return(
           <div key={movie.id} className='w-56 flex-wrap  relative bg-[#121212] '>
             <AddFavorite movie={movie}/>
@@ -32,7 +34,46 @@ function MoviesList({url}) {
           </div>
         )
         
-      }) }
+      }): 
+      <div className="flex gap-3">
+      <Skeleton
+      sx={{ bgcolor: 'grey.900' }}
+      variant="rectangular"
+      width='14rem'
+      height='390px'
+      />
+         <Skeleton
+      sx={{ bgcolor: 'grey.900' }}
+      variant="rectangular"
+      width='14rem'
+      height='390px'
+      />
+         <Skeleton
+      sx={{ bgcolor: 'grey.900' }}
+      variant="rectangular"
+      width='14rem'
+      height='390px'
+      />
+         <Skeleton
+      sx={{ bgcolor: 'grey.900' }}
+      variant="rectangular"
+      width='14rem'
+      height='390px'
+      />
+           <Skeleton
+      sx={{ bgcolor: 'grey.900' }}
+      variant="rectangular"
+      width='14rem'
+      height='390px'
+      />
+           <Skeleton
+      sx={{ bgcolor: 'grey.900' }}
+      variant="rectangular"
+      width='14rem'
+      height='390px'
+      />
+      </div>
+      }
     </div>
   </div> );
 }

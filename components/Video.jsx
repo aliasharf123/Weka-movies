@@ -9,6 +9,7 @@ import { useDisclosure } from '@mantine/hooks';
 import { Modal, Group, Button } from '@mantine/core';
 import { Loader } from "@mantine/core";
 import 'animate.css'
+import { Skeleton } from "@mui/material";
 function Video() {
     const [enabled, setEnabled] = useState('In Theaters');
     const [url, setUrl] = useState(`https://api.themoviedb.org/3/movie/now_playing?&language=en-US&page=1`)
@@ -133,7 +134,7 @@ function Video() {
                         }   
                         }}>
                             <h1 ref={refButton} >{handleToggle1()}</h1> 
-                            {open1 ? <ExpandMoreIcon/>:<ArrowForwardIosIcon className='text-lg mt-1'/>}
+                            <ExpandMoreIcon/>
                         </button>
                     {open1 &&
                         <div className="absolute top-8 z-10">
@@ -174,8 +175,12 @@ function Video() {
                         </div>
                     )
                 }):
-                <div className="gap-5 cursor-pointer relative justify-center h-[240px] "> 
-                    <Loader color='red' className="m-auto"/>
+                <div className="gap-5 cursor-pointer relative justify-center h-[240px] flex"> 
+                   <Skeleton sx={{ bgcolor: 'rgba(0,0,0,0.6)' }} variant="rounded" width={480} height={240} />
+                   <Skeleton sx={{ bgcolor: 'rgba(0,0,0,0.6)' }} variant="rounded" width={480} height={240} />
+                   <Skeleton sx={{ bgcolor: 'rgba(0,0,0,0.6)' }} variant="rounded" width={480} height={240} />
+                   <Skeleton sx={{ bgcolor: 'rgba(0,0,0,0.6)' }} variant="rounded" width={480} height={240} />
+                   <Skeleton sx={{ bgcolor: 'rgba(0,0,0,0.6)' }} variant="rounded" width={480} height={240} />
                 </div>
                 
                 
