@@ -35,7 +35,7 @@ function AddFavorite({movie , media , Flex , single}) {
           try {
             const docRef = await addDoc(users, {
               uid :user.uid,
-              movie: {...movie, media_type : (media || movie.media_type)}
+              movie: {...movie, media_type : (media || movie.media_type )}
             });
             
             console.log("Document written with ID: ", docRef.id);
