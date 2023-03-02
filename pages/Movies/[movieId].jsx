@@ -60,7 +60,7 @@ function SingleMovie({movie ,video ,recommendations}) {
                                 </div>
                             </div>
                             <div className='rounded-md w-[45%] h-[300px]  max-lg:w-full'>
-                                <iframe   id="player" type="text/html"  className="rounded-md w-full h-full "
+                                <iframe   id="player" type="text/html"  className="rounded-md w-full h-full " allowFullScreen
                                             src={`https://www.youtube.com/embed/${video.key}?enablejsapi=1&origin=https://example.com`}
                                             frameborder="0"></iframe>
                             </div>
@@ -174,13 +174,13 @@ function SingleMovie({movie ,video ,recommendations}) {
                             <div className='text-white '>
                                 <h1 className='text-3xl font-extralight '>You may also like</h1>
                                 <div className='grid lg:grid-cols-2  md:grid-cols-3 grid-cols-2 w-full gap-3  mt-10' >
-                                        {recommendations.results && recommendations.results.map(movie =>{
+                                        {recommendations.results.length >0 ?  recommendations.results.map(movie =>{
                                             return(
                                                 <div key={movie.id} className=' flex-wrap   w-auto '>
                                                     <Link   href={ `/Movies/${movie.id}` }   passHref>
-                                                        {movie.poster_path  ? <Image  src={`https://image.tmdb.org/t/p/w780${movie.poster_path}`} alt={movie.id} width={1000} height={1000} unoptimized/> :<Image width={1000} height={1000} className='bg-slate-400 '  src='https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg' alt={movie.original_title} unoptimized/>}
+                                                        {movie.poster_path  ? <Image  src={`https://image.tmdb.org/t/p/w780${movie.poster_path}`} className='h-[70%]' alt={movie.id} width={1000} height={1000} unoptimized/> :<Image width={1000} height={1000} className='bg-slate-400 '  src='https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg' alt={movie.original_title} unoptimized/>}
                                                     </Link>
-                                                    <div className=" bg-[#121212] h-28 p-2 rounded-b-lg ">
+                                                    <div className=" bg-[#121212] p-2 rounded-b-lg h-[30%]">
                                                         <div className="flex flex-row">
                                                             <StarIcon className="text-yellow-400 "/>
                                                             <p className=" text-gray-300">{movie.vote_average}</p>
@@ -193,7 +193,7 @@ function SingleMovie({movie ,video ,recommendations}) {
                                                 </div>
                                         )
                                             
-                                    }) }
+                                    }) : <h1>No data for this movie</h1> }
                                 </div> 
                             </div>  
                         </div>

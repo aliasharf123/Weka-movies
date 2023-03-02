@@ -1,24 +1,26 @@
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
+const darkTheme = createTheme({
+    palette: {
+      mode: 'dark',
+    },
+  });
 
 
-function PaginationMovies({value , setPage}) {
+function PaginationMovies({value , page , setPage}) {
 
     const handleChange = (event, value) => {
         setPage(value);
     };
 
     return ( 
-
-        <Stack spacing={2} className='m-auto mt-8 bg-white'>
-            <Pagination   count={value} sx={{
-                '& .MuiPagination-text	':{
-                    color: 'white'
-                }
-                
-            }} variant="text" className='w-auto'  shape="rounded" onChange={handleChange}/>
-        </Stack> 
-    
+        <ThemeProvider theme={darkTheme}>
+            <Stack spacing={2} className='m-auto mt-8 bg-[#121212] rounded-sm'>
+                <Pagination color='primary' page={page}  count={value -2}  className='w-auto'  shape="rounded" onChange={handleChange}/>
+            </Stack> 
+        </ThemeProvider>
         
     );
 }

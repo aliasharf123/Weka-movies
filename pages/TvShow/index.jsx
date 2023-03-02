@@ -83,7 +83,7 @@ function TvShow() {
                     <MenuDrop setPage={setPage} setSort={setSort} dataSort={dataSort}/> 
                     <GenereMovies setGenere={setGenere} genere={genere}  dataSort={dataSort} setLanguges={setLanguges} setPage={setPage}  setYears={setYears} />
                 </div>
-            {(style )?<FlexResults media={'TvShow'} setPage={setPage} data={data}/>:<GridResults media={'TvShow'}  setPage={setPage} data={data} /> }
+            {(style )?<FlexResults page={page} media={'TvShow'} setPage={setPage} data={data}/>:<GridResults media={'TvShow'}  page={page}   setPage={setPage} data={data} /> }
             </div>
     );
 }

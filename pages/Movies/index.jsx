@@ -92,7 +92,7 @@ function Movies() {
                     <MenuDrop setPage={setPage} setSort={setSort} dataSort={dataSort}/> 
                     <GenereMovies setGenere={setGenere} genere={genere}  dataSort={dataSort}  setLanguges={setLanguges} setPage={setPage}  setYears={setYears} />
                 </div>
-            {(style )?<FlexResults media={'Movies'} setPage={setPage} data={data}/>:<GridResults media={'Movies'}  setPage={setPage} data={data} /> }
+            {(style )?<FlexResults page={page} media={'Movies'} setPage={setPage} data={data}/>:<GridResults page={page}  media={'Movies'}  setPage={setPage} data={data} /> }
             </div>
     );
 }

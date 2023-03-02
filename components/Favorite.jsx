@@ -7,7 +7,7 @@ import { addDoc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 
 
-function AddFavorite({movie , Flex , single}) {
+function AddFavorite({movie , media , Flex , single}) {
     const [user ] = useAuthState(auth)
     const router = useRouter();
     const [aleardy ,setAleardy] = useState(false)
@@ -25,18 +25,17 @@ function AddFavorite({movie , Flex , single}) {
     }
 
     const AddtoFavorite = async (movie) =>{
-      const state = await FindMovie(movie , user)
-      setAleardy(state);
       if(!user){
         router.push('/signin')
-      }
-      
+      } 
       else{
+        const state = await FindMovie(movie , user)
+        setAleardy(state);
         if(state === 0){
           try {
             const docRef = await addDoc(users, {
               uid :user.uid,
-              movie: movie
+              movie: {...movie, media_type : (media || movie.media_type)}
             });
             
             console.log("Document written with ID: ", docRef.id);
@@ -59,7 +58,7 @@ function AddFavorite({movie , Flex , single}) {
 
 
     return ( 
-        <button className={`absolute ${Flex && 'right-0'}  top-0 ${!single &&  'bg-[rgba(0,0,0,0.4)] ' }hover:brightness-125  z-50 text-white`} onClick={() =>AddtoFavorite(movie)} >
+        <button className={`absolute ${Flex && 'right-0'}  top-0 ${!single &&  'bg-[rgba(0,0,0,0.4)] ' }hover:brightness-125  z-30 text-white`} onClick={() =>AddtoFavorite(movie)} >
           {!aleardy ?  <BookmarkBorderIcon/> :<BookmarkIcon  /> }
         </button>
      );

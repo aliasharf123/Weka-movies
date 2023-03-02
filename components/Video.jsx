@@ -4,21 +4,27 @@ import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import useFetch from "@/src/useFetch";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
+import CloseIcon from '@mui/icons-material/Close';
+import { useDisclosure } from '@mantine/hooks';
+import { Modal, Group, Button } from '@mantine/core';
+import { Loader } from "@mantine/core";
+import 'animate.css'
 function Video() {
     const [enabled, setEnabled] = useState('In Theaters');
     const [url, setUrl] = useState(`https://api.themoviedb.org/3/movie/now_playing?&language=en-US&page=1`)
     const [TVorMovie, setTVorMovie] = useState('movie')
     const {data , loading} =  useFetch(url)
-    const [open, setOpen] = useState(false);
+    const [open2, setOpen] = useState(false);
     const [movieNow , setMovieNow] = useState('')
     const [videoKey, setVideoKey] = useState('');
     const [open1 , setOpen1] = useState(false);
     const refButton = useRef(null)
     const refButton1 = useRef(null)
     const refButton2 = useRef(null)
+    const [image , setImage] = useState('')
+    const [opened, { open, close }] = useDisclosure(false);
 
- 
+
     const handleToggle = () => {
       setOpen(!open);
     };
@@ -28,7 +34,7 @@ function Video() {
             if(response.ok){
                 const data = await response.json();
                 const video = data.results.filter(movie => movie.type === 'Trailer')[0]
-                setVideoKey(video.key) ;
+                setVideoKey(video) ;
             }
            
         }        
@@ -88,8 +94,8 @@ function Video() {
     }
 
     return ( 
-        <div>
-            <div className='flex flex-row gap-6  '>
+        <div style={{backgroundImage:  `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),url(${image})` }} className='bg-no-repeat bg-cover pt-7 duration-300 transition bg-red-600'>
+            <div  className='flex flex-row gap-6  '>
                 <h1 className="text-header">Trailer</h1>
                 <div className='sm:flex hidden border-2 border-[#F4181C] px-2 gap-[3.2rem]  rounded-full lg:w-80 h-8 relative mt-1 '>
                     <button onClick={() => {
@@ -151,31 +157,35 @@ function Video() {
                         }
                 </div>
             </div>
-            <div className="overflow-scroll   overflow-y-hidden  pt-8">
-            <div className="flex flex-row gap-4 ml-7  w-[8000px] pb-8" >
-                   {data.results && data.results.map(movie =>{
+            <div className=" overflow-scroll   overflow-y-hidden  pt-8 ">
+            <div className="flex flex-row gap-4 ml-7  w-[8000px] pb-8 animate__animated animate__fadeIn" >
+                   {!loading ? data.results.map(movie =>{
                        return (
-                        <div className="gap-5 cursor-pointer flex-wrap relative text-center" key={movie.id}> 
-                           <div className=' gap-5 cursor-pointer flex-wrap relative transition hover:scale-105' onClick={() =>{ 
+                        <div className="gap-5 cursor-pointer flex-wrap relative text-center  h-[240px] " onMouseOver={() => setImage(`https://image.tmdb.org/t/p/original${movie.backdrop_path}`)} key={movie.id}> 
+                           <div className=' gap-5 cursor-pointer flex-wrap relative transition hover:scale-105 duration-300' onClick={() =>{ 
                                handleToggle()
+                               open()
                                setMovieNow(movie.id)
                             }}   >
-                            {movie.backdrop_path && <Image className="object-cover rounded-lg w-auto h-auto"  alt={movie.id} width={520} height={240} src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}/>}
+                            {movie.backdrop_path && <Image className="object-cover rounded-lg "  alt={movie.id} width={480} height={240} src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}/>}
                             <PlayCircleOutlineIcon className="absolute top-[45%] left-[42%] text-5xl"/>
                             </div>
                             {movie.title || movie.name} 
                         </div>
-
                     )
-                })} 
-               {open && <div className="fixed z-40 bg-trans flex flex-col  top-0 left-0 w-full h-screen justify-center">
-                    <div className="sm:w-[50%] w-[95%] lg:h-[60%] h-[30%]  m-auto "  >
-                        <button onClick={handleToggle} > Close</button>  
-                        <iframe  id="player" type="text/html"  className="w-full h-full"
-                                src={`http://www.youtube.com/embed/${videoKey}?enablejsapi=1&origin=http://example.com`}
-                                frameborder="0"></iframe>
-                    </div>
-                </div>}
+                }):
+                <div className="gap-5 cursor-pointer relative justify-center h-[240px] "> 
+                    <Loader color='red' className="m-auto"/>
+                </div>
+                
+                
+                } 
+                 <Modal opened={opened} onClose={close} size='xl' className="" title={videoKey ? videoKey.name : 'no video'} centered>
+                    <iframe  id="player" type="text/html"  className="w-full h-96 " allowFullScreen
+                            src={`http://www.youtube.com/embed/${videoKey&& videoKey.key}?enablejsapi=1&origin=http://example.com`}
+                            frameborder="0"></iframe>
+                </Modal>
+           
             </div>
             </div>
         </div> 

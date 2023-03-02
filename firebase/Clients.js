@@ -46,7 +46,7 @@ export const GetMovies = async (user) =>{
 
 export const DeleteMovie = async (movie , user)=>{
   let id ;
-  const q = query(users, where("movie", "==", movie) , where("uid", "==", user.uid));
+  const q = query(users, where("movie.id", "==", movie.id) , where("uid", "==", user.uid));
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {
     // doc.data() is never undefined for query doc snapshots
