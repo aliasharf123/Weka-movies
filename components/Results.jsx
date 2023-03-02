@@ -1,10 +1,7 @@
-import { searchProvider } from "@/pages/_app";
-import { useContext } from "react";
 
 
 
-function ResultsControl({children , resultstate , setResultsState ,setPage}) {
-   const {search} = useContext(searchProvider)
+function ResultsControl({children , resultstate , search , setResultsState ,setPage}) {
    
     return (  
         <div className="text-white flex flex-col mt-10  gap-5 ">

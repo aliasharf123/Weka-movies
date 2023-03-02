@@ -1,7 +1,8 @@
 // Import the functions you need from the SDKs you need
-import "firebase/compat/auth";
-import "firebase/compat/firestore"
-import firebase from "firebase/compat/app";
+import {  deleteDoc, doc, getDocs, query, where } from "firebase/firestore";
+import {initializeApp} from "firebase/app";
+import { getFirestore  ,collection } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBjc3x5GfobRO65F0H2d2HdMrgmPCAS9Oc",
@@ -13,14 +14,44 @@ const firebaseConfig = {
   measurementId: "G-W25T21EQS9"
 };
 
-const app = firebase.initializeApp(firebaseConfig)
+const app = initializeApp(firebaseConfig)
+
+export const auth =getAuth(app);
+export const db = getFirestore(app);
+
+export const users = collection(db , 'Users');
 
 
-export const auth = app.auth();
-export const db = app.firestore() ;
 
-export const users = db.collection('Users');
+export const FindMovie = async (movies , user) =>{
+  const movie = []
+  const q = query(users, where("uid", "==", user.uid) , where('movie.id' , '==' , movies.id));
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    movie.push(doc.data())
+  });
+  return movie.length ;
+}
+export const GetMovies = async (user) =>{
+  const movie = []
+  const q = query(users, where("uid", "==", user.uid));
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    movie.push(doc.data())
+  });
+  return movie;
+}
 
+export const DeleteMovie = async (movie , user)=>{
+  let id ;
+  const q = query(users, where("movie.id", "==", movie.id) , where("uid", "==", user.uid));
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    id = doc.id
+  });
+  await deleteDoc(doc(db, "Users", id));
 
-
-export default firebase ;
+}

@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import MoviesList from '@/components/movies';
 import { useRouter } from 'next/router';
 import Video from '@/components/Video';
@@ -10,22 +10,23 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useRef } from 'react';
 import { auth  } from '@/firebase/Clients';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { searchProvider } from './_app';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import WatchList from '@/components/warchList';
+import { Loader } from '@mantine/core';
 
 export default function Home({data}) {
   const [enabled, setEnabled] = useState('day');
   const [search , setSearch] = useState('');
   const router = useRouter()
-  const {setSearch:setSearch1} = useContext(searchProvider)
-  const [user , loading , error] = useAuthState(auth)
+  const [user , loading ,error] = useAuthState(auth)
 
   const [open , setOpen] = useState(false);
   const refButton = useRef(null)
   const handleSubmit = (e) =>{
     e.preventDefault()
-    setSearch1(search)
     router.push(`/Search/${search}`)
   }
+ 
   return (
     <>
       <Head>
@@ -35,9 +36,9 @@ export default function Home({data}) {
         <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"/>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className=' lg:px-40 flex flex-col gap-9'> 
+      <main className=' lg:px-40 flex flex-col gap-9 '> 
         <div className='relative'>
-           <Image width={100000} height={1000000}  className='object-cover w-full h-[600px] brightness-50 relative ' src={`https://www.themoviedb.org/t/p/w1280${data}`} alt="main" />
+           <Image width={100000} height={1000000} priority  className='object-cover w-full h-[600px] brightness-50 relative ' src={`https://www.themoviedb.org/t/p/w1280${data}`} alt="main" />
             <div className='absolute z-10  text-slate-100 -top-0 ml-3 lg:m-24 mt-60 lg:mt-72 md:w-9/12 w-[85%] h-36 gap-3 flex flex-col '>
               <div>
                 <h1 className='text-5xl '>Welcome </h1>
@@ -49,7 +50,28 @@ export default function Home({data}) {
               </form>
             </div>
         </div>
+        <div className='text-white  flex flex-col '>
+          <h1 className='text-header mb-4'>What to watch</h1>
+           {!loading ? user ? 
+               <WatchList /> 
+            : 
+            <div className='flex flex-col py-10'>
+                <BookmarkBorderIcon className='text-6xl  bg-[rgba(0,0,0,0.4)] text-white m-auto'/>
+                <div className='m-auto text-center'>
+                  <p className='font-bold'>Sign in to see suggetion</p>
+                  <p>Save shows and movies to keep track of what you want to watch.</p>
+                  <button onClick={()=>router.push('/signin') } className='text-[#F4181C] mt-6    p-2 px-6 rounded-sm font-medium bg-[#121212]'>
+                    Sign in to weka
+                  </button>
+                </div>
+            </div>  
+           :
+           <div className='w-full flex justify-center h-20'>
+             <Loader color='red'/> 
+           </div>}
+        </div>
         <div className='text-white  flex flex-col  gap-6'>
+          <Video/>
           <div className='flex flex-row gap-6 '>
             <h1 className='text-header'>Treading</h1>
              <div className='hidden gap-10 border-2 border-[#F4181C] px-2  rounded-full w-44 h-8 relative mt-1 sm:flex'>
@@ -79,7 +101,7 @@ export default function Home({data}) {
                     {open ? <ExpandMoreIcon/>:<ArrowForwardIosIcon className='text-lg mt-1'/>}
                 </button>
               {open &&
-                  <button className='absolute top-8 text-white bg-[#F4181C]  w-32 py-1 rounded-b-lg' onClick={() =>  {
+                  <button className='absolute top-8 text-white bg-[#F4181C]  w-32 py-1 rounded-b-lg z-50' onClick={() =>  {
                     setOpen(false)
                     if(refButton.current.innerHTML === 'Today'){
                       setEnabled('week')
@@ -94,7 +116,6 @@ export default function Home({data}) {
               </div>
           </div>
           <MoviesList url={`https://api.themoviedb.org/3/trending/all/${enabled}?`}/>
-          <Video/>
         </div>
 
       </main>

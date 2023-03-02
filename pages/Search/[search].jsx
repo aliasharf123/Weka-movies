@@ -5,6 +5,7 @@ import useFetch from "@/src/useFetch";
 import ResultsControl from "@/components/Results";
 import GridOnIcon from '@mui/icons-material/GridOn';
 import TableRowsIcon from '@mui/icons-material/TableRows';
+import { Loader } from '@mantine/core';
 
 import FlexResults from "@/components/FlexResults";
 import GridResults from "@/components/GridResults";
@@ -17,25 +18,27 @@ function Search() {
     const [page, setPage] = useState(1)
     const { data, loading } = useFetch(`https://api.themoviedb.org/3/search/${resultstate}?language=en-US&query=${search}&page=${page}`)
 
-    
+
    
     if( !loading && data.total_pages == 0 ) {
         return (
-            <ResultsControl resultstate={resultstate} setResultsState={setResultsState} setPage={setPage}>
+            <ResultsControl search={search} resultstate={resultstate} setResultsState={setResultsState} setPage={setPage}>
                 <h1 className="w-full  px-8 text-white">There are no movies that matched your query.</h1>
              </ResultsControl>
         )
     }
-
+    console.log(loading)
     if(loading){
         return ( 
-             <ResultsControl  resultstate={resultstate} setResultsState={setResultsState} setPage={setPage}>
-                <h1 className="w-full  px-8">Loading...</h1>
+             <ResultsControl search={search}  resultstate={resultstate} setResultsState={setResultsState} setPage={setPage}>
+                <div className="w-screen h-screen ">
+                    <Loader color='red' size='lg' className="w-full"/>
+                </div>
              </ResultsControl>
             )
     }
     return ( 
-            <ResultsControl resultstate={resultstate} setResultsState={setResultsState} setPage={setPage}>
+            <ResultsControl search={search} resultstate={resultstate} setResultsState={setResultsState} setPage={setPage}>
                 <div className=" sm:mx-10 mx-4 gap-5 flex justify-end">
                     <button  onClick={() =>setStyle(false)}>
                                 <GridOnIcon className={!style && 'text-[#F4181C]' }/>
@@ -44,7 +47,7 @@ function Search() {
                                 <TableRowsIcon className={style && 'text-[#F4181C]' }/>
                     </button>
                 </div>
-               {(style )?<FlexResults media={resultstate} setPage={setPage} data={data}/>:<GridResults media={resultstate}  setPage={setPage} data={data} /> }
+               {(style )?<FlexResults  media={resultstate ==='movie' ? 'Movies':'TvShow'} setPage={setPage} data={data}/>:<GridResults media={resultstate ==='movie' ? 'Movies':'TvShow'}  setPage={setPage} data={data} /> }
             </ResultsControl>
     );
 }

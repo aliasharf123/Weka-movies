@@ -1,5 +1,6 @@
 
-import firebase , {auth } from "@/firebase/Clients";
+import {auth } from "@/firebase/Clients";
+import {  createUserWithEmailAndPassword , signInWithPopup , signInWithEmailAndPassword , GoogleAuthProvider} from "firebase/auth";
 import {  useState } from "react";
 import {Button} from '@mantine/core'
 import {useAuthState} from 'react-firebase-hooks/auth'
@@ -7,19 +8,20 @@ import logo from '../public/static/large-WOMJa9L29-transformed.png'
 import Image from "next/image";
 import GoogleIcon from '@mui/icons-material/Google';
 import { useRouter } from "next/router";
+
+
 function Signin() {
    const [user, loading , error] = useAuthState(auth)
    const [email , setEmail] =useState('')
    const [password , setPassword] =useState('')
    const [errorMessage , seterrorMessage] = useState('')
    const [toggle , setToggle] = useState(false) 
-   const [state , setState] = useState(toggle ? 'Sign In' : 'Sign up')
    const router = useRouter()
     const SignInWithGoogle = () =>{
-        const provider = new firebase.auth.GoogleAuthProvider();
+        const provider = new GoogleAuthProvider();
         provider.setCustomParameters({ prompt: "select_account" });
 
-        auth.signInWithPopup(provider).catch(error =>{
+        signInWithPopup(auth , provider).catch(error =>{
             console.log(error)
         });
         auth.onAuthStateChanged(user =>{
@@ -34,13 +36,20 @@ function Signin() {
     if(error){
         return(<div>error...</div>)
     }
+    if(user){
+        return(
+            <div className="h-screen text-center text-gray-100 text-6xl">
+                <h1>you Aleardy sign in</h1>
+            </div>
+        )
+    }
     const SignWithEmail =(e) =>{
         e.preventDefault();
         if(email , password){
             if(toggle){
                 console.log('sign up')
 
-                auth.createUserWithEmailAndPassword(email , password).then((userCredential) => {
+                createUserWithEmailAndPassword(auth ,  email , password).then((userCredential) => {
                     // Signed in 
                     router.push('/')
                     
@@ -56,7 +65,7 @@ function Signin() {
             else{
                 console.log('sign in')
 
-                auth.signInWithEmailAndPassword(email ,password).then((userCredential) => {
+                signInWithEmailAndPassword(auth, email ,password).then((userCredential) => {
                     // Signed in 
                     router.push('/')
                     // ...
@@ -77,7 +86,7 @@ function Signin() {
         <div action="" className="flex flex-col  p-10 w-96 bg-[#121212] m-auto drop-shadow-2xl rounded-lg"  >
             <div className="flex flex-col gap-3 mb-10">
                 <h1 className="text-white text-center text-3xl">{!toggle ? 'Sign In' : 'Sign up'}</h1>
-                <Image src={logo } width={200} className='mx-auto  w-28' height={200} unoptimized/>
+                <Image alt="logo" src={logo } width={200} className='mx-auto  w-28' height={200} unoptimized/>
             </div> 
             <form className=" flex flex-col gap-5" onSubmit={SignWithEmail}>
                 <p className="text-red-500">{errorMessage.slice(9)}</p>

@@ -1,4 +1,4 @@
-import {   useContext, useState } from 'react'
+import {useState } from 'react'
 import SearchIcon from '@mui/icons-material/Search';
 
 import Image from 'next/image';
@@ -9,10 +9,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import {useAuthState} from 'react-firebase-hooks/auth'
 import {auth } from "@/firebase/Clients";
-import { Menu, Button ,Burger ,Drawer ,useMantineTheme  } from '@mantine/core';
-import { searchProvider } from '@/pages/_app';
-
-
+import { Menu, Button ,Burger ,Drawer, Loader  } from '@mantine/core';
+ 
 
 export default function Header() {
   const [search , setSearch] = useState('');
@@ -20,7 +18,6 @@ export default function Header() {
   const [user, loading , error] = useAuthState(auth)
   const [opened, setOpen] = useState(false);
   const [opened1, setOpened] = useState(false);
-  const {setSearch:setSearch1} = useContext(searchProvider)
 
   const title = opened ? 'Close navigation' : 'Open navigation';
   const handleSubmit = (e) =>{
@@ -28,16 +25,10 @@ export default function Header() {
     if(search){
       setOpen(false)
       setSearch('')
-      setSearch1(search)
       router.push(`/Search/${search}`)
     }
   }
-  if(loading){
-    return (<div>Loading..</div>)
-  }
-  if(error){
-      return(<div>error...</div>)
-  }
+
   return (
     <nav className=' flex flex-col justify-center  shadow-lg   relative '>
       <div className='h-16 flex w-full p-2  z-[200] bg-[#121212] m-auto'>
@@ -52,18 +43,19 @@ export default function Header() {
         </div>
         <div className='m-auto gap-4 flex h-full p-1 justify-center '>
           <button className='text-white my-auto'onClick={() => setOpen(!opened)} ><SearchIcon/></button>
-          {!user ? <Button className='bg-[#F4181C] hover:bg-red-600 m-auto' ><Link href="/signin">SIGN IN</Link></Button> :
+         {!loading ? !user ? <Button className='bg-[#F4181C] hover:bg-red-600 m-auto' ><Link href="/signin">SIGN IN</Link></Button> :
             <Menu >
               <Menu.Target>
                 <button><Image alt='avatar' src={user.photoURL ? user.photoURL: logo1} width={200} height={200} className='rounded-full w-full h-full  object-cover' unoptimized/></button>
               </Menu.Target>
               <Menu.Dropdown>
-                <Menu.Item><Link href='/profile' passHref>Profile</Link> </Menu.Item>
-                <Menu.Divider />
+               
                 <Menu.Item color="red" onClick={() => auth.signOut()}>Delete my account</Menu.Item>
               </Menu.Dropdown>
-            </Menu>
-              }
+            </Menu> :
+            <Loader color='red' size='md' className="w-full"/>
+            }
+              
         <Burger
           opened={opened1}
           onClick={() => setOpened((o) => !o)}
