@@ -33,6 +33,7 @@ export const FindMovie = async (movies , user) =>{
   });
   return movie.length ;
 }
+
 export const GetMovies = async (user) =>{
   const movie = []
   const q = query(users, where("uid", "==", user.uid));

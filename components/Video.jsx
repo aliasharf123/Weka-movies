@@ -22,9 +22,8 @@ function Video() {
     const refButton = useRef(null)
     const refButton1 = useRef(null)
     const refButton2 = useRef(null)
-    const [image , setImage] = useState('')
+    const [image , setImage] = useState(!loading ?`https://image.tmdb.org/t/p/original${data.results[0].backdrop_path}`: '')
     const [opened, { open, close }] = useDisclosure(false);
-
 
     const handleToggle = () => {
       setOpen(!open);
@@ -45,7 +44,9 @@ function Video() {
     useEffect(() =>{
         fetchVideo();
     }, [movieNow]) 
-    
+    useEffect(()=>{
+        setImage(!loading ?`https://image.tmdb.org/t/p/original${data.results[0].backdrop_path}`: '')
+    },[loading])
     const handleToggleState = () =>{
         if(enabled === 'In Theaters'){
             return 'w-28 left-0'
