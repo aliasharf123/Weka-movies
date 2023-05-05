@@ -50,7 +50,7 @@ export default function Header() {
               </Menu.Target>
               <Menu.Dropdown>
                
-                <Menu.Item color="red" onClick={() => auth.signOut()}>Delete my account</Menu.Item>
+                <Menu.Item color="red" onClick={() => auth.signOut()}>Sign out</Menu.Item>
               </Menu.Dropdown>
             </Menu> :
             <Loader color='red' size='md' className="w-full"/>
