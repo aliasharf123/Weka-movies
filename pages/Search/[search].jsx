@@ -47,7 +47,7 @@ function Search() {
                                 <TableRowsIcon className={style && 'text-[#F4181C]' }/>
                     </button>
                 </div>
-               {(style )?<FlexResults  media={resultstate ==='movie' ? 'Movies':'TvShow'} setPage={setPage} data={data}/>:<GridResults media={resultstate ==='movie' ? 'Movies':'TvShow'}  setPage={setPage} data={data} /> }
+               {(style )?<FlexResults  media={resultstate ==='movie' ? 'Movies':'TvShow'} page={page} setPage={setPage} data={data}/>:<GridResults media={resultstate ==='movie' ? 'Movies':'TvShow'} page={page}  setPage={setPage} data={data} /> }
             </ResultsControl>
     );
 }

@@ -13,6 +13,7 @@ function PaginationMovies({value , page , setPage}) {
 
     const handleChange = (event, value) => {
         setPage(value);
+        window.scrollTo({top:0 ,left:0 , behavior:'smooth'})
     };
 
     return ( 
