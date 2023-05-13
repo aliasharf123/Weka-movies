@@ -37,7 +37,7 @@ export default function Header() {
           <ul className='text-[rgba(255,255,255,0.8)]  flex gap-8 m-auto max-lg:hidden'>
             <li><Link className='hover:text-[#F4181C] duration-300' href="/" passHref>HOME</Link></li>
             <li><Link className='hover:text-[#F4181C] duration-300' href="/Movies" passHref>MOVIE</Link></li>
-            <li><Link className='hover:text-[#F4181C] duration-300' href="TvShow" passHref>TV SHOW</Link></li>
+            <li><Link className='hover:text-[#F4181C] duration-300' href="/TvShow" passHref>TV SHOW</Link></li>
             <li><Link className='hover:text-[#F4181C] duration-300' href="/" passHref>ABOUT</Link></li>
           </ul>
         </div>
