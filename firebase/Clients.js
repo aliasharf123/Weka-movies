@@ -20,7 +20,10 @@ export const auth =getAuth(app);
 export const db = getFirestore(app);
 
 export const users = collection(db , 'Users');
+var dsa = 'sad'
 
+var dsa ;
+console.log(dsa)
 
 
 export const FindMovie = async (movies , user) =>{
