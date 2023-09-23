@@ -42,10 +42,7 @@ Weka Movies is built using a modern and robust technology stack:
 
 5. Enjoy exploring and managing your favorite content!
 
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ---
 
-Thank you for using Weka Movies! If you have any questions, feedback, or issues, please don't hesitate to [contact us](mailto:your-email@example.com).
+Thank you for using Weka Movies! If you have any questions, feedback, or issues, please don't hesitate to [contact us](Gmail:aliashrafali770@gmail.com).

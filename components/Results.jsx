@@ -1,3 +1,4 @@
+'use client'
 
 
 
@@ -6,7 +7,7 @@ function ResultsControl({children , resultstate , search , setResultsState ,setP
     return (  
         <div className="text-white flex flex-col mt-10  gap-5 ">
             <div className="flex flex-col gap-10 border-b border-[rgba(255,255,255,0.2)] ">
-                <h1 className="text-3xl text-center text-[rgba(255,255,255,0.8)]  font-medium">Search results: “{search}”</h1>
+                <h1 className="text-3xl text-center text-[rgba(255,255,255,0.8)]  font-medium">Search results: “{decodeURIComponent(search)}”</h1>
                 <ul className="flex  font-medium text-center text-[rgba(255,255,255,0.8)] m-auto gap-5  ">
                     <li><button onClick={() =>{
                         setResultsState('movie') 

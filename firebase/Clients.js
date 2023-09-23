@@ -1,5 +1,5 @@
 // Import the functions you need from the SDKs you need
-import {  deleteDoc, doc, getDocs, query, where } from "firebase/firestore";
+import {  addDoc, deleteDoc, doc, getDocs, query, where } from "firebase/firestore";
 import {initializeApp} from "firebase/app";
 import { getFirestore  ,collection } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
@@ -20,12 +20,9 @@ export const auth =getAuth(app);
 export const db = getFirestore(app);
 
 export const users = collection(db , 'Users');
-var dsa = 'sad'
-
-var dsa ;
-console.log(dsa)
 
 
+// Determine a movie is Favorite or not 
 export const FindMovie = async (movies , user) =>{
   const movie = []
   const q = query(users, where("uid", "==", user.uid) , where('movie.id' , '==' , movies.id));
@@ -36,7 +33,7 @@ export const FindMovie = async (movies , user) =>{
   });
   return movie.length ;
 }
-
+// get all favorite movies
 export const GetMovies = async (user) =>{
   const movie = []
   const q = query(users, where("uid", "==", user.uid));
@@ -47,7 +44,14 @@ export const GetMovies = async (user) =>{
   });
   return movie;
 }
-
+export const AddMovie = async (movie , user , media) =>{
+  console.log(await addDoc(users, {
+    uid :user.uid,
+    movie: {...movie, media_type : (media || movie.media_type )}
+  }))
+ 
+}
+// delete A movie from Favorite
 export const DeleteMovie = async (movie , user)=>{
   let id ;
   const q = query(users, where("movie.id", "==", movie.id) , where("uid", "==", user.uid));

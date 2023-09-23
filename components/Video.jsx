@@ -1,3 +1,5 @@
+'use client'
+
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
