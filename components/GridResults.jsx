@@ -1,3 +1,5 @@
+'use client'
+
 import StarIcon from '@mui/icons-material/Star';
 import Image from "next/image";
 import Link from 'next/link';

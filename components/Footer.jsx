@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image';
 import logo from '../public/static/large-WOMJa9L29-transformed.png'
 

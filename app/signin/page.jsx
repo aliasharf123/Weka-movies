@@ -1,82 +1,82 @@
-
+'use client'
 import {auth } from "@/firebase/Clients";
 import {  createUserWithEmailAndPassword , signInWithPopup , signInWithEmailAndPassword , GoogleAuthProvider} from "firebase/auth";
 import {  useState } from "react";
 import {Button} from '@mantine/core'
 import {useAuthState} from 'react-firebase-hooks/auth'
-import logo from '../public/static/large-WOMJa9L29-transformed.png'
+import logo from '../../public/static/large-WOMJa9L29-transformed.png'
 import Image from "next/image";
 import GoogleIcon from '@mui/icons-material/Google';
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 
 function Signin() {
-   const [user, loading , error] = useAuthState(auth)
-   const [email , setEmail] =useState('')
-   const [password , setPassword] =useState('')
-   const [errorMessage , seterrorMessage] = useState('')
-   const [toggle , setToggle] = useState(false) 
-   const router = useRouter()
-    const SignInWithGoogle = () =>{
+    const [user, loading, error] = useAuthState(auth); // Get the authenticated user
+    const [email, setEmail] = useState(''); // State to store email input
+    const [password, setPassword] = useState(''); // State to store password input
+    const [errorMessage, seterrorMessage] = useState(''); // State to store error messages
+    const [toggle, setToggle] = useState(false); // State to toggle between sign-in and sign-up forms
+    const router = useRouter();
+
+    // Sign in or sign up with Google
+    const SignInWithGoogle = () => {
         const provider = new GoogleAuthProvider();
         provider.setCustomParameters({ prompt: "select_account" });
 
-        signInWithPopup(auth , provider).catch(error =>{
-            console.log(error)
+        signInWithPopup(auth, provider).catch(error => {
+            console.log(error);
         });
-        auth.onAuthStateChanged(user =>{
-            if(user){
-                router.push('/')
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                router.push('/');
             }
-        })
+        });
     }
-    if(loading){
+
+    // Display loading message while authenticating
+    if (loading) {
         return (<div>Loading..</div>)
     }
-    if(error){
-        return(<div>error...</div>)
+
+    // Display error message if authentication fails
+    if (error) {
+        return (<div>error...</div>)
     }
-    if(user){
-        return(
+
+    // If the user is already authenticated, show a message
+    if (user) {
+        return (
             <div className="h-screen text-center text-gray-100 text-6xl">
-                <h1>you Aleardy sign in</h1>
+                <h1>You're already signed in</h1>
             </div>
         )
     }
-    const SignWithEmail =(e) =>{
+
+    // Function to sign in or sign up with email and password
+    const SignWithEmail = (e) => {
         e.preventDefault();
-        if(email , password){
-            if(toggle){
-                console.log('sign up')
-
-                createUserWithEmailAndPassword(auth ,  email , password).then((userCredential) => {
-                    // Signed in 
-                    router.push('/')
-                    
-                    // ...
+        if (email && password) {
+            if (toggle) {
+                createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
+                    // Signed up successfully
+                    router.push('/');
                 })
-                .catch((error) => {
-                    // console.log(error.code)
-                    seterrorMessage(error.message)
-                    setTimeout(() => seterrorMessage(''),3000)
-                    // ..
-                });
+                    .catch((error) => {
+                        // Handle sign-up error
+                        seterrorMessage(error.message)
+                        setTimeout(() => seterrorMessage(''), 3000)
+                    });
+            } else {
+                signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
+                    // Signed in successfully
+                    router.push('/');
+                })
+                    .catch((error) => {
+                        // Handle sign-in error
+                        seterrorMessage(error.message)
+                        setTimeout(() => seterrorMessage(''), 3000)
+                    });
             }
-            else{
-                console.log('sign in')
-
-                signInWithEmailAndPassword(auth, email ,password).then((userCredential) => {
-                    // Signed in 
-                    router.push('/')
-                    // ...
-                  })
-                  .catch((error) => {
-                    seterrorMessage(error.message)
-                    setTimeout(() => seterrorMessage(''),3000)
-
-                  });
-            }
-        
         }
     }
     return ( 

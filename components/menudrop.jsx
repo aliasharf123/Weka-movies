@@ -1,3 +1,5 @@
+'use client'
+
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {  useState } from 'react';

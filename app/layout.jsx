@@ -1,7 +1,8 @@
 import Footer from "@/components/Footer"
 import Header from "@/components/Header"
 import Head from "next/head"
-
+import './globals.css'
+import './Home.module.css'
 export const metadata = {
     title: 'Weka movies',
     description: 'Welcome to Weka movies',

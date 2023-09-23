@@ -1,14 +1,16 @@
+'use client'
+
 import _ from 'lodash';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import StarIcon from '@mui/icons-material/Star';
 import { useState } from 'react';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import useFetch from '@/src/useFetch';
+import useFetch from '../../../src/useFetch';
 import { Avatar } from '@mui/material';
 import 'animate.css'
 import Link from 'next/link';
-import AddFavorite from '@/components/Favorite';
+import AddFavorite from '../../../components/Favorite';
 
 const selection = [ 'Cast' , 'Reviews' , 'Photos']
 function SingleMovie({movie ,video ,recommendations}) {
@@ -206,44 +208,44 @@ function SingleMovie({movie ,video ,recommendations}) {
 export default SingleMovie;
 
 
-export const getStaticPaths = async () =>{
-    const resDay = await fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=${process.env.NEXT_PUBLIC_DB_key}`);
-    const dataDay = await resDay.json();
-    const resWeek = await fetch(`https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.NEXT_PUBLIC_DB_key}`);
-    const dataWeek = await resWeek.json();
+// export const getStaticPaths = async () =>{
+//     const resDay = await fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=${process.env.NEXT_PUBLIC_DB_key}`);
+//     const dataDay = await resDay.json();
+//     const resWeek = await fetch(`https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.NEXT_PUBLIC_DB_key}`);
+//     const dataWeek = await resWeek.json();
 
-    const data = _.merge(dataWeek.results,dataDay.results);
-    const paths = data.map((movie) => ({
-        params: {
-            movieId: movie.id.toString()
-        }
-    }));
+//     const data = _.merge(dataWeek.results,dataDay.results);
+//     const paths = data.map((movie) => ({
+//         params: {
+//             movieId: movie.id.toString()
+//         }
+//     }));
     
-    return {
-        paths , 
-        fallback: true,
-    }
-}
-export const getStaticProps = async (ctx) => {
-    const movieid = ctx?.params.movieId;
-    const res = await fetch(`https://api.themoviedb.org/3/movie/${movieid}?api_key=${process.env.NEXT_PUBLIC_DB_key}&language=en-US`)
-    const response = await fetch(`https://api.themoviedb.org/3/movie/${movieid}/videos?api_key=${process.env.NEXT_PUBLIC_DB_key}&language=en-US`);
-    const response1 = await fetch(`https://api.themoviedb.org/3/movie/${movieid}/recommendations?api_key=${process.env.NEXT_PUBLIC_DB_key}&page=1`)
-    var recommendations = await response1.json();
-    if(response.ok){
-        const data = await response.json();
-        if(data.results){
-            var video = data.results.filter(movie => movie.type === 'Trailer')[0]
-        }
-    }
-    if(res.ok){
-        var movie = await res.json();
-    }
-    return {
-        props: {
-            movie,
-            video :  video ? video : 'sdsdsdd',
-            recommendations
-        }
-    }
-}
+//     return {
+//         paths , 
+//         fallback: true,
+//     }
+// }
+// export const getStaticProps = async (ctx) => {
+//     const movieid = ctx?.params.movieId;
+//     const res = await fetch(`https://api.themoviedb.org/3/movie/${movieid}?api_key=${process.env.NEXT_PUBLIC_DB_key}&language=en-US`)
+//     const response = await fetch(`https://api.themoviedb.org/3/movie/${movieid}/videos?api_key=${process.env.NEXT_PUBLIC_DB_key}&language=en-US`);
+//     const response1 = await fetch(`https://api.themoviedb.org/3/movie/${movieid}/recommendations?api_key=${process.env.NEXT_PUBLIC_DB_key}&page=1`)
+//     var recommendations = await response1.json();
+//     if(response.ok){
+//         const data = await response.json();
+//         if(data.results){
+//             var video = data.results.filter(movie => movie.type === 'Trailer')[0]
+//         }
+//     }
+//     if(res.ok){
+//         var movie = await res.json();
+//     }
+//     return {
+//         props: {
+//             movie,
+//             video :  video ? video : 'sdsdsdd',
+//             recommendations
+//         }
+//     }
+// }
