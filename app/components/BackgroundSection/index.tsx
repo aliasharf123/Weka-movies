@@ -52,9 +52,9 @@ export default async function BackgroundSection() {
                 </div>
                 <div className="flex gap-4">
                     <Link href={`${type}/${data.id}`} className="bg-[#F4181C] hover:bg-red-600 rounded-lg p-2 px-4 text-lg items-center flex">See More</Link>
-                    <button className="relative flex justify-center items-center text-xl p-3  rounded-lg bg-[rgba(255,255,255,0.1)] ">
+                    <div className="relative flex justify-center items-center text-xl p-3  rounded-lg bg-[rgba(255,255,255,0.1)] ">
                         <AddFavorite movie={data} media={data.media_type} Flex={false} single={true} />
-                    </button>
+                    </div>
                 </div>
             </div>
         </div>

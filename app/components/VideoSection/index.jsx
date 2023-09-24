@@ -1,20 +1,16 @@
 'use client'
 
-import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
-import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
-import useFetch from "@/src/useFetch";
+import { Suspense, useEffect, useRef, useState } from "react";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useDisclosure } from '@mantine/hooks';
-import { Modal, Group, Button } from '@mantine/core';
 import 'animate.css'
-import { Skeleton } from "@mui/material";
-import getInfo from "@/src/getInfo";
+import Videos from "./videos";
+import Loading from "./Loading";
+
 function Video() {
     const [enabled, setEnabled] = useState('In Theaters');
     const [url, setUrl] = useState(`https://api.themoviedb.org/3/movie/now_playing?&language=en-US&page=1`)
     const [TVorMovie, setTVorMovie] = useState('movie')
-    const {data , loading} =  useFetch(url)
     const [open2, setOpen] = useState(false);
     const [movieNow , setMovieNow] = useState('')
     const [videoKey, setVideoKey] = useState('');
@@ -154,41 +150,11 @@ function Video() {
                 </div>
             </div>
             <div className=" overflow-scroll   overflow-y-hidden  pt-8  removeScroll">
-            <div className="flex flex-row gap-4 ml-7  w-[8000px]  animate__animated animate__fadeIn  " >
-                   {!loading ? data.results.map(movie =>{
-                    const {title ,realseData} =getInfo(movie)
-                    const Year = new Date(realseData).getFullYear()
-                       return (
-                        <div className="gap-5 cursor-pointer flex-wrap relative text-center  h-[240px] "  key={movie.id}> 
-                           <div className='cursor-pointer  relative  hover:scale-105 duration-300 flex justify-center items-center' onClick={() =>{ 
-                               handleToggle()
-                               open()
-                               setMovieNow(movie.id)
-                            }} >
-                                {movie.backdrop_path && <Image className="object-cover rounded-xl brightness-[.80]"  alt={movie.id} width={480} height={240} src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}/>}
-                                <PlayArrowRoundedIcon fontSize="inherit" className="absolute text-4xl bg-WhiteTransparent rounded-full"/>
-                                <div className="absolute bottom-0 left-0 m-3">
-                                   <h1 className="font-medium">{title}</h1> 
-                                   <h1 className="text-left text-gray-300">{Year}</h1>
-                                </div>
-                            </div>
-                        </div>
-                    )
-                }):
-                <div className="gap-5 cursor-pointer relative justify-center h-[240px] flex"> 
-                   <Skeleton sx={{ bgcolor: 'rgba(0,0,0,0.6)' }} variant="rounded" width={480} height={240} />
-                   <Skeleton sx={{ bgcolor: 'rgba(0,0,0,0.6)' }} variant="rounded" width={480} height={240} />
-                   <Skeleton sx={{ bgcolor: 'rgba(0,0,0,0.6)' }} variant="rounded" width={480} height={240} />
-                   <Skeleton sx={{ bgcolor: 'rgba(0,0,0,0.6)' }} variant="rounded" width={480} height={240} />
-                   <Skeleton sx={{ bgcolor: 'rgba(0,0,0,0.6)' }} variant="rounded" width={480} height={240} />
-                </div>     
-                } 
-                 <Modal opened={opened} onClose={close} size='xl' className="" title={videoKey ? videoKey.name : 'no video'} centered>
-                    <iframe  id="player" type="text/html"  className="w-full h-96 " allowFullScreen
-                            src={`http://www.youtube.com/embed/${videoKey&& videoKey.key}?enablejsapi=1&origin=http://example.com`}
-                            frameborder="0"></iframe>
-                </Modal>
-            </div>
+                <div className="flex flex-row gap-4 ml-7  w-[8000px]  animate__animated animate__fadeIn  " >
+                    <Suspense fallback={<Loading/>}>
+                        <Videos url={url}/>
+                    </Suspense>
+                </div>
             </div>
         </div> 
     );
