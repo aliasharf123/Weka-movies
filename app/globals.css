@@ -4,7 +4,7 @@
 
 /* width */
 body{
-    background-color: black;
+    background-color: #111310;
 }
 ::-webkit-scrollbar {
     width: 10px;
@@ -14,7 +14,7 @@ body{
   /* Track */
   ::-webkit-scrollbar-track {
     border-radius: 10px;
-    background-color: black;
+    background-color: #111310;  
   }
   
   /* Handle */
@@ -26,4 +26,14 @@ body{
     @apply  font-bold text-2xl ml-8;
   }
  
+}
+.text span::after {
+  content: ",  ";
+}
+.text span:last-child::after {
+  content: "";
+}
+.removeScroll::-webkit-scrollbar {
+  display: none;
+  /* for Chrome, Safari, and Opera */
 }

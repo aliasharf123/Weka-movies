@@ -3,6 +3,7 @@ import Header from "@/components/Header"
 import Head from "next/head"
 import './globals.css'
 import './Home.module.css'
+import React from 'react'
 export const metadata = {
     title: 'Weka movies',
     description: 'Welcome to Weka movies',
@@ -13,7 +14,7 @@ export default function RootLayout({
     // Layouts must accept a children prop.
     // This will be populated with nested layouts or pages
     children,
-  }) {
+  } : {children : React.ReactNode}) {
     
     return (
       <html lang="en">
