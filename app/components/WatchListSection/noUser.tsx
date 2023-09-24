@@ -5,7 +5,6 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import Link from 'next/link';
 
 export default function NoUser() {
-  console.log('Nouser')
   return (
     <div className="flex flex-col justify-center items-center h-[12rem]">
         <BookmarkBorderIcon className="text-6xl  bg-[rgba(0,0,0,0.4)] text-white" />
