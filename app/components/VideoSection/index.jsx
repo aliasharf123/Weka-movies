@@ -2,16 +2,14 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
+import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
 import useFetch from "@/src/useFetch";
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import CloseIcon from '@mui/icons-material/Close';
 import { useDisclosure } from '@mantine/hooks';
 import { Modal, Group, Button } from '@mantine/core';
-import { Loader } from "@mantine/core";
 import 'animate.css'
 import { Skeleton } from "@mui/material";
+import getInfo from "@/src/getInfo";
 function Video() {
     const [enabled, setEnabled] = useState('In Theaters');
     const [url, setUrl] = useState(`https://api.themoviedb.org/3/movie/now_playing?&language=en-US&page=1`)
@@ -24,7 +22,6 @@ function Video() {
     const refButton = useRef(null)
     const refButton1 = useRef(null)
     const refButton2 = useRef(null)
-    const [image , setImage] = useState(!loading ?`https://image.tmdb.org/t/p/original${data.results[0].backdrop_path}`: '')
     const [opened, { open, close }] = useDisclosure(false);
 
     const handleToggle = () => {
@@ -42,13 +39,9 @@ function Video() {
         }        
     }
     
-
     useEffect(() =>{
         fetchVideo();
     }, [movieNow]) 
-    useEffect(()=>{
-        setImage(!loading ?`https://image.tmdb.org/t/p/original${data.results[0].backdrop_path}`: '')
-    },[loading])
     const handleToggleState = () =>{
         if(enabled === 'In Theaters'){
             return 'w-28 left-0'
@@ -96,9 +89,8 @@ function Video() {
             setTVorMovie('tv')
         }
     }
-
     return ( 
-        <div style={{backgroundImage:  `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),url(${image})` }} className='bg-no-repeat bg-cover pt-7 duration-300 transition bg-red-600'>
+        <div  className='bg-no-repeat bg-cover pt-7 duration-300 transition '>
             <div  className='flex flex-row gap-6  '>
                 <h1 className="text-header">Trailer</h1>
                 <div className='sm:flex hidden border-2 border-[#F4181C] px-2 gap-[3.2rem]  rounded-full lg:w-80 h-8 relative mt-1 '>
@@ -161,20 +153,25 @@ function Video() {
                         }
                 </div>
             </div>
-            <div className=" overflow-scroll   overflow-y-hidden  pt-8 ">
-            <div className="flex flex-row gap-4 ml-7  w-[8000px] pb-8 animate__animated animate__fadeIn" >
+            <div className=" overflow-scroll   overflow-y-hidden  pt-8  removeScroll">
+            <div className="flex flex-row gap-4 ml-7  w-[8000px]  animate__animated animate__fadeIn  " >
                    {!loading ? data.results.map(movie =>{
+                    const {title ,realseData} =getInfo(movie)
+                    const Year = new Date(realseData).getFullYear()
                        return (
-                        <div className="gap-5 cursor-pointer flex-wrap relative text-center  h-[240px] " onMouseOver={() => setImage(`https://image.tmdb.org/t/p/original${movie.backdrop_path}`)} key={movie.id}> 
-                           <div className=' gap-5 cursor-pointer flex-wrap relative transition hover:scale-105 duration-300' onClick={() =>{ 
+                        <div className="gap-5 cursor-pointer flex-wrap relative text-center  h-[240px] "  key={movie.id}> 
+                           <div className='cursor-pointer  relative  hover:scale-105 duration-300 flex justify-center items-center' onClick={() =>{ 
                                handleToggle()
                                open()
                                setMovieNow(movie.id)
-                            }}   >
-                            {movie.backdrop_path && <Image className="object-cover rounded-lg "  alt={movie.id} width={480} height={240} src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}/>}
-                            <PlayCircleOutlineIcon className="absolute top-[45%] left-[42%] text-5xl"/>
+                            }} >
+                                {movie.backdrop_path && <Image className="object-cover rounded-xl brightness-[.80]"  alt={movie.id} width={480} height={240} src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}/>}
+                                <PlayArrowRoundedIcon fontSize="inherit" className="absolute text-4xl bg-WhiteTransparent rounded-full"/>
+                                <div className="absolute bottom-0 left-0 m-3">
+                                   <h1 className="font-medium">{title}</h1> 
+                                   <h1 className="text-left text-gray-300">{Year}</h1>
+                                </div>
                             </div>
-                            {movie.title || movie.name} 
                         </div>
                     )
                 }):
@@ -184,16 +181,13 @@ function Video() {
                    <Skeleton sx={{ bgcolor: 'rgba(0,0,0,0.6)' }} variant="rounded" width={480} height={240} />
                    <Skeleton sx={{ bgcolor: 'rgba(0,0,0,0.6)' }} variant="rounded" width={480} height={240} />
                    <Skeleton sx={{ bgcolor: 'rgba(0,0,0,0.6)' }} variant="rounded" width={480} height={240} />
-                </div>
-                
-                
+                </div>     
                 } 
                  <Modal opened={opened} onClose={close} size='xl' className="" title={videoKey ? videoKey.name : 'no video'} centered>
                     <iframe  id="player" type="text/html"  className="w-full h-96 " allowFullScreen
                             src={`http://www.youtube.com/embed/${videoKey&& videoKey.key}?enablejsapi=1&origin=http://example.com`}
                             frameborder="0"></iframe>
                 </Modal>
-           
             </div>
             </div>
         </div> 

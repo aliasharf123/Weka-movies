@@ -24,7 +24,7 @@ export default function Header() {
   const title = opened ? 'Close navigation' : 'Open navigation';
 
   // Function to handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = (e : any) => {
     e.preventDefault();
     if (search) {
       setOpen(false);
@@ -36,7 +36,7 @@ export default function Header() {
   return (
     <nav className='flex flex-col justify-center shadow-lg relative'>
       {/* Header content */}
-      <div className='h-16 flex w-full p-2 z-[200] bg-[#121212] m-auto'>
+      <div className='h-16 flex w-full p-2 z-[200] bg-HeaderColor m-auto'>
         <div className='flex mx-auto'>
           {/* Logo */}
           <Link href='/' passHref>
