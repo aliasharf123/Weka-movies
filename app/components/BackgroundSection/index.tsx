@@ -41,7 +41,7 @@ export default async function BackgroundSection() {
                 <div className="grid gap-4">
                     <h1 className="font-bold text-5xl">{title}</h1>
                     <div className="flex gap-2 items-center">
-                        <h1 className="text flex text-slate-300">
+                        <h1 className="text flex text-slate-300 gap-1">
                             {data.genre_ids.length ? data.genre_ids.map((genreId , index)=>{
                                 const GeneryName = GenresMap[genreId.toString() as keyof typeof GenresMap]
                             return <span key={index}>{GeneryName?.toUpperCase()}</span>

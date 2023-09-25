@@ -12,24 +12,9 @@ import Filter from "../components/Filter";
 import { makeQueryClient } from "@/components/movies";
 
 // Define an array of sorting options
-const dataSort = [
-    'vote_average.desc',
-    'vote_average.asc',
-    'release_date.asc',
-    'release_date.desc',
-    'popularity.desc',
-    'popularity.asc',
-    'revenue.asc',
-    'revenue.desc',
-    'primary_release_date.asc',
-    'primary_release_date.desc',
-    'original_title.asc',
-    'original_title.desc',
-    'vote_count.asc',
-    'vote_count.desc'
-];
+
 export const metadata = {
-    title: 'Explore movies- Weka movies',
+    title: 'Explore movies - Weka movies',
     description: 'Welcome to Weka movies',
   }
 interface Params  {
@@ -110,7 +95,7 @@ export default async function Movies({searchParams} : Params) {
     // }
     // Render search results based on the selected style (grid or table view)
     return (
-        <div className={'grid sm:px-10 px-2 gap-3'}>
+        <div className={'grid px-2 gap-3'}>
             <Filter/>
             {/* {(style )? */}
             {/* // <FlexResults page={page} media={'Movies'} data={data}/> */}
