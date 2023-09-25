@@ -1,6 +1,6 @@
 'use client'
 import { ContentItem } from "@/types/ContentType";
-import AddFavorite from "./Favorite";
+import AddFavorite from "../../components/Favorite";
 import Link from "next/link";
 import Image from "next/image";
 import StarIcon from '@mui/icons-material/Star';

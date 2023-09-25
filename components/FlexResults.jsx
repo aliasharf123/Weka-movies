@@ -5,7 +5,7 @@ import AddFavorite from "./Favorite";
 import PaginationMovies from "./PaginationMovies";
 
 
-function FlexResults({data ,page , setPage , media}) {
+function FlexResults({data ,page , media}) {
     return ( 
         <div className="flex flex-col justify-center   text-white">
             <div className=" w-full sm:px-10 px-2 flex flex-col gap-2  ">
@@ -26,7 +26,7 @@ function FlexResults({data ,page , setPage , media}) {
                     )
                 })}
             </div>
-            {data.total_pages  > 1 &&<PaginationMovies page={page} value={data.total_pages}   setPage={setPage}/>}
+            {data.total_pages  > 1 &&<PaginationMovies page={page} value={data.total_pages} />}
     </div> 
      );
 }

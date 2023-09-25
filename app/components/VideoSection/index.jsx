@@ -18,11 +18,7 @@ function Video() {
     const refButton = useRef(null)
     const refButton1 = useRef(null)
     const refButton2 = useRef(null)
-    const [opened, { open, close }] = useDisclosure(false);
 
-    const handleToggle = () => {
-      setOpen(!open);
-    };
     const fetchVideo = async () =>{
         if(movieNow){
             const response = await fetch(`https://api.themoviedb.org/3/${TVorMovie}/${movieNow}/videos?api_key=${process.env.NEXT_PUBLIC_DB_key}&language=en-US`);
