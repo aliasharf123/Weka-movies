@@ -1,5 +1,5 @@
 import React from 'react'
-import ContentCard from '@/components/contentCard'
+import ContentCard from '@/app/components/contentCard'
 import { GetMovies } from '@/src/CRUD/GetMovies';
 import NoList from './noList';
 import { ContentItem } from '@/types/ContentType';

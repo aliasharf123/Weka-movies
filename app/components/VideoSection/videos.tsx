@@ -3,27 +3,25 @@ import { Content, ContentItem } from '@/types/ContentType';
 import Image from 'next/image';
 import React from 'react'
 import {PlayCircleOutlined} from '@ant-design/icons'
+import { makeQueryClient } from '@/components/movies';
+import Link from 'next/link';
+
+const queryClient = makeQueryClient();
 export default async function Videos({url}: {url: string}) {
-    const res  = await  fetch(url + `&api_key=${process.env.NEXT_PUBLIC_DB_key}` ,{next : {revalidate : 3600}})
-    const data : any = await res.json()
-    function HandelClick(movie: ContentItem){
-            // handleToggle();
-            // open();
-            // setMovieNow(movie.id);
-    }
+    const data = await queryClient<Content>(url , ()=> fetch(url + `&api_key=${process.env.NEXT_PUBLIC_DB_key}` ).then((res) => res.json()))
     return (
         <>
             {data.results.map((movie : ContentItem) => {
-            const { title, realseData } = getInfo(movie);
+            const { title, realseData , type } = getInfo(movie);
             const Year = new Date(realseData as any).getFullYear();
             return (
                 <div
                 className="gap-5 cursor-pointer flex-wrap relative text-center  h-[240px] "
                 key={movie.id}
                 >
-                <div
+                <Link
+                    href={`/${type}-${movie}`}
                     className="cursor-pointer  relative  hover:scale-105 duration-300 flex justify-center items-center"
-                    onClick={() => HandelClick(movie)}
                 >
                     {movie.backdrop_path && (
                     <Image
@@ -39,7 +37,7 @@ export default async function Videos({url}: {url: string}) {
                         <h1 className="font-medium">{title}</h1>
                         <h1 className="text-left text-gray-300">{Year}</h1>
                     </div>
-                </div>
+                </Link>
                 </div>
             );
             })}

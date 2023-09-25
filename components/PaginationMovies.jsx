@@ -4,17 +4,17 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
-const darkTheme = createTheme({
+export const darkTheme = createTheme({
     palette: {
       mode: 'dark',
     },
   });
 
 
-function PaginationMovies({value , page , setPage}) {
+function PaginationMovies({value , page}) {
 
     const handleChange = (event, value) => {
-        setPage(value);
+        // setPage(value);
         window.scrollTo({top:0 ,left:0 , behavior:'smooth'})
     };
 

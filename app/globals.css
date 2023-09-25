@@ -33,6 +33,13 @@ body{
 .text span:last-child::after {
   content: "";
 }
+.textLine span::after {
+  content: " | ";
+}
+.textLine span:last-child::after {
+  content: "";
+}
+
 .removeScroll::-webkit-scrollbar {
   display: none;
   /* for Chrome, Safari, and Opera */
