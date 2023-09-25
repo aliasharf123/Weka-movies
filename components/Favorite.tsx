@@ -53,7 +53,6 @@ function AddFavorite({ movie, media, Flex , single } : any) {
                     error()
                 }
             }
-            revalidatePath('/componenets/WatchListSection/watchList')
         }
     }
     return (

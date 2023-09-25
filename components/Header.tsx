@@ -6,7 +6,7 @@ import Image from 'next/image';
 import logo from '../public/static/large-WOMJa9L29-transformed.png';
 import logo1 from '../public/static/Profile-PNG-File.jpg';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from "../firebase/Clients";
 import { Menu, Button, Burger, Drawer, Loader } from '@mantine/core';
@@ -19,7 +19,7 @@ export default function Header() {
   const [user, loading, error] = useAuthState(auth);
   const [opened, setOpen] = useState(false);
   const [opened1, setOpened] = useState(false);
-
+  const pathName = usePathname()
   // Set title for the navigation drawer
   const title = opened ? 'Close navigation' : 'Open navigation';
 
@@ -32,7 +32,7 @@ export default function Header() {
       router.push(`/Search/${search}`);
     }
   }
-
+  console.log(pathName)
   return (
     <nav className='flex flex-col justify-center shadow-lg relative'>
       {/* Header content */}
@@ -44,10 +44,10 @@ export default function Header() {
           </Link>
           {/* Navigation links */}
           <ul className='text-[rgba(255,255,255,0.8)] flex gap-8 m-auto max-lg:hidden'>
-            <li><Link className='hover:text-[#F4181C] duration-300' href="/" passHref>HOME</Link></li>
-            <li><Link className='hover:text-[#F4181C] duration-300' href="/Movies" passHref>MOVIE</Link></li>
-            <li><Link className='hover:text-[#F4181C] duration-300' href="/TvShow" passHref>TV SHOW</Link></li>
-            <li><Link className='hover:text-[#F4181C] duration-300' href="/" passHref>ABOUT</Link></li>
+            <li><Link className={`hover:text-[#F4181C] ${pathName.endsWith('/') && 'text-[#F4181C]'}  duration-300 `} href="/" passHref>HOME</Link></li>
+            <li><Link className={`hover:text-[#F4181C] duration-300 ${pathName.includes('Movies') && 'text-[#F4181C]'} ` } href="/Movies" passHref>MOVIE</Link></li>
+            <li><Link  className={`hover:text-[#F4181C] duration-300 ${pathName.includes('TvShow') && 'text-[#F4181C]'} ` }  href="/TvShow" passHref>TV SHOW</Link></li>
+            <li><Link className={`hover:text-[#F4181C] duration-300 ${pathName.includes('About') && 'text-[#F4181C]'} ` } href="/" passHref>ABOUT</Link></li>
           </ul>
         </div>
         <div className='m-auto gap-4 flex h-full p-1 justify-center'>

@@ -14,14 +14,13 @@ function GridResults({data , page ,  media}) {
 
   
     return ( 
-        <div className="flex justify-center flex-col">
-        <div className='grid lg:grid-cols-6 md:grid-cols-3 grid-cols-2 grid-flow-row  gap-5     mb-5 ' >
-                {data.results && data.results.map(movie =>{
-                    return(
-                        <DetaildContentCard movie={movie}/>
-                )
-                    
-            }) }
+        <div >
+            <div className='grid xl:grid-cols-6 lg:grid-cols-4  md:grid-cols-3 grid-cols-2   gap-5 mb-5  sm:px-10' >
+                    {data.results && data.results.map(movie =>{
+                        return(
+                            <DetaildContentCard movie={movie}/>
+                        )          
+                }) }
             </div> 
             {data.total_pages  > 1 &&<PaginationMovies page={page} value={data.total_pages} />}
         </div>
