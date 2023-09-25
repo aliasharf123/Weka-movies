@@ -25,7 +25,7 @@ export function makeQueryClient() {
 
 const queryClient = makeQueryClient();
 export default async function MoviesList({url}: {url : string}) {
-    const data = await queryClient<Content>('url' , ()=> fetch(url+`&api_key=${process.env.NEXT_PUBLIC_DB_key}`).then((res) => res.json()))
+    const data = await queryClient<Content>(url , ()=> fetch(url+`&api_key=${process.env.NEXT_PUBLIC_DB_key}`).then((res) => res.json()))
     return (           
       <>
         {data.results.map((movie: ContentItem) =>{
