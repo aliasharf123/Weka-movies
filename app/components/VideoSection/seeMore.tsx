@@ -13,7 +13,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@/firebase/Clients';
 import { useRouter } from 'next/navigation';
 export default function SeeMore({movie} : {movie : ContentItem}) {
-    const {title, realseData , type} = getInfo(movie)
+    const {title } = getInfo(movie)
     const [user , loading] = useAuthState(auth)
     const router = useRouter()
     const [messageApi, contextHolder] = message.useMessage(); // message to determine a state of requests
@@ -43,7 +43,7 @@ export default function SeeMore({movie} : {movie : ContentItem}) {
             </Menu.Item>
             <Menu.Divider />
             <Menu.Item>
-              <Link href={`/${type}/${movie.id}-${title?.replaceAll(' ' , '-')}`} className="flex items-center  gap-1 text-start">
+              <Link href={`/${movie.media_type}/${movie.id}-${title?.replaceAll(' ' , '-')}`} className="flex items-center  gap-1 text-start">
                 <DescriptionIcon fontSize="small" /> Page
               </Link>
             </Menu.Item>

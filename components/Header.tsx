@@ -37,7 +37,7 @@ export default function Header() {
     }
   }
   return (
-    <nav className='flex flex-col justify-center shadow-lg relative'>
+    <nav className={`flex flex-col justify-center shadow-lg relative ${pathName.endsWith('signin') && 'hidden'}`}>
       {/* Header content */}
       <div className='h-16 flex w-full p-2 z-[200] bg-HeaderColor m-auto'>
         <div className='flex mx-auto'>
@@ -48,7 +48,7 @@ export default function Header() {
           {/* Navigation links */}
           <ul className='text-[rgba(255,255,255,0.8)] flex gap-8 m-auto max-lg:hidden'>
             {Links.map((link , index) => (
-              <li><Link className={`hover:text-[#F4181C] ${pathName.endsWith(link.length ? link : '/') && 'text-[#F4181C]'}  duration-300 `}  href={`/${link}`}>{link.length ? link : 'Home'}</Link></li>
+              <li key={index}><Link className={`hover:text-[#F4181C] ${pathName.endsWith(link.length ? link : '/') && 'text-[#F4181C]'}  duration-300 `}  href={`/${link}`}>{link.length ? link : 'Home'}</Link></li>
             ))}
           </ul>
         </div>
@@ -86,7 +86,7 @@ export default function Header() {
             >
               <ul className='flex flex-col gap-8 m-auto'>
                 {Links.map((link , index) => (
-                  <li><Link className={`hover:text-[#F4181C] ${pathName.endsWith(link.length ? link : '/') && 'text-[#F4181C]'}  duration-300 `} onClick={() => setOpened(false)} passHref href={`/${link}`}>{link.length ? link : 'Home'}</Link></li>
+                  <li key={index}><Link className={`hover:text-[#F4181C] ${pathName.endsWith(link.length ? link : '/') && 'text-[#F4181C]'}  duration-300 `} onClick={() => setOpened(false)} passHref href={`/${link}`}>{link.length ? link : 'Home'}</Link></li>
                 ))}
               </ul>
             </Drawer>

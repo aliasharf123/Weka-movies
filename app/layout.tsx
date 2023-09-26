@@ -4,6 +4,7 @@ import Head from "next/head"
 import './globals.css'
 import './Home.module.css'
 import React from 'react'
+
 export const metadata = {
     title: 'Weka movies',
     description: 'Welcome to Weka movies',
@@ -15,7 +16,7 @@ export default function RootLayout({
     // This will be populated with nested layouts or pages
     children,
   } : {children : React.ReactNode}) {
-    
+
     return (
       <html lang="en">
         <Head>
@@ -26,7 +27,7 @@ export default function RootLayout({
             <link rel="icon" href="/favicon.ico" />
         </Head>
         <body>
-            <Header/>
+             <Header/>
             {children}
             <Footer/>
         </body>

@@ -4,15 +4,7 @@ import { auth} from '../firebase/Clients';
 import { useRouter } from 'next/navigation';
 import { useAuthState } from "react-firebase-hooks/auth";
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-import { revalidatePath } from 'next/cache'
-import { Button, message } from 'antd';
-import { ContentItem } from '@/types/ContentType';
-import { FindMovie } from '@/src/CRUD/FindMovie';
-import { AddMovie } from '@/src/CRUD/AddMovie';
-import { DeleteMovie } from '@/src/CRUD/DeleteMovie';
-import getInfo from '@/src/getInfo';
-import { success ,error } from '@/src/messages';
-import { User } from 'firebase/auth';
+import {  message } from 'antd';
 import { AddtoFavorite } from '@/src/AddFavorite';
 
 // A Favorite Button icon component
