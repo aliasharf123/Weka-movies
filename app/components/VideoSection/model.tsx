@@ -48,7 +48,7 @@ export default  function Model() {
                     :
                     data.results.length ?
                     <iframe  id="player" typeof="text/html"  className="w-full h-96 " allowFullScreen
-                        src={`http://www.youtube.com/embed/${OfficalTrailer.key}?enablejsapi=1&origin=http://example.com`}
+                        src={`https://www.youtube.com/embed/${OfficalTrailer.key}?enablejsapi=1&origin=http://example.com`}
                         ></iframe>
                     : <div className='text-white w-full h-96 flex justify-center items-center'>No Video </div>
                     }
