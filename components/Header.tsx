@@ -9,7 +9,11 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from "../firebase/Clients";
-import { Menu, Button, Burger, Drawer, Loader } from '@mantine/core';
+import { Menu, Button, Burger, Drawer, Loader, MantineProvider } from '@mantine/core';
+
+
+// Array of Navigation 
+const Links = ['' , 'Movies' , 'Tv shows' , 'People']
 
 // Define the Header component
 export default function Header() {
@@ -32,7 +36,6 @@ export default function Header() {
       router.push(`/Search/${search}`);
     }
   }
-  console.log(pathName)
   return (
     <nav className='flex flex-col justify-center shadow-lg relative'>
       {/* Header content */}
@@ -44,10 +47,9 @@ export default function Header() {
           </Link>
           {/* Navigation links */}
           <ul className='text-[rgba(255,255,255,0.8)] flex gap-8 m-auto max-lg:hidden'>
-            <li><Link className={`hover:text-[#F4181C] ${pathName.endsWith('/') && 'text-[#F4181C]'}  duration-300 `} href="/" passHref>HOME</Link></li>
-            <li><Link className={`hover:text-[#F4181C] duration-300 ${pathName.includes('Movies') && 'text-[#F4181C]'} ` } href="/Movies" passHref>MOVIE</Link></li>
-            <li><Link  className={`hover:text-[#F4181C] duration-300 ${pathName.includes('TvShow') && 'text-[#F4181C]'} ` }  href="/TvShow" passHref>TV SHOW</Link></li>
-            <li><Link className={`hover:text-[#F4181C] duration-300 ${pathName.includes('About') && 'text-[#F4181C]'} ` } href="/" passHref>ABOUT</Link></li>
+            {Links.map((link , index) => (
+              <li><Link className={`hover:text-[#F4181C] ${pathName.endsWith(link.length ? link : '/') && 'text-[#F4181C]'}  duration-300 `}  href={`/${link}`}>{link.length ? link : 'Home'}</Link></li>
+            ))}
           </ul>
         </div>
         <div className='m-auto gap-4 flex h-full p-1 justify-center'>
@@ -74,20 +76,21 @@ export default function Header() {
             color='white'
             className='lg:hidden my-auto'
           />
-          {/* Mobile navigation drawer */}
-          <Drawer
-            opened={opened1}
-            onClose={() => setOpened(false)}
-            padding="lg"
-            size="md"
-          >
-            <ul className='flex flex-col gap-8 m-auto'>
-              <li><Link className='hover:text-[#F4181C] duration-300 text-black' href="/" onClick={() => setOpened(false)} passHref>HOME</Link></li>
-              <li><Link className='hover:text-[#F4181C] duration-300' href="/Movies" onClick={() => setOpened(false)} passHref>MOVIE</Link></li>
-              <li><Link className='hover:text-[#F4181C] duration-300' href="TvShow" onClick={() => setOpened(false)} passHref>TV SHOW</Link></li>
-              <li><Link className='hover:text-[#F4181C] duration-300' href="/" onClick={() => setOpened(false)} passHref>ABOUT</Link></li>
-            </ul>
-          </Drawer>
+          {/* Mobile dark navigation drawer */} 
+          <MantineProvider theme={{ colorScheme: "dark" }}> 
+            <Drawer
+              opened={opened1}
+              onClose={() => setOpened(false)}
+              padding="lg"
+              size="md"
+            >
+              <ul className='flex flex-col gap-8 m-auto'>
+                {Links.map((link , index) => (
+                  <li><Link className={`hover:text-[#F4181C] ${pathName.endsWith(link.length ? link : '/') && 'text-[#F4181C]'}  duration-300 `} onClick={() => setOpened(false)} passHref href={`/${link}`}>{link.length ? link : 'Home'}</Link></li>
+                ))}
+              </ul>
+            </Drawer>
+          </MantineProvider>
         </div>
       </div>
       {/* Search input field */}

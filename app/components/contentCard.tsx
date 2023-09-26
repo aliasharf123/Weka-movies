@@ -11,7 +11,7 @@ export default function ContentCard({movie} : {movie : ContentItem}) {
     const RealeseYear = new Date(realseData as any).getFullYear()
     
     return ( 
-        <div key={movie.id} className='relative   min-w-[12rem] max-w-[12rem]'>
+        <div  key={movie.id} className='relative   min-w-[12rem] max-w-[12rem] group'>
             {movie.poster_path && <Image className=" rounded-xl brightness-[.80] duration-300   relative w-full h-full"  src={`https://www.themoviedb.org/t/p/w500${movie.poster_path}`} alt={title as any} width={300} height={200} />}
             <div className="flex  top-0 absolute bg-black rounded-full p-1 px-2 m-2 text-xs  items-center">
                 <StarIcon fontSize="inherit" className="text-yellow-400 " />
@@ -23,9 +23,9 @@ export default function ContentCard({movie} : {movie : ContentItem}) {
                     <p className="text-gray-300">{RealeseYear}</p>
                 </div>
                 <div className="flex gap-2 justify-between">
-                    <Link href={movie.media_type?.toUpperCase().startsWith('M') ? `/Movies/${movie.id}` : `/TvShow/${movie.id}`} passHref className="bg-redColorTransparent rounded-lg px-2 p-1 ">See More</Link>
+                    <Link href={movie.media_type?.toUpperCase().startsWith('M') ? `/Movies/${movie.id}-${title?.replace(' ' , '-')}` : `/TvShow/${movie.id}-${title?.replace(' ' , '-')}`} passHref className="bg-redColorTransparent rounded-lg px-2 p-1  hover:brightness-125 ">See More</Link>
                     <div className="bg-WhiteTransparent rounded-lg flex justify-center items-center  relative px-2 text-xl">
-                         <AddFavorite movie={movie} Flex={false} media={movie.media_type}  single={false}/>
+                         <AddFavorite movie={movie}  media={movie.media_type}  />
                     </div>
                 </div>
             </div>

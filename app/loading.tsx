@@ -1,5 +1,7 @@
+import MovieLoading from "@/components/Loading";
+
 function Loading() {
-    return (  <div className="text-white h-screen flex justify-center text-5xl">Loading</div>);
+    return (  <MovieLoading/>);
 }
 
 export default Loading;

@@ -40,7 +40,7 @@ function SingleMovie({movie ,video ,recommendations}) {
                                     <div className='flex relative w-20'>
                                         <StarIcon className='text-[#F4181C]' />
                                         <p className=' text-lg'>{movie.vote_average.toString().slice(0,3)}</p>
-                                        <AddFavorite media={'Movies'} movie={movie} Flex={true} single={true}/>
+                                        <AddFavorite media={'Movies'} movie={movie} />
                                     </div>
                                     <h1>Genere: {' '}
                                     {movie.genres.map( genere =>{
