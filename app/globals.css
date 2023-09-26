@@ -28,6 +28,9 @@ body{
   .FilterBtn {
     @apply bg-DetailBackground border border-SecondaryText rounded-lg p-1 px-2 flex items-center
   }
+  .InputSign {
+    @apply  rounded-md px-3 py-2 text-gray-700 outline outline-0 transition-all focus:outline-2  font-sans outline-redColor
+  }
  
 }
 .text span::after {
