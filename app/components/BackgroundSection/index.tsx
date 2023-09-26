@@ -42,7 +42,7 @@ export default async function BackgroundSection() {
                     <h1 className="font-bold text-5xl">{title}</h1>
                     <div className="flex gap-2 items-center">
                         <h1 className="text flex text-slate-300 gap-1">
-                            {data.genre_ids.length ? data.genre_ids.map((genreId , index)=>{
+                            {data.genre_ids.length ? data.genre_ids.slice(0,2).map((genreId , index)=>{
                                 const GeneryName = GenresMap[genreId.toString() as keyof typeof GenresMap]
                             return <span key={index}>{GeneryName?.toUpperCase()}</span>
                             }) : <span>No Genre</span>}
@@ -51,9 +51,9 @@ export default async function BackgroundSection() {
                     </div>
                 </div>
                 <div className="flex gap-4">
-                    <Link href={`${type}/${data.id}`} className="bg-[#F4181C] hover:bg-red-600 rounded-lg p-2 px-4 text-lg items-center flex">See More</Link>
+                    <Link href={`/${type}/${data.id}-${title?.replaceAll(' ' , '-')}`} className="bg-[#F4181C] hover:bg-red-600 rounded-lg p-2 px-4 text-lg items-center flex">See More</Link>
                     <div className="relative flex justify-center items-center text-xl p-3  rounded-lg bg-[rgba(255,255,255,0.1)] ">
-                        <AddFavorite movie={data} media={data.media_type} Flex={false} single={true} />
+                        <AddFavorite movie={data} media={data.media_type} />
                     </div>
                 </div>
             </div>
