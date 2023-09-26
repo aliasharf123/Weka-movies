@@ -33,7 +33,7 @@ export async function generateStaticParams() {
     return data.map((movie: ContentItem) => {
         const {title ,  type} = getInfo(movie)
         return{
-            movieId: `/${type}/${movie.id}-${title?.replaceAll(' ' , '-')}`
+            movieId: `${movie.id}-${title?.replaceAll(' ' , '-')}`
         }
     });
 }
