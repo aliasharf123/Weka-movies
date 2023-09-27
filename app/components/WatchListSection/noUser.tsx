@@ -1,18 +1,18 @@
-'use client'
-
 import React from 'react'
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import Link from 'next/link';
+import BookmarkBorderIconClient from '@/components/BookmarkBorderIconClient';
 
 export default function NoUser() {
   return (
     <div className="flex flex-col justify-center items-center h-[12rem]">
-        <BookmarkBorderIcon className="text-6xl  bg-[rgba(0,0,0,0.4)] text-white" />
+        <div className='text-6xl bg-[rgba(0,0,0,0.4)] text-white'>
+          <BookmarkBorderIconClient/>
+        </div>
         <div className="flex flex-col  text-center items-center gap-2 ">
-          <div className='grid place-content-center'>
+          <div className='grid place-content-center px-2'>
             <p className="font-bold">Sign in to see suggestion</p>
-            <p>
-            Save shows and movies to keep track of what you want to watch.
+            <p className='italic text-SecondaryText'>
+            It says here we should work in teams. Who wants to be my spotter?
             </p>
           </div>
           <Link
