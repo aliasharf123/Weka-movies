@@ -95,7 +95,7 @@ function Signin() {
             </div>
             <div className="w-full flex flex-col items-center gap-4">
                 <div className="flex flex-col gap-3  items-center">
-                    <h1 className="text-white text-center text-3xl font-medium">{!toggle ? 'Welcome back' : 'Welcome to Earth'}</h1>
+                    <h1 className="text-white text-center text-3xl font-medium">{!toggle ? 'Welcome home, Mr. Cobb' : 'Welcome to Earth'}</h1>
                     <h1>Enter your {!toggle ? 'Weka account' : 'Information'} details.</h1>
                 </div> 
                 <div className="  flex flex-col gap-3 min-w-[300px] w-1/2">

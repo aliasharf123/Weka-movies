@@ -43,7 +43,7 @@ export default function Header() {
         <div className='flex mx-auto'>
           {/* Logo */}
           <Link href='/' passHref>
-            <Image className='h-full object-contain p-1' src={logo} width={100} height={200} unoptimized alt='logo' />
+            <Image  className='h-full object-contain p-1' src={logo} width={100} height={200} unoptimized alt='logo' />
           </Link>
           {/* Navigation links */}
           <ul className='text-[rgba(255,255,255,0.8)] flex gap-8 m-auto max-lg:hidden'>

@@ -51,7 +51,7 @@ export default async function BackgroundSection() {
                     </div>
                 </div>
                 <div className="flex gap-4">
-                    <Link href={`/${type}/${data.id}-${title?.replaceAll(' ' , '-')}`} className="bg-[#F4181C] hover:bg-red-600 rounded-lg p-2 px-4 text-lg items-center flex">See More</Link>
+                    <Link href={`/${type}/${data.id}-${title?.replaceAll(' ' , '-')}`} className="RedBtn">See More</Link>
                     <div className="relative flex justify-center items-center text-xl p-3  rounded-lg bg-[rgba(255,255,255,0.1)] ">
                         <AddFavorite movie={data} media={data.media_type} />
                     </div>
