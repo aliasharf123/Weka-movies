@@ -31,6 +31,9 @@ body{
   .InputSign {
     @apply  rounded-md px-3 py-2 text-gray-700 outline outline-0 transition-all focus:outline-2  font-sans outline-redColor
   }
+  .RedBtn {
+    @apply bg-[#F4181C] hover:bg-red-600 rounded-lg p-2 px-4 text-lg items-center flex
+  }
  
 }
 .text span::after {

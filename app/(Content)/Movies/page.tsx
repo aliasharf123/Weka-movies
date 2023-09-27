@@ -1,13 +1,6 @@
 // Import necessary modules and components
-import GenereMovies from "@/components/Genere";
-import MenuDrop from "@/components/menudrop";
-import GridOnIcon from '@mui/icons-material/GridOn';
-import TableRowsIcon from '@mui/icons-material/TableRows';
-import { useState } from "react";
-import useFetch from "@/src/useFetch";
+
 import GridResults from "@/components/GridResults";
-import FlexResults from "@/components/FlexResults";
-import { Loader } from "@mantine/core";
 import Filter from "../components/Filter";
 import { makeQueryClient } from "@/components/movies";
 
@@ -42,7 +35,7 @@ interface Params  {
 }
 const queryClient = makeQueryClient() // to cache a decripe url 
 export default async function Movies({searchParams} : Params) {
-    const style = searchParams.style ?? 1 // State to toggle between grid and table view
+    // const style = searchParams.style ?? 1 // State to toggle between grid and table view
     const page = searchParams.page ?? '' // State to manage the current page of results
     const languge = searchParams.languge ?? ''
     const sort = searchParams.sort ?? 'popularity.desc' // State to manage sorting options

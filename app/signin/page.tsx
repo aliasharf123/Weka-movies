@@ -10,6 +10,7 @@ import GoogleIcon from '@mui/icons-material/Google';
 import { useRouter } from "next/navigation";
 import BackgroundImage from '../../public/static/istockphoto-1295114854-2048x2048-transformed.jpeg'
 import google from '../../public/static/google.png'
+import Link from 'next/link'
 function Signin() {
     const [user, loading] = useAuthState(auth); // Get the authenticated user
     const [email, setEmail] = useState(''); // State to store email input
@@ -85,17 +86,17 @@ function Signin() {
     <div className=" w-full h-screen grid md:grid-cols-2  text-white">  
         <div  className="flex flex-col  gap-14"  >
             <div className="flex items-center p-3  sm:p-5  md:p-10 gap-2 justify-between">
-                <div className="flex items-center gap-2">
+                <Link href={'/'}  className="flex items-center gap-2">
                     <Image alt="logo" src={logo} width={40}  height={40} unoptimized/>
                     <h1>Weka Movies</h1>
-                </div>
+                </Link>
                 <button onClick={() => setToggle(!toggle)} className="underline">
                     {!toggle ?  'Create an account' : 'Sign in'}
                 </button>
             </div>
             <div className="w-full flex flex-col items-center gap-4">
                 <div className="flex flex-col gap-3  items-center">
-                    <h1 className="text-white text-center text-3xl font-medium">{!toggle ? 'Welcome back' : 'Welcome to Earth'}</h1>
+                    <h1 className="text-white text-center text-3xl font-medium">{!toggle ? 'Welcome home, Mr. Cobb' : 'Welcome to Earth'}</h1>
                     <h1>Enter your {!toggle ? 'Weka account' : 'Information'} details.</h1>
                 </div> 
                 <div className="  flex flex-col gap-3 min-w-[300px] w-1/2">
