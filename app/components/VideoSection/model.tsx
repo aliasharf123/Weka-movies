@@ -15,7 +15,7 @@ const serilizeID = (trailerId : string) =>{
         media : arr[0],
     }
 } 
-const fetcher = (url : string) => fetch(url).then(r => r.json())
+export const fetcher = (url : string) => fetch(url).then(r => r.json())
 
 type Response = {
     data : {

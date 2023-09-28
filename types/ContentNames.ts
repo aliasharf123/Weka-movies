@@ -1,0 +1,1 @@
+export const ContentTypes = ["movie", "tv", "person"];
