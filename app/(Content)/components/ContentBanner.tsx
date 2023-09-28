@@ -30,12 +30,12 @@ export default async function ContentBanner({
         style={{
           backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),url(https://www.themoviedb.org/t/p/original${Content.backdrop_path})`,
         }}
-        className="max-lg:hidden Fade  relative text-white bg-center gap-8 px-10 py-24  grid grid-cols-[0.3fr_1fr]   bg-cover bg-no-repeat  "
+        className="max-lg:hidden Fade  relative  text-white bg-center gap-8 px-10 py-24  grid grid-cols-[0.3fr_1fr]   bg-cover bg-no-repeat  "
       >
         {/* Movie Poster */}
-        <div className="relative flex flex-col bg-slate-200 items-start rounded-lg self-center  ">
+        <div className=" flex flex-col   rounded-lg self-center  ">
           <Image
-            width={400}
+            width={300}
             height={300}
             className="object-cover  rounded-lg "
             src={`https://www.themoviedb.org/t/p/original${Content.poster_path}`}

@@ -1,47 +1,48 @@
 import _ from "lodash";
 import getInfo from "../../../../src/getInfo";
-import { Content, ContentItem } from "@/types/ContentType";
+import { ContentItem } from "@/types/ContentType";
 import { notFound } from "next/navigation";
-import ContentBanner from "../../components/ContentBanner";
-import Model from "@/components/TrailerModel";
-import TopCast from "../../components/TopCast";
-import Reviews from "../../components/Reviews";
-import Photos from "../../components/Photos";
-import Recommendation from "../../components/Recommendation";
 
-export async function getMoviesInfo(movieId: string) {
-  // get all Information about movie (MOVIE)
+import SingleContent from "../../components/SingleContent";
+import { Metadata } from "next";
+
+type Props = {
+  params: { movieId: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
+export async function generateMetadata({
+  params,
+  searchParams,
+}: Props): Promise<Metadata> {
+  // read route params
   const res = await fetch(
-    `https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.NEXT_PUBLIC_DB_key}&language=en-US`
+    `https://api.themoviedb.org/3/movie/${
+      params.movieId.split("-")[0]
+    }?api_key=${process.env.NEXT_PUBLIC_DB_key}&language=en-US`
   );
-  var movie = await res.json();
+  const movie: ContentItem = await res.json();
   return {
-    movie,
+    title: movie.title + " - Weka Movies",
   };
 }
 
 export default async function SingleMoviePage({
   params: { movieId },
   searchParams,
-}: {
-  params: { movieId: string };
-  searchParams?: { [key: string]: string | undefined };
-}) {
-  const { movie } = await getMoviesInfo(
-    movieId.split("-")[0]
+}: Props) {
+  const res = await fetch(
+    `https://api.themoviedb.org/3/movie/${movieId.split("-")[0]}?api_key=${
+      process.env.NEXT_PUBLIC_DB_key
+    }&language=en-US`
   );
+  const movie = await res.json();
   if (Object.keys(movie).length <= 3) {
     notFound();
   }
+
   return (
-    <div className="flex flex-col gap-8">
-      <ContentBanner Content={movie} />
-      <TopCast  Content={movie}/>
-      <Reviews Content={movie}/>
-      <Photos Content={movie}/>
-      <Recommendation Content={movie}/>
-      {searchParams?.trailerId && <Model />}
-    </div>
+    <SingleContent Cotent={movie} trailerId={searchParams?.trailerId as any} />
   );
 }
 
