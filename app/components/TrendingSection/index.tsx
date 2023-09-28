@@ -1,6 +1,6 @@
 'use client'
 import { Suspense, useRef, useState } from "react";
-import MoviesList from '@/components/movies';
+import MoviesList from '@/app/components/TrendingSection/movies';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Loading from "./loading";
 

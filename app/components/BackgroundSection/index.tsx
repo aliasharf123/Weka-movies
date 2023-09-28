@@ -26,20 +26,20 @@ export default async function BackgroundSection() {
     const data = await getRandomMovie()
     const {title , type} = getInfo(data)
     return ( 
-        <div className="relative  lg:my-5 ">
+        <div className="relative  h-[450px] lg:my-5 ">
             {/* Background Image */}
             <Image
-            width={100000}
-            height={1000000}
+            fill
             priority
-            className="object-cover w-full h-[500px] brightness-75 lg:rounded-xl   shadow-white bg-HeaderColor"
+            quality={100}
+            className="object-cover w-full brightness-75 lg:rounded-xl   shadow-white bg-HeaderColor"
             src={`https://www.themoviedb.org/t/p/w1280${data.backdrop_path}`}
             alt="main"
             />
             {/* Content Overlay */}
             <div className="absolute z-20 text-slate-100 bottom-0 p-8 lg:p-14 flex flex-col gap-8">
                 <div className="grid gap-4">
-                    <h1 className="font-bold text-5xl">{title}</h1>
+                    <h1 className="font-bold text-4xl">{title}</h1>
                     <div className="flex gap-2 items-center">
                         <h1 className="text flex text-slate-300 gap-1">
                             {data.genre_ids.length ? data.genre_ids.slice(0,2).map((genreId , index)=>{

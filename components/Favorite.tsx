@@ -18,7 +18,7 @@ function AddFavorite({ movie, media} : any) {
             <button className={`hover:brightness-125   text-white flex justify-center items-center`} onClick={() => AddtoFavorite(movie , user , router , media , messageApi)}>
                 {/* Change icon appearance according to the favorited status */}
                 {/* {!aleardy ?  */}
-                <BookmarkBorderIcon  /> 
+                <BookmarkBorderIcon  fontSize='inherit'/> 
                 {/* // : 
                 // <BookmarkIcon fontSize='inherit'/>} */}
                 <h1 className='hidden'>Add or remove from Favorite </h1>

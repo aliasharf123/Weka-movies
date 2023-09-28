@@ -1,8 +1,8 @@
 'use client'
-import { makeQueryClient } from '@/components/movies';
+import { makeQueryClient } from '@/app/components/TrendingSection/movies';
 import { MantineProvider, Modal } from '@mantine/core'
 import Head from 'next/head';
-import { useRouter, useSearchParams } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import React from 'react'
 import useSWR from 'swr';
 import { VideoType } from '@/types/videoType';
@@ -26,14 +26,18 @@ type Response = {
 }
 
 export default  function Model() {
-    const trailerId  = useSearchParams().get('trailerId')
+    const SearchParams = useSearchParams()
+    const pathName = usePathname()
+    const trailerId  = SearchParams.get('trailerId')
     const router = useRouter()
     const {id , media } =  serilizeID(trailerId ?? '') 
     const {data  ,isLoading ,error} : Response  = useSWR(`https://api.themoviedb.org/3/${media}/${id}/videos?api_key=${process.env.NEXT_PUBLIC_DB_key}&language=en-US` , fetcher)
     const OfficalTrailer =!isLoading && !error ?  data.results[0] : {} as VideoType
     const title = isLoading ? 'Loading' : error ? 'Something went wrong' : OfficalTrailer ? OfficalTrailer.name : ''
     const close = () =>{
-        router.push('/' , {scroll: false})
+        const params = new URLSearchParams(SearchParams)
+        params.delete('trailerId')
+        router.push(pathName + '?' + params.toString() , {scroll: false})
     }
 
     if(!trailerId) return <div></div>

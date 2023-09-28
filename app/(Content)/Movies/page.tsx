@@ -2,7 +2,7 @@
 
 import GridResults from "@/components/GridResults";
 import Filter from "../components/Filter";
-import { makeQueryClient } from "@/components/movies";
+import { makeQueryClient } from "@/app/components/TrendingSection/movies";
 
 // Define an array of sorting options
 

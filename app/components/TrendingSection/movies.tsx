@@ -1,6 +1,6 @@
 
 import { Content, ContentItem } from "@/types/ContentType";
-import ContentCard from "../app/components/contentCard";
+import ContentCard from "../contentCard";
 
 // This function creates a query client that caches query results based on their names.
 export function makeQueryClient() {

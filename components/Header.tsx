@@ -32,8 +32,6 @@ export default function Header() {
   const handleSubmit = (e : any) => {
     e.preventDefault();
     if (search) {
-      setOpen(false);
-      setSearch('');
       router.push(`/Search/movie/?q=${search}`);
     }
   }
@@ -45,6 +43,9 @@ export default function Header() {
     if(Query){
       setSearch(Query)
       setOpen(true)
+    }else{
+      setSearch('')
+      setOpen(false)
     }
   } , [Query])
   return (

@@ -3,7 +3,7 @@ import { Content, ContentItem } from '@/types/ContentType';
 import Image from 'next/image';
 import React from 'react'
 import {PlayCircleOutlined} from '@ant-design/icons'
-import { makeQueryClient } from '@/components/movies';
+import { makeQueryClient } from '@/app/components/TrendingSection/movies';
 import Link from 'next/link';
 import SeeMore from './seeMore';
 

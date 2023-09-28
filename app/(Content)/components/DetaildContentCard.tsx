@@ -1,11 +1,9 @@
 'use client'
 import AddFavorite from '@/components/Favorite'
-import { darkTheme } from '@/components/PaginationMovies'
+import RatingClient from '@/components/RatingClient'
 import { GenresMap } from '@/src/GenreMap'
-import { shimmer, toBase64 } from '@/src/blurUrl'
 import getInfo from '@/src/getInfo'
 import { ContentItem } from '@/types/ContentType'
-import { Rating, ThemeProvider } from '@mui/material'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
@@ -33,9 +31,7 @@ export default function DetaildContentCard({movie} : {movie : ContentItem}) {
                             <span key={genreId}>{GenresMap[genreId.toString() as keyof typeof GenresMap]}</span>
                         ))}
                 </h1>
-                <ThemeProvider theme={darkTheme}>
-                        <Rating  size='small' readOnly  name="half-rating" defaultValue={rate} precision={0.5} />
-                </ThemeProvider>
+                <RatingClient rate={rate}/>
                 </div>
             </div>
         </Link>

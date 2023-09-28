@@ -4,6 +4,7 @@ import Head from "next/head"
 import './globals.css'
 import './Home.module.css'
 import React from 'react'
+import Model from "../components/TrailerModel"
 
 export const metadata = {
     title: 'Weka movies',
@@ -15,8 +16,7 @@ export default function RootLayout({
     // Layouts must accept a children prop.
     // This will be populated with nested layouts or pages
     children,
-  } : {children : React.ReactNode}) {
-
+  } : {children : React.ReactNode }) {
     return (
       <html lang="en">
         <Head>
