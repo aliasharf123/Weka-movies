@@ -32,11 +32,13 @@ export default async function Page({
   return (
     <>
     {data.results.length ? (
-      <GridResults
-        media={params.search === "movie" ? "Movies" : "TvShow"}
-        page={page}
-        data={data}
-        />
+      <div className="px-3">
+        <GridResults
+          media={params.search === "movie" ? "Movies" : "TvShow"}
+          page={page}
+          data={data}
+          />
+      </div>
 
     ): <h1 className="h-[75vh] w-full flex justify-center text-2xl">No {params.search.toUpperCase()} Found</h1>}
     </>

@@ -3,6 +3,7 @@ import {initializeApp} from "firebase/app";
 import { getFirestore  ,collection } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
+// it must be a secrat 
 const firebaseConfig = {
   apiKey: "AIzaSyBjc3x5GfobRO65F0H2d2HdMrgmPCAS9Oc",
   authDomain: "weka-movie.firebaseapp.com",
