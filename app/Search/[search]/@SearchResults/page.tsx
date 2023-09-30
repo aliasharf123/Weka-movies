@@ -24,7 +24,7 @@ export default async function Page({
   params: { search: "movie" | "tv" | "person" };
   searchParams?: { [key: string]: string | undefined };
 }) {
-  const page = searchParams?.page;
+  const page = searchParams?.page ?? "1";
   const Query = searchParams?.q;
   const res = await fetch(MadeUrl(page ?? "1", params.search, Query ?? "") , {next : {revalidate: 3600}});
   const data: Content = await res.json();
@@ -32,7 +32,7 @@ export default async function Page({
   return (
     <>
     {data.results.length ? (
-      <div className="px-3">
+      <div className="">
         <GridResults
           media={params.search === "movie" ? "Movies" : "TvShow"}
           page={page}

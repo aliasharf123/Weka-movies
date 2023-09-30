@@ -2,12 +2,12 @@
 import PaginationMovies from './PaginationMovies';
 import DetaildContentCard from '@/app/(Content)/components/DetaildContentCard';
 
-function GridResults({data , page ,  media}) {
+function GridResults({data , page ,  media} : any) {
     return (
       <div>
-        <div className="grid xl:grid-cols-6 lg:grid-cols-4  md:grid-cols-3 grid-cols-2   gap-5 mb-5  sm:px-10">
+        <div className="grid grid-cols-auto-fit    gap-5 mb-5  px-10">
           {data.results &&
-            data.results.map((movie) => {
+            data.results.map((movie : any) => {
               return <DetaildContentCard movie={movie} />;
             })}
         </div>
