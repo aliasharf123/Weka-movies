@@ -15,9 +15,9 @@ export default function SocialMedia({ person }: { person: SinglePerson }) {
    `,
     fetcher
   ); 
-  if(isLoading) return <h1>Loading....</h1>
+  if(isLoading) return <h1 className="">Loading....</h1>
   return (
-    <div className="text-4xl flex flex-wrap gap-3">
+    <div className="text-3xl  flex flex-wrap gap-3">
         {data.facebook_id && <Link href={`https://www.facebook.com/${data.facebook_id}`}>
             <FacebookRoundedIcon fontSize="inherit"/>
         </Link>}

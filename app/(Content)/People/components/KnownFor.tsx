@@ -20,9 +20,9 @@ export default async function KnownFor({ person }: { person: SinglePerson }) {
 
   return (
     <div className="overflow-scroll   overflow-y-hidden  removeScroll">
-      <div className="flex flex-row gap-3     ">
+      <div className="flex flex-row gap-3    max-lg:ml-6 ">
         {KnownForData.map((cotent: any) => (
-          <ContentCard movie={cotent} />
+          <ContentCard isPersonProfile movie={cotent} />
         ))}
       </div>
     </div>

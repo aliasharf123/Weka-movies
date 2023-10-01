@@ -6,14 +6,14 @@ import getInfo from "@/src/getInfo";
 import StarIconClient from "@/components/StarIconClient";
 import { defaultImage } from "@/src/defaultImage";
 
-export default function ContentCard({ movie }: { movie: ContentItem }) {
+export default function ContentCard({ movie , isPersonProfile }: { movie: ContentItem , isPersonProfile? : boolean}) {
   const { title, type, realseData } = getInfo(movie);
   const RealeseYear = new Date(realseData as any).getFullYear();
 
   return (
     <div
       key={movie.id}
-      className="relative   min-w-[12rem] group"
+      className={`relative   ${isPersonProfile ? 'min-w-[10rem] ' : 'min-w-[12rem]'}  group`}
     >
       <Image
         className=" rounded-xl brightness-[.80] duration-300   relative "
