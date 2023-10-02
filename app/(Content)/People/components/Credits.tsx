@@ -28,7 +28,7 @@ export default async function Credits({ id }: { id: number }) {
       <div className="grid gap-3">
         <h1 className="text-lg max-lg:px-6 font-medium">Known For</h1>
         <div className="overflow-scroll   overflow-y-hidden  removeScroll">
-          <div className="flex flex-row gap-3    max-lg:ml-6 ">
+          <div className="flex flex-row gap-3  animate__animated animate__fadeIn  max-lg:ml-6 ">
             {Known_For.map((content: any) => (
               <div className="flex flex-col">
                 <ContentCard isPersonProfile movie={content as any} />

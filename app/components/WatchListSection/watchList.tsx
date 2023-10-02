@@ -15,7 +15,7 @@ export default async function WatchList() {
 
   return (
     <div className='overflow-scroll overflow-y-auto removeScroll '>
-        <div className= 'flex  gap-5  ml-6  '>
+        <div className= 'flex  gap-5  ml-6  animate__animated animate__fadeIn'>
             {movies.map((movie :any , index : number) => {
                 return (
                     <ContentCard key={index} movie={movie.movie}/>

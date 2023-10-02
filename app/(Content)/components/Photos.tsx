@@ -34,7 +34,7 @@ export default async function Photos({ Content }: { Content: ContentItem }) {
         </Link>
       </div>
 
-      {/* Display the first review */}
+      {/* Display the backdrops photos*/}
       {Photos.backdrops.length ? (
         <div className="overflow-scroll removeScroll  flex animate__animated animate__fadeIn">
           <div className="flex flex-grow   max-md:pl-8  gap-4 ">

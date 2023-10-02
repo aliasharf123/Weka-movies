@@ -5,7 +5,7 @@ import React from "react";
 
 export default function SingleReview({ review }: { review: Review }) {
   return (
-    <div className="flex flex-col p-5 justify-center rounded-md gap-5 bg-HeaderColor">
+    <div className="flex flex-col p-5 justify-center rounded-md gap-5 animate__animated animate__fadeIn bg-HeaderColor">
       <div className="flex flex-row justify-between">
         <div className="flex  gap-6">
           <AvatarClient
