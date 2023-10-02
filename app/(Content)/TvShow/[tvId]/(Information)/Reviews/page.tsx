@@ -5,6 +5,27 @@ import { assert } from "console";
 import HeaderContent from "@/app/(Content)/components/InformationComp/headerContent";
 import getInfo from "@/src/getInfo";
 import SingleReview from "@/app/(Content)/components/Reviews/singleReview";
+import { Metadata } from "next";
+
+
+export async function generateMetadata({
+  params,
+  searchParams,
+}: PropsTvShows): Promise<Metadata> {
+  // read route params
+  const res = await fetch(
+    `https://api.themoviedb.org/3/tv/${params.tvId.split("-")[0]}?api_key=${
+      process.env.NEXT_PUBLIC_DB_key
+    }&language=en-US`
+  );
+  const tv= await res.json();
+
+  return {
+    title: tv.name + " Reviews - Weka Movies",
+  };
+}
+
+
 
 export default async function Page({ params }: PropsTvShows) {
   const res = await fetch(

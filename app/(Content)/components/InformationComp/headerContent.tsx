@@ -22,7 +22,7 @@ export default function HeaderContent({ movie }: { movie: ContentItem }) {
         height={100}
       />
       <div className="flex flex-col truncate justify-center">
-        <h1 className="text-3xl truncate font-medium">
+        <h1 className="md:text-3xl text-2xl truncate font-medium">
           {title}{" "}
           <span className="text-SecondaryText font-normal">
             ({new Date(realseData as any).getFullYear()})

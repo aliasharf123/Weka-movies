@@ -109,7 +109,7 @@ export default function Header() {
       <div className={`bottom-0 h-14 bg-HeaderColor  text-white justify-center flex w-full border-t-[0.5px] border-[#F4181C] duration-300 transition-all z-50 absolute ${!opened ? '' : 'translate-y-full'}`}>
         <form onSubmit={handleSubmit} className='bg-[#1F1F1F] flex w-[70%] px-2'>
           <input value={search} type="text" onChange={(e) => setSearch(e.target.value)} className='outline-none text-white p-2 w-full bg-[#1F1F1F]' placeholder='i am looking for...' />
-          <Button className='bg-[#F4181C] hover:bg-red-600 m-auto' type='submit'>Search</Button>
+          <Button color='red' className='bg-[#F4181C] hover:bg-red-600 m-auto ' type='submit'>Search</Button>
         </form>
       </div>
     </nav>

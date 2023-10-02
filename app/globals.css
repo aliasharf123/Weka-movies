@@ -10,7 +10,9 @@ body {
   width: 10px;
   height: 5px;
 }
-
+*{
+  -webkit-tap-highlight-color: transparent;
+}
 /* Track */
 ::-webkit-scrollbar-track {
   border-radius: 10px;

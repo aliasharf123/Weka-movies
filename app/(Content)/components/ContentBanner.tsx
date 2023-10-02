@@ -18,7 +18,7 @@ export default async function ContentBanner({
 
   function convertMinutesToHoursAndMinutesORSeasons(minutes: number): string {
     // turn a time to (hour)h (minutes)m or if it is null return a number of seasons
-    if(!minutes) return `${(Content as any).number_of_seasons} s`
+    if (!minutes) return `${(Content as any).number_of_seasons} s`;
     const hours = Math.floor(minutes / 60);
     const remainingMinutes = minutes % 60;
 
@@ -39,7 +39,11 @@ export default async function ContentBanner({
             width={300}
             height={300}
             className="object-cover  rounded-lg "
-            src={Content.poster_path ? `https://www.themoviedb.org/t/p/original${Content.poster_path}` : defaultImage}
+            src={
+              Content.poster_path
+                ? `https://www.themoviedb.org/t/p/original${Content.poster_path}`
+                : defaultImage
+            }
             alt="mai1n"
             unoptimized
           />
@@ -73,20 +77,24 @@ export default async function ContentBanner({
                   <DotIconClient />
                 </div>
                 {/* RunTime */}
-                <div>{convertMinutesToHoursAndMinutesORSeasons(Content.runtime)}</div>
+                <div>
+                  {convertMinutesToHoursAndMinutesORSeasons(Content.runtime)}
+                </div>
               </div>
             </div>
             {/* Rating  */}
-            <div className="flex items-center gap-2 text-lg font-medium">
-              <RatingClient rate={Content.vote_average /2 }/>
-              {(Content.vote_average / 2).toFixed(1)}               
-            </div>
+            {Content.vote_average && (
+              <div className="flex items-center gap-2 text-lg font-medium">
+                <RatingClient rate={Content.vote_average / 2} />
+                {(Content.vote_average / 2).toFixed(1)}
+              </div>
+            )}
           </div>
           <h1 className="italic text-[rgba(255,255,255,0.7)] ">
             {Content.tagline}
           </h1>
           <h1 className="text-lg font-medium">Overview</h1>
-          <p className="w-[70%]">{Content.overview || 'no overview found'}</p>
+          <p className="w-[70%]">{Content.overview || "no overview found"}</p>
           {/* See Trailer & Add Favorite  */}
           <div className="flex gap-2 mt-2">
             <Link
@@ -98,7 +106,7 @@ export default async function ContentBanner({
               Play Trailer
             </Link>
             <div className="relative flex justify-center items-center text-xl p-3  rounded-lg bg-[rgba(255,255,255,0.1)] ">
-              <AddFavorite movie={Content}  />
+              <AddFavorite movie={Content} />
             </div>
           </div>
         </div>
@@ -112,7 +120,7 @@ export default async function ContentBanner({
           className=" relative Fade h-[35vh] md:h-[40vh]  bg-center bg-cover bg-no-repeat  "
         ></div>
         <div className="flex flex-col gap-3">
-          <div className="relative z-40 px-8 md:px-10 text-white ">
+          <div className="relative z-40 px-6 md:px-10 text-white ">
             <div className="font-medium flex  justify-between items-center">
               {/* title and Genery */}
               <div className="">
@@ -127,16 +135,18 @@ export default async function ContentBanner({
               </div>
               {/* Add to WatchList */}
               <div className="text-3xl">
-                <AddFavorite movie={Content}/>
+                <AddFavorite movie={Content} />
               </div>
             </div>
-            <div className="flex items-center gap-1 text-lg font-medium">
-              <RatingClient rate={Content.vote_average / 2} />{" "}
-              {(Content.vote_average / 2).toFixed(1)}
-            </div>
+            {Content.vote_average && (
+              <div className="flex items-center gap-1 text-lg font-medium">
+                <RatingClient rate={Content.vote_average / 2} />{" "}
+                {(Content.vote_average / 2).toFixed(1)}
+              </div>
+            )}
             <div className="grid grid-cols-3 mt-2  justify-items-center">
               <div className="flex flex-col text-SecondaryText items-center">
-                <h1 className="text-lg  text-white font-medium">Length</h1> 
+                <h1 className="text-lg  text-white font-medium">Length</h1>
                 {convertMinutesToHoursAndMinutesORSeasons(Content.runtime)}
               </div>
               <hr className="border border-SecondaryText h-full" />
@@ -151,7 +161,7 @@ export default async function ContentBanner({
               </Link>
             </div>
           </div>
-          <div className="text-SecondaryText  px-8 md:px-10">
+          <div className="text-SecondaryText  px-6 md:px-10">
             {Content.overview}
           </div>
         </div>

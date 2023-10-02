@@ -46,10 +46,9 @@ export default function FilterCredits({
     Type: "credit_department" | "credit_media_type"
   ) => {
     const params = new URLSearchParams(SearchParams);
-    if(!value) {
-      params.delete(Type)
-    }
-    else{
+    if (!value) {
+      params.delete(Type);
+    } else {
       const RemoveSpace = value.split(" ")[0];
       if (!SearchParams.get(Type)) {
         params.append(Type, RemoveSpace);
@@ -77,12 +76,13 @@ export default function FilterCredits({
     credit_department,
     data
   );
-
+  // make a Department array
   const DepartmentArray = CreditsContent
     ? Object.keys(CreditsContent).map(
         (key) => `${key} (${CreditsContent[key].length})`
       )
     : [];
+  // make a media type array
   const MediaTypeArray = [
     `All (${numberOfTvShows + numberOfMovies})`,
     `Tv shows (${numberOfTvShows})`,

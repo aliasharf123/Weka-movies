@@ -18,12 +18,12 @@ export default async function Videos({url}: {url: string}) {
             const media = type === 'Movies' ? 'movie' : 'tv'
             return (
                 <div
-                className="gap-5  animate__animated animate__fadeIn cursor-pointer group flex-wrap relative text-center  h-[240px] "
+                className="gap-5  animate__animated  animate__fadeIn cursor-pointer group flex-wrap relative text-center  h-[240px] "
                 key={movie.id}
                 >
                 <Link
                     href={`?trailerId=${media}-${movie.id}`}
-                    className="cursor-pointer  relative  hover:z-40  hover:scale-105 duration-300 flex justify-center items-center"
+                    className="cursor-pointer  relative    hover:scale-105 duration-300 flex justify-center items-center"
                     scroll={false}
                 >
                     {movie.backdrop_path && (

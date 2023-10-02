@@ -38,7 +38,7 @@ export default function SeeMore({ movie }: { movie: ContentItem }) {
 
   return (
     <MantineProvider theme={{ colorScheme: "dark" }}>
-      <Menu shadow="md">
+      <Menu shadow="md"  position="bottom-end"  withArrow>
         <Menu.Target>
           <div
             onClick={ClickSeeMore}
@@ -48,7 +48,7 @@ export default function SeeMore({ movie }: { movie: ContentItem }) {
           </div>
         </Menu.Target>
 
-        <Menu.Dropdown onClick={ClickSeeMore} className="z-50">
+        <Menu.Dropdown  onClick={ClickSeeMore}>
           <Menu.Item>
             <div
               onClick={() =>
@@ -60,7 +60,7 @@ export default function SeeMore({ movie }: { movie: ContentItem }) {
                   messageApiLoading
                 )
               }
-              className="flex items-center justify-center gap-1"
+              className="flex  items-center justify-center gap-1"
             >
               {!isInWatchList ? (
                 <BookmarkBorderIcon fontSize="small" />

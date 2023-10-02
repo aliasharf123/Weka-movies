@@ -15,29 +15,21 @@ export default async function Photos({ Content }: { Content: ContentItem }) {
     }&include_image_language=null`
   );
   const Photos: MovieImages = await res.json();
-  //   console.log(Photos)
   return (
     <div className=" flex flex-col gap-4  md:px-10 text-white">
-      <div className="flex items-end max-md:px-8 font-medium justify-between">
+      <div className="flex items-end max-md:px-6 font-medium justify-between">
         <div className="flex gap-1 text-2xl items-center">
           <h1 className=" ">Photos</h1>
           <h1 className="text-[rgba(255,255,255,0.7)] font-normal">
             {Photos.backdrops.length}
           </h1>
         </div>
-        {/* Link to view all reviews */}
-        <Link
-          className="text-[rgba(255,255,255,0.7)]"
-          href={`/${type}/${Content.id}-${title?.replaceAll(" ", "-")}/photos`}
-        >
-          View All
-        </Link>
       </div>
 
       {/* Display the backdrops photos*/}
       {Photos.backdrops.length ? (
         <div className="overflow-scroll removeScroll  flex animate__animated animate__fadeIn">
-          <div className="flex flex-grow   max-md:pl-8  gap-4 ">
+          <div className="flex flex-grow   max-md:pl-6  gap-4 ">
             {Photos.backdrops.splice(0, 11).map((backdrop, index) => (
               <div
                 key={index}

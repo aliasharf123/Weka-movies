@@ -6,6 +6,7 @@ import _ from "lodash";
 
 import SingleContent from "../../components/SingleContent";
 import { Metadata } from "next";
+import { SingleTVSeries } from "@/types/SingleTvShow";
 
 export type PropsTvShows = {
   params: { tvId: string };
@@ -40,18 +41,25 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({ params: { tvId }, searchParams }: PropsTvShows) {
+export default async function Page({
+  params: { tvId },
+  searchParams,
+}: PropsTvShows) {
   const res = await fetch(
     `https://api.themoviedb.org/3/tv/${tvId.split("-")[0]}?api_key=${
       process.env.NEXT_PUBLIC_DB_key
     }&language=en-US`
   );
-  var tvShow = await res.json();
+  var tvShow: SingleTVSeries = await res.json();
   if (Object.keys(tvShow).length <= 3) {
     notFound();
   }
+
   return (
-    <SingleContent Cotent={tvShow} trailerId={searchParams?.trailerId as any} />
+    <SingleContent
+      Cotent={tvShow as any}
+      trailerId={searchParams?.trailerId as any}
+    />
   );
 }
 export async function generateStaticParams() {

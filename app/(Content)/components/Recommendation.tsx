@@ -17,11 +17,11 @@ export default async function Recommendation({
   const recommendations: Content = await res.json();
   return (
     <div className="md:px-10  text-white flex flex-col gap-4">
-      <div className="flex items-end max-md:px-8 font-medium justify-between">
+      <div className="flex items-end max-md:px-6 font-medium justify-between">
         <h1 className="text-2xl ">Recommendation</h1>
       </div>
       <div className="overflow-scroll removeScroll  flex animate__animated animate__fadeIn">
-        <div className="flex flex-grow max-md:pl-8 gap-4 ">
+        <div className="flex flex-grow max-md:pl-6 gap-4 ">
           {recommendations.results.length ? (
             recommendations.results.map((content) =>(
                 <ContentCard movie={content}/>
