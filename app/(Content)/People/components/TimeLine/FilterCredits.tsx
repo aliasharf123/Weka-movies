@@ -5,6 +5,7 @@ import { CategorizedMap } from "./TimelineCareer";
 import { MantineProvider, Select } from "@mantine/core";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { getFilterCredits } from "@/src/getFilterCredits";
 
 export type dataType = {
   CategoriesTvCredits: CategorizedMap;
@@ -17,11 +18,7 @@ export default function FilterCredits({
   tv_credits,
   movie_credits,
 }: {
-  data: {
-    CategoriesTvCredits: CategorizedMap;
-    CategoriesMovieCredits: CategorizedMap;
-    CategoriesAllCredits: CategorizedMap;
-  };
+  data: dataType;
   tv_credits: CreditsResponceType;
   movie_credits: CreditsResponceType;
 }) {
@@ -39,9 +36,9 @@ export default function FilterCredits({
   const SearchParams = useSearchParams();
   const router = useRouter();
   const pathName = usePathname();
-  // get a params filter 
-  const credit_department = SearchParams.get('credit_department')
-  const credit_media_type = SearchParams.get('credit_media_type')
+  // get a params filter
+  const credit_department = SearchParams.get("credit_department");
+  const credit_media_type = SearchParams.get("credit_media_type");
 
   // filter a credits by change url
   const SelectFilterCredits = (
@@ -49,40 +46,48 @@ export default function FilterCredits({
     Type: "credit_department" | "credit_media_type"
   ) => {
     const params = new URLSearchParams(SearchParams);
-    const RemoveSpace = value.split(" ")[0];
-    if (!SearchParams.get(Type)) {
-      params.append(Type, RemoveSpace);
-    } else {
-      params.set(Type, RemoveSpace);
+    if(!value) {
+      params.delete(Type)
+    }
+    else{
+      const RemoveSpace = value.split(" ")[0];
+      if (!SearchParams.get(Type)) {
+        params.append(Type, RemoveSpace);
+      } else {
+        params.set(Type, RemoveSpace);
+      }
     }
     router.push(pathName + "?" + params.toString(), { scroll: false });
   };
-  // clear all params in url
-  const clearAllFilters = () => {
+  // clear all params or specific param in url
+  const clearAllFilters = (
+    Delete: "credit_department" | "credit_media_type" | "all"
+  ) => {
     const params = new URLSearchParams(SearchParams);
-    params.delete("credit_department");
-    params.delete("credit_media_type");
+    if (Delete === "all") {
+      params.delete("credit_department");
+      params.delete("credit_media_type");
+    } else {
+      params.delete(Delete);
+    }
     router.push(pathName + "?" + params.toString(), { scroll: false });
   };
-  const FilterCredits = (): CategorizedMap => {
-    if (!credit_department && !credit_media_type) {
-      return CategoriesAllCredits;
-    }
-    // Filter by Media type 
-    if (credit_media_type === "Tv") {
-      return credit_department //  select a department if exist in url
-        ? { [credit_department]: CategoriesTvCredits[credit_department] }
-        : CategoriesTvCredits;
-    } else if (credit_media_type === "Movies") {
-      return credit_department //  select a department if exist in url
-        ? { [credit_department]: CategoriesMovieCredits[credit_department] }
-        : CategoriesMovieCredits;
-    } else {
-      return credit_department //  select a department if exist in url
-        ? { [credit_department]: CategoriesAllCredits[credit_department] }
-        : CategoriesAllCredits;
-    }
-  };
+  const CreditsContent = getFilterCredits(
+    credit_media_type,
+    credit_department,
+    data
+  );
+
+  const DepartmentArray = CreditsContent
+    ? Object.keys(CreditsContent).map(
+        (key) => `${key} (${CreditsContent[key].length})`
+      )
+    : [];
+  const MediaTypeArray = [
+    `All (${numberOfTvShows + numberOfMovies})`,
+    `Tv shows (${numberOfTvShows})`,
+    `Movies (${numberOfMovies})`,
+  ];
   return (
     <>
       <div className="flex justify-between items-center">
@@ -91,7 +96,7 @@ export default function FilterCredits({
           {(SearchParams.get("credit_department") ||
             SearchParams.get("credit_media_type")) && (
             <button
-              onClick={clearAllFilters}
+              onClick={() => clearAllFilters("all")}
               className="text-redColor font-medium hover:brightness-75 duration-200"
             >
               Clear
@@ -116,10 +121,15 @@ export default function FilterCredits({
             label="Selcet categorie"
             className={` ${!openFilters && "h-0 scale-y-0"}`}
             placeholder="Pick value"
-            data={Object.keys(FilterCredits()).map(
-              (key) => `${key} (${FilterCredits()[key].length})`
-            )}
-            value={credit_department}
+            data={DepartmentArray}
+            value={
+              credit_department
+                ? DepartmentArray.find((item) =>
+                    item.includes(credit_department ?? "z")
+                  )
+                : ""
+            }
+            clearable
             onChange={(e) => SelectFilterCredits(e as any, "credit_department")}
             searchable
           />
@@ -127,14 +137,17 @@ export default function FilterCredits({
             label="Select a media type"
             className={` ${!openFilters && "h-0 scale-y-0"}`}
             placeholder="Pick value"
-            data={[
-              `All (${numberOfTvShows + numberOfMovies})`,
-              `Tv shows (${numberOfTvShows})`,
-              `Movies (${numberOfMovies})`,
-            ]}
-            value={credit_media_type}
+            data={MediaTypeArray}
+            value={
+              credit_media_type
+                ? MediaTypeArray.find((item) =>
+                    item.includes(credit_media_type)
+                  )
+                : ""
+            }
             onChange={(e) => SelectFilterCredits(e as any, "credit_media_type")}
             searchable
+            clearable
           />
         </div>
       </MantineProvider>

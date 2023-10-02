@@ -12,12 +12,15 @@ import React from "react";
 import { CategorizedMap } from "./TimelineCareer";
 import { dataType } from "./FilterCredits";
 import { useSearchParams } from "next/navigation";
+import { getFilterCredits } from "@/src/getFilterCredits";
 
 export default function TimelineDisplay({
-  data: { CategoriesTvCredits, CategoriesMovieCredits, CategoriesAllCredits },
+  data,
 }: {
   data: dataType;
 }) {
+  // destructure data 
+  const {CategoriesTvCredits , CategoriesAllCredits ,CategoriesMovieCredits} = data 
   // get a params
   const SearchParams = useSearchParams();
   // get a params filter
@@ -44,12 +47,12 @@ export default function TimelineDisplay({
         : CategoriesAllCredits;
     }
   };
-  const CategoriesCredits = FilterCredits();
+  const CategoriesCredits = getFilterCredits(credit_media_type , credit_department , data);
   return (
     <MantineProvider theme={{ colorScheme: "dark" }}>
       {/* timeline by categories*/}
       <div className="divide-y-2 divide-HeaderColor grid gap-4">
-        {Object.keys(CategoriesCredits).map(
+        {CategoriesCredits ? Object.keys(CategoriesCredits).map(
           (
             categorie // map in credits Categorie
           ) => (
@@ -122,7 +125,7 @@ export default function TimelineDisplay({
               </Timeline>
             </div>
           )
-        )}
+        ) : <h1>There isn't a credit fit filter</h1>}
       </div>
     </MantineProvider>
   );
