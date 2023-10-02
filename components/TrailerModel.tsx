@@ -1,12 +1,9 @@
 'use client'
-import { makeQueryClient } from '@/app/components/TrendingSection/movies';
 import { MantineProvider, Modal } from '@mantine/core'
-import Head from 'next/head';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import React from 'react'
 import useSWR from 'swr';
 import { VideoType } from '@/types/videoType';
-import {useEffect} from 'react'
 
 const serilizeID = (trailerId : string) =>{
     const arr = trailerId.split("-")

@@ -23,7 +23,7 @@ export default function ContentCard({
         isPersonProfile
           ? "min-w-[11rem] max-w-[11rem] h-64"
           : "min-w-[12rem] max-w-[11rem] h-72"
-      }   group`}
+      }   group  animate__animated animate__fadeIn`}
     >
       <Image
         className=" rounded-xl brightness-[.80] duration-300  object-cover  relative "

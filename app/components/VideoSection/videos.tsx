@@ -18,7 +18,7 @@ export default async function Videos({url}: {url: string}) {
             const media = type === 'Movies' ? 'movie' : 'tv'
             return (
                 <div
-                className="gap-5 cursor-pointer group flex-wrap relative text-center  h-[240px] "
+                className="gap-5  animate__animated animate__fadeIn cursor-pointer group flex-wrap relative text-center  h-[240px] "
                 key={movie.id}
                 >
                 <Link

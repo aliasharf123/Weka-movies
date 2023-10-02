@@ -4,11 +4,13 @@ import Head from "next/head"
 import './globals.css'
 import './Home.module.css'
 import React from 'react'
-import Model from "../components/TrailerModel"
+import { Metadata } from "next"
 
-export const metadata = {
+export const metadata : Metadata = {
     title: 'Weka movies',
     description: 'Welcome to Weka movies',
+    icons:'/static/large-WOMJa9L29-transformed.png'
+
   }
 
 
