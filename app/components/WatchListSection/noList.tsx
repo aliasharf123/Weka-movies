@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import BookmarkBorderIconClient from "@/components/BookmarkBorderIconClient";
+import BookmarkBorderIconClient from "@/components/clientBottomTree/BookmarkBorderIconClient";
 
 // render if No Movies in Favoorie list
 export default function NoList() { //That means that he fired the gun empty

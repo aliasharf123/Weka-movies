@@ -2,8 +2,7 @@ import { ContentItem } from "@/types/ContentType";
 
 function getInfo(content : ContentItem) {
     const title = content.name ?? content.title // get title of movie or tvshow 
-    let type : 'Movies' | 'TvShow' = content.media_type === 'movie' ? 'Movies' : 'TvShow' // get Media of data
-    type =  content.media_type ? type : content.name ?  'TvShow' : 'Movies'
+    const type =  content.title ? 'Movies' :  'TvShow'
     const realseData = content.release_date || content.first_air_date
     return {title , type   , realseData}
 }

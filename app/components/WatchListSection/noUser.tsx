@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link';
-import BookmarkBorderIconClient from '@/components/BookmarkBorderIconClient';
+import BookmarkBorderIconClient from '@/components/clientBottomTree/BookmarkBorderIconClient';
 
 export default function NoUser() {
   return (

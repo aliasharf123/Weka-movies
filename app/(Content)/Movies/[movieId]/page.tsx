@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 import SingleContent from "../../components/SingleContent";
 import { Metadata } from "next";
 
-type Props = {
+export type PropsMovie = {
   params: { movieId: string };
   searchParams: { [key: string]: string | string[] | undefined };
 };
@@ -14,7 +14,7 @@ type Props = {
 export async function generateMetadata({
   params,
   searchParams,
-}: Props): Promise<Metadata> {
+}: PropsMovie): Promise<Metadata> {
   // read route params
   const res = await fetch(
     `https://api.themoviedb.org/3/movie/${
@@ -30,7 +30,7 @@ export async function generateMetadata({
 export default async function SingleMoviePage({
   params: { movieId },
   searchParams,
-}: Props) {
+}: PropsMovie) {
   const res = await fetch(
     `https://api.themoviedb.org/3/movie/${movieId.split("-")[0]}?api_key=${
       process.env.NEXT_PUBLIC_DB_key

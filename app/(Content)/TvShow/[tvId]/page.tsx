@@ -7,7 +7,7 @@ import _ from "lodash";
 import SingleContent from "../../components/SingleContent";
 import { Metadata } from "next";
 
-type Props = {
+export type PropsTvShows = {
   params: { tvId: string };
   searchParams: { [key: string]: string | string[] | undefined };
 };
@@ -26,7 +26,7 @@ const getTvInfo = async (tvId: string) => {
 export async function generateMetadata({
   params,
   searchParams,
-}: Props): Promise<Metadata> {
+}: PropsTvShows): Promise<Metadata> {
   // read route params
   const res = await fetch(
     `https://api.themoviedb.org/3/tv/${params.tvId.split("-")[0]}?api_key=${
@@ -40,7 +40,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({ params: { tvId }, searchParams }: Props) {
+export default async function Page({ params: { tvId }, searchParams }: PropsTvShows) {
   const res = await fetch(
     `https://api.themoviedb.org/3/tv/${tvId.split("-")[0]}?api_key=${
       process.env.NEXT_PUBLIC_DB_key

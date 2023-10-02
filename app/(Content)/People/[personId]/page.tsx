@@ -4,10 +4,9 @@ import { Metadata } from "next";
 import Image from "next/image";
 import React from "react";
 import BiographyParagraphs from "../components/biographyParagraphs";
-import KnownFor from "../components/KnownFor";
 import SocialMedia from "../components/SocialMedia";
-import { isNull } from "lodash";
-
+import {Suspense} from 'react'
+import Credits, { preload } from "../components/Credits";
 type Props = {
   params: { personId: string };
   searchParams: { [key: string]: string | string[] | undefined };
@@ -38,6 +37,7 @@ export default async function Page({
     }&language=en-US`
   );
   const person: SinglePerson = await res.json(); // get a person detail info
+  preload(person.id) // preload a data to help in parrel fetching
   const PersonalInfo = {
     // make a personal Object
     Known_For: person.known_for_department,
@@ -65,7 +65,6 @@ export default async function Page({
     Place_of_Birth: person.place_of_birth,
     Also_Known_As: person.also_known_as,
   };
-
   return (
     <div className="text-white  flex  max-lg:flex-col gap-8  lg:px-16  mt-10">
       <div className="flex flex-col gap-5 ">
@@ -82,7 +81,7 @@ export default async function Page({
           width={250}
           height={300}
         />
-        <div className="max-lg:self-center flex flex-col items-center">
+        <div className="max-lg:self-center flex flex-col max-lg:items-center">
           <h1 className="lg:hidden text-3xl font-semibold text-center">{person.name}</h1> {/*Name display in mobile and small desktop*/}
           {/*Social media Links*/}
           <SocialMedia person={person} />
@@ -123,11 +122,9 @@ export default async function Page({
           <BiographyParagraphs biography={person.biography} />
         </div>
         {/* credits section */}
-
-        <div className="grid gap-3">
-          <h1 className="text-lg max-lg:px-6 font-medium">Known For</h1>
-          <KnownFor person={person} />
-        </div>
+        <Suspense fallback={<h1>Loading.........</h1>}>
+          <Credits id={person.id}/>
+        </Suspense>
       </div>
     </div>
   );

@@ -19,6 +19,7 @@
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.14.10",
     "@next/font": "13.1.6",
+    "@tabler/icons-react": "^2.38.0",
     "animate.css": "^4.1.1",
     "antd": "^5.9.2",
     "eslint": "8.33.0",

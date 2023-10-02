@@ -9,8 +9,8 @@ export const revalidate = 0
 
 
 export default async function WatchList() {
-  const movies : ContentItem[] = await GetMovies(auth.currentUser as any) 
-  
+  const movies : ContentItem[] = await GetMovies(auth.currentUser as any)
+
   if(!movies.length) return <NoList/>
 
   return (

@@ -6,10 +6,9 @@ import { cache } from "react"
 
 
 // Add Movie to Favorite List
-export const AddMovie = cache( async (movie : ContentItem, user :User , media : string) =>{
-    console.log(media)
+export const AddMovie = cache( async (movie : ContentItem, user :User) =>{
     return await addDoc(users, {
         uid :user.uid,
-        movie: {...movie, media_type : (media || movie.media_type )}
+        movie: movie
     })
 })

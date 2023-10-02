@@ -1,3 +1,4 @@
+import { defaultImage } from '@/src/defaultImage'
 import getInfo from '@/src/getInfo'
 import { Cast } from '@/types/CastType'
 import { ContentItem } from '@/types/ContentType'
@@ -20,7 +21,7 @@ export default async function TopCast({Content } : {Content : ContentItem}) {
                 {Cast.cast.splice(0,11).map((actor) =>(
                     <Link href={`/People/${actor.id}-${actor.name.replaceAll(" ", "-")}`}>
                         <div key={actor.id} className='w-[8rem] gap-2  grid h-full'>
-                            <Image  className='rounded-lg' width={128} height={128} alt={actor.name} src={`https://www.themoviedb.org/t/p/w500${actor.profile_path}`}/>
+                            <Image  className='rounded-lg' width={128} height={128} alt={actor.name} src={actor.profile_path ? `https://www.themoviedb.org/t/p/w500${actor.profile_path}` : defaultImage}/>
                             <div className='grid leading-5'>
                                 <h1 className='truncate font-medium'>{actor.name}</h1>
                                 <h1 className='truncate text-[rgba(255,255,255,0.7)]'>{actor.character}</h1>

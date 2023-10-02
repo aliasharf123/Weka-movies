@@ -3,10 +3,11 @@ import Image from "next/image";
 import AddFavorite from "@/components/Favorite";
 import getInfo from "@/src/getInfo";
 import { SingleMovieData } from "@/types/SingleMovieType";
-import DotIconClient from "@/components/DotIconClient";
+import DotIconClient from "@/components/clientBottomTree/DotIconClient";
 import Link from "next/link";
 import RatingClient from "@/components/RatingClient";
 import { PlayCircleOutlined } from "@ant-design/icons";
+import { defaultImage } from "@/src/defaultImage";
 
 export default async function ContentBanner({
   Content,
@@ -38,7 +39,7 @@ export default async function ContentBanner({
             width={300}
             height={300}
             className="object-cover  rounded-lg "
-            src={`https://www.themoviedb.org/t/p/original${Content.poster_path}`}
+            src={Content.poster_path ? `https://www.themoviedb.org/t/p/original${Content.poster_path}` : defaultImage}
             alt="mai1n"
             unoptimized
           />
@@ -75,12 +76,17 @@ export default async function ContentBanner({
                 <div>{convertMinutesToHoursAndMinutesORSeasons(Content.runtime)}</div>
               </div>
             </div>
+            {/* Rating  */}
+            <div className="flex items-center gap-2 text-lg font-medium">
+              <RatingClient rate={Content.vote_average /2 }/>
+              {(Content.vote_average / 2).toFixed(1)}               
+            </div>
           </div>
           <h1 className="italic text-[rgba(255,255,255,0.7)] ">
             {Content.tagline}
           </h1>
           <h1 className="text-lg font-medium">Overview</h1>
-          <p className="w-[70%]">{Content.overview}</p>
+          <p className="w-[70%]">{Content.overview || 'no overview found'}</p>
           {/* See Trailer & Add Favorite  */}
           <div className="flex gap-2 mt-2">
             <Link
@@ -92,7 +98,7 @@ export default async function ContentBanner({
               Play Trailer
             </Link>
             <div className="relative flex justify-center items-center text-xl p-3  rounded-lg bg-[rgba(255,255,255,0.1)] ">
-              <AddFavorite movie={Content} media={"movie"} />
+              <AddFavorite movie={Content}  />
             </div>
           </div>
         </div>
@@ -121,7 +127,7 @@ export default async function ContentBanner({
               </div>
               {/* Add to WatchList */}
               <div className="text-3xl">
-                <AddFavorite movie={Content} media={type} />
+                <AddFavorite movie={Content}/>
               </div>
             </div>
             <div className="flex items-center gap-1 text-lg font-medium">

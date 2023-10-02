@@ -41,7 +41,7 @@ export default function DetaildContentCard({ movie }: { movie: ContentItem }) {
               }}
               className=" p-1 rounded-3xl  hover:scale-105 duration-200   right-0 "
             >
-              <AddFavorite movie={movie} media={"movie"} />
+              <AddFavorite movie={movie}/>
             </div>
           </div>
           <h1 className="text-[#515457] flex gap-2 textLine text-sm truncate">
