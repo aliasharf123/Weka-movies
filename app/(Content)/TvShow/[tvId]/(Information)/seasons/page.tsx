@@ -4,7 +4,7 @@ import { SingleTVSeries } from "@/types/SingleTvShow";
 import HeaderContent from "@/app/(Content)/components/InformationComp/headerContent";
 import Image from "next/image";
 import { defaultImage } from "@/src/defaultImage";
-import RatingClient from "@/components/RatingClient";
+import RatingClient from "@/components/clientBottomTree/RatingClient";
 import { Metadata } from "next";
 
 

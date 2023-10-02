@@ -1,5 +1,5 @@
 "use client";
-import RatingClient from "@/components/RatingClient";
+import RatingClient from "@/components/clientBottomTree/RatingClient";
 import { SortingMovie } from "@/src/SortingTech";
 import { defaultImage } from "@/src/defaultImage";
 import getInfo from "@/src/getInfo";

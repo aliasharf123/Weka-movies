@@ -1,4 +1,4 @@
-import RatingClient from "@/components/RatingClient";
+import RatingClient from "@/components/clientBottomTree/RatingClient";
 import { defaultImage } from "@/src/defaultImage";
 import { SingleTVSeries, seasonType } from "@/types/SingleTvShow";
 import Image from "next/image";

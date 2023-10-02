@@ -1,6 +1,6 @@
 "use client";
 import AddFavorite from "@/components/Favorite";
-import RatingClient from "@/components/RatingClient";
+import RatingClient from "@/components/clientBottomTree/RatingClient";
 import { GenresMap } from "@/src/GenreMap";
 import { defaultImage } from "@/src/defaultImage";
 import getInfo from "@/src/getInfo";

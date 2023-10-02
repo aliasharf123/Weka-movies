@@ -6,13 +6,13 @@ import { Rating, ThemeProvider } from '@mui/material'
 export default function RatingClient({rate} : {rate : number}) {
   return (
     <ThemeProvider theme={darkTheme}>
-      <Rating
+    {rate ?  <Rating
         size="small"
         readOnly
         name="half-rating"
         defaultValue={rate}
         precision={0.5}
-      />
+      /> : <div></div>}
     </ThemeProvider>
   );
 }

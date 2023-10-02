@@ -5,7 +5,7 @@ import getInfo from "@/src/getInfo";
 import { SingleMovieData } from "@/types/SingleMovieType";
 import DotIconClient from "@/components/clientBottomTree/DotIconClient";
 import Link from "next/link";
-import RatingClient from "@/components/RatingClient";
+import RatingClient from "@/components/clientBottomTree/RatingClient";
 import { PlayCircleOutlined } from "@ant-design/icons";
 import { defaultImage } from "@/src/defaultImage";
 

@@ -1,4 +1,4 @@
-import RatingClient from "@/components/RatingClient";
+import RatingClient from "@/components/clientBottomTree/RatingClient";
 import AvatarClient from "@/components/clientBottomTree/AvatarClient";
 import { Review } from "@/types/ReviewsType";
 import React from "react";
