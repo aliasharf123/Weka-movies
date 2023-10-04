@@ -49,7 +49,7 @@ export default async function Movies({ searchParams }: Params) {
   return (
     <div
       className={
-        "flex flex-col pt-5 px-10 gap-5 divide-HeaderColor text-white"
+        "flex flex-col pt-5 px-5 md:px-10 gap-5 divide-HeaderColor text-white"
       }
     >
       {/* Sorting and Show filters Component */}

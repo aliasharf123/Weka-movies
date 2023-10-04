@@ -46,7 +46,7 @@ export default async function Page({
               data={data}
             />
           ) : (
-            <div className="grid grid-cols-auto-fit gap-5 mb-5  px-10">
+            <div className="grid grid-cols-auto-fit gap-5 mb-5  px-5 md:px-10">
               {data.results.map((item: any) => (
                 <PersonCard key={item.id} person={item} />
               ))}

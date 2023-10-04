@@ -48,7 +48,7 @@ export default async function TvShows({ searchParams }: Params) {
 
   return (
     <div
-      className={"flex flex-col pt-5 px-10 gap-5 divide-HeaderColor text-white"}
+      className={"flex flex-col pt-5 px-5 md:px-10 gap-5 divide-HeaderColor text-white"}
     >
       {/* Sorting and Show filters Component */}
       <Suspense fallback={null}>
