@@ -8,7 +8,7 @@ import MovieLoading from "@/components/Loading";
 // Define an array of sorting options
 
 export const metadata = {
-  title: "Explore Movies - Weka movies",
+  title: "Explore Tv shows - Weka movies",
   description: "Welcome to Weka movies",
 };
 interface Params {
@@ -19,8 +19,8 @@ interface Params {
     sort:
       | "vote_average.desc"
       | "vote_average.asc"
-      |'release_date.asc'
-      |'release_date.desc'
+      | "release_date.asc"
+      | "release_date.desc"
       | "popularity.desc"
       | "popularity.asc"
       | "revenue.asc"
@@ -37,24 +37,22 @@ interface Params {
     endDate: string | undefined;
   };
 }
-export default async function Movies({ searchParams }: Params) {
+export default async function TvShows({ searchParams }: Params) {
   const page = searchParams.page ?? 1; // State to manage the current page of results
   const languge = searchParams.languge ?? "";
   const sort = searchParams.sort ?? "popularity.desc"; // State to manage sorting options
   const genere = searchParams.genere ?? "";
   const startDate = searchParams.startDate ?? "";
   const endDate = searchParams.endDate ?? "";
-  const url = `https://api.themoviedb.org/3/discover/movie?language=en-US&sort_by=${sort}&include_adult=false&include_video=false&page=${page}&with_watch_monetization_types=flatrate&with_genres=${genere}&with_original_language=${languge}&primary_release_date.gte=${startDate}&primary_release_date.lte=${endDate}`;
+  const url = `https://api.themoviedb.org/3/discover/tv?language=en-US&sort_by=${sort}&include_adult=false&include_video=false&page=${page}&with_watch_monetization_types=flatrate&with_genres=${genere}&with_original_language=${languge}&first_air_date.gte=${startDate}&first_air_date.lte=${endDate}`;
 
   return (
     <div
-      className={
-        "flex flex-col pt-5 px-10 gap-5 divide-HeaderColor text-white"
-      }
+      className={"flex flex-col pt-5 px-10 gap-5 divide-HeaderColor text-white"}
     >
       {/* Sorting and Show filters Component */}
       <Suspense fallback={null}>
-        <HeaderFilters type='movie'/>
+        <HeaderFilters type='tv'/>
       </Suspense>
       {/* Grid layout */}
       <Suspense fallback={<MovieLoading />} key={url}>

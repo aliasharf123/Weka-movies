@@ -85,6 +85,7 @@ function Signin() {
     
     <div className=" w-full h-screen grid md:grid-cols-2  text-white">  
         <div  className="flex flex-col  gap-14"  >
+            <Image  className="object-cover md:hidden -z-30 brightness-50" alt="BackgroundImafe" src={BackgroundImage} fill/>
             <div className="flex items-center p-3  sm:p-5  md:p-10 gap-2 justify-between">
                 <Link href={'/'}  className="flex items-center gap-2">
                     <Image alt="logo" src={logo} width={40}  height={40} unoptimized/>

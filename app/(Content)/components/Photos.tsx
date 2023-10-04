@@ -16,7 +16,7 @@ export default async function Photos({ Content }: { Content: ContentItem }) {
   );
   const Photos: MovieImages = await res.json();
   return (
-    <div className=" flex flex-col gap-4  md:px-10 text-white">
+    <div className=" grid gap-4   text-white">
       <div className="flex items-end max-md:px-6 font-medium justify-between">
         <div className="flex gap-1 text-2xl items-center">
           <h1 className=" ">Photos</h1>
@@ -28,7 +28,7 @@ export default async function Photos({ Content }: { Content: ContentItem }) {
 
       {/* Display the backdrops photos*/}
       {Photos.backdrops.length ? (
-        <div className="overflow-scroll removeScroll  flex animate__animated animate__fadeIn">
+        <div className="overflow-scroll md:pb-5 Custome-Scroll max-md:removeScroll   flex animate__animated animate__fadeIn">
           <div className="flex flex-grow   max-md:pl-6  gap-4 ">
             {Photos.backdrops.splice(0, 11).map((backdrop, index) => (
               <div
@@ -48,7 +48,7 @@ export default async function Photos({ Content }: { Content: ContentItem }) {
           </div>
         </div>
       ) : (
-        <h1>We don't have any Photos for The {title}.</h1>
+        <h1 className="max-md:px-6">We don't have any Photos for The {title}.</h1>
       )}
     </div>
   );

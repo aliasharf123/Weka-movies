@@ -15,40 +15,41 @@ export default async function TopCast({ Content }: { Content: ContentItem }) {
   );
   const Cast: Cast = await res.json();
   return (
-    <div className="md:px-10 text-white flex flex-col gap-4">
+    <div className=" text-white grid gap-4">
       <div className="flex items-end max-md:px-6  font-medium justify-between">
         <h1 className="text-2xl ">The Cast</h1>
-        {( Cast.crew.length + Cast.cast.length) ? (
+        {( Cast.crew.length + Cast.cast.length) > 10 ? (
           <Link
             className="text-[rgba(255,255,255,0.7)]"
             href={`/${type}/${Content.id}-${title?.replaceAll(" ", "-")}/cast`}
           >
-            View All
+            Full Crew & Cast 
           </Link>
         ) : <div></div>}
       </div>
-      <div className="overflow-scroll removeScroll  flex animate__animated animate__fadeIn">
+      <div className="overflow-scroll md:pb-5 Custome-Scroll max-md:removeScroll   animate__animated animate__fadeIn">
         <div className="flex flex-grow max-md:pl-6 gap-4 ">
-          {Cast.cast.splice(0, 11).map((actor) => (
+          {[...Cast.cast ,...Cast.crew].splice(0, 11).map((person) => (
             <Link
-              href={`/People/${actor.id}-${actor.name.replaceAll(" ", "-")}`}
+              href={`/People/${person.id}-${person.name.replaceAll(" ", "-")}`}
             >
-              <div key={actor.id} className="w-[8rem] gap-2  grid h-full">
+              <div key={person.id} className=" w-[8rem] gap-2  grid ">
                 <Image
-                  className="rounded-lg"
-                  width={128}
-                  height={128}
-                  alt={actor.name}
+                  className="rounded-lg  object-cover h-[12rem]"
+                  width={208}
+                  height={208}
+                  alt={person.name}
                   src={
-                    actor.profile_path
-                      ? `https://www.themoviedb.org/t/p/w500${actor.profile_path}`
+                    person.profile_path
+                      ? `https://www.themoviedb.org/t/p/w500${person.profile_path}`
                       : defaultImage
                   }
                 />
                 <div className="grid leading-5">
-                  <h1 className="truncate font-medium">{actor.name}</h1>
+                  <h1 className="truncate font-medium">{person.name}</h1>
                   <h1 className="truncate text-[rgba(255,255,255,0.7)]">
-                    {actor.character}
+                    {/* if person is in crew it will have job else it will have character */}
+                    {(person as any).character || (person as any).job} 
                   </h1>
                 </div>
               </div>

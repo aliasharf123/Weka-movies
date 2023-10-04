@@ -25,9 +25,15 @@ export default function SingleSeason({ Season }: { Season: seasonType }) {
             <span>{new Date(Season.air_date).getFullYear()}</span>{" "}
             <span>{Season.episode_count} Episodes</span>
           </h1>
-          {Season.vote_average && <RatingClient rate={Season.vote_average / 2}/>}
+            <RatingClient rate={Season.vote_average / 2} />
         </div>
-        <p className="text-[rgba(255,255,255,0.7)]">{Season.overview}</p>
+        {Season.overview ? (
+          <p className="text-[rgba(255,255,255,0.7)]">{Season.overview}</p>
+        ) : (
+          <p className="italic text-[rgba(255,255,255,0.7)]">
+            No overview for {Season.name}
+          </p>
+        )}
       </div>
     </div>
   );

@@ -14,7 +14,7 @@ export default async function WatchList() {
   if(!movies.length) return <NoList/>
 
   return (
-    <div className='overflow-scroll overflow-y-auto removeScroll '>
+    <div className='overflow-scroll overflow-y-auto md:pb-8 Custome-Scroll max-md:removeScroll '>
         <div className= 'flex  gap-5  ml-6  animate__animated animate__fadeIn'>
             {movies.map((movie :any , index : number) => {
                 return (

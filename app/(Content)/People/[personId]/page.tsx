@@ -4,7 +4,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import React from "react";
 import BiographyParagraphs from "../components/biographyParagraphs";
-import SocialMedia from "../components/SocialMedia";
+import SocialMedia from "../../components/SocialMedia";
 import {Suspense} from 'react'
 import Credits, { preload } from "../components/Credits";
 type Props = {
@@ -84,7 +84,7 @@ export default async function Page({
         <div className="max-lg:self-center flex flex-col max-lg:items-center">
           <h1 className="lg:hidden text-3xl font-semibold text-center">{person.name}</h1> {/*Name display in mobile and small desktop*/}
           {/*Social media Links*/}
-          <SocialMedia person={person} />
+          <SocialMedia id={person.id}  Type="person"/>
         </div>
         {/* Personal Info */}
         <div className="grid max-lg:px-6 gap-3">

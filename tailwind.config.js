@@ -16,7 +16,8 @@ module.exports = {
         'redColor' : '#F4181C',
         'HeaderColor' : '#222425',
         'DetailBackground' : '#1D1F21',
-        'SecondaryText': '#5C6064'
+        'SecondaryText': '#5C6064',
+        'Paragraph' : 'rgba(255,255,255,0.7)'
       }
     },
   },

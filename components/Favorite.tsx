@@ -24,20 +24,21 @@ function AddFavorite({ movie }: any) {
   };
   useEffect(() => {
     Determine();
-  }, [movie.id]);
+  }, []);
   return (
     <div>
       <button
         className={`hover:brightness-125   text-white flex justify-center items-center`}
-        onClick={() =>
+        onClick={(e) => {
+          e.preventDefault();
           AddtoFavorite(
             movie,
             user,
             router,
             messageApiResult,
             messageApiLoading
-          )
-        }
+          );
+        }}
       >
         {/* Change icon appearance according to the favorited status */}
         {!isInWatchList ? (

@@ -5,7 +5,7 @@ import BookmarkBorderIconClient from '@/components/clientBottomTree/BookmarkBord
 export default function NoUser() {
   return (
     <div className="flex flex-col justify-center items-center h-[12rem]">
-        <div className='text-6xl bg-[rgba(0,0,0,0.4)] text-white'>
+        <div className='text-6xl  text-white'>
           <BookmarkBorderIconClient/>
         </div>
         <div className="flex flex-col  text-center items-center gap-2 ">

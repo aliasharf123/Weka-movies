@@ -17,9 +17,10 @@ import {
   Loader,
   MantineProvider,
 } from "@mantine/core";
+import { revalidateTag } from "next/cache";
 
 // Array of Navigation
-const Links = ["", "Movies", "Tv shows", "People"];
+const Links = ["", "Movies", "TvShow", "People"];
 
 // Define the Header component
 export default function Header() {
@@ -86,7 +87,11 @@ export default function Header() {
                   }  duration-300 `}
                   href={`/${link}`}
                 >
-                  {link.length ? link : "Home"}
+                  {link.length
+                    ? link === "TvShow"
+                      ? "Tv shows"
+                      : link
+                    : "Home"}
                 </Link>
               </li>
             ))}

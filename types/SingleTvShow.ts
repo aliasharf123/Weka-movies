@@ -27,7 +27,12 @@ export type SingleTVSeries = {
     } | null;
     name: string;
     next_episode_to_air: null | any; // Replace with the appropriate type if available
-    networks: any[]; // Replace with the appropriate type if available
+    networks:   {
+      id: number,
+      logo_path: string,
+      name: string,
+      origin_country: string
+    }[]; // Replace with the appropriate type if available
     number_of_episodes: number;
     number_of_seasons: number;
     origin_country: string[];

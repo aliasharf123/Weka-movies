@@ -19,8 +19,6 @@ export default function TimelineDisplay({
 }: {
   data: dataType;
 }) {
-  // destructure data 
-  const {CategoriesTvCredits , CategoriesAllCredits ,CategoriesMovieCredits} = data 
   // get a params
   const SearchParams = useSearchParams();
   // get a params filter
@@ -28,25 +26,6 @@ export default function TimelineDisplay({
   const credit_media_type: "Tv" | "Movies" | null | "All" | string =
     SearchParams.get("credit_media_type");
 
-  const FilterCredits = (): CategorizedMap => {
-    if (!credit_department && !credit_media_type) {
-      return CategoriesAllCredits;
-    }
-    // Filter by Media type 
-    if (credit_media_type === "Tv") {
-      return credit_department //  select a department if exist in url
-        ? { [credit_department]: CategoriesTvCredits[credit_department] }
-        : CategoriesTvCredits;
-    } else if (credit_media_type === "Movies") {
-      return credit_department //  select a department if exist in url
-        ? { [credit_department]: CategoriesMovieCredits[credit_department] }
-        : CategoriesMovieCredits;
-    } else {
-      return credit_department //  select a department if exist in url
-        ? { [credit_department]: CategoriesAllCredits[credit_department] }
-        : CategoriesAllCredits;
-    }
-  };
   const CategoriesCredits = getFilterCredits(credit_media_type , credit_department , data);
   return (
     <MantineProvider theme={{ colorScheme: "dark" }}>

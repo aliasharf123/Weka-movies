@@ -1,9 +1,5 @@
 import PaginationMovies from "@/components/PaginationMovies";
-import { defaultImage } from "@/src/defaultImage";
-import getInfo from "@/src/getInfo";
 import { PageResult } from "@/types/PeopleType";
-import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 import PersonCard from "./components/personCard";
 

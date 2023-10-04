@@ -12,7 +12,7 @@ export default function RatingClient({rate} : {rate : number}) {
         name="half-rating"
         defaultValue={rate}
         precision={0.5}
-      /> : <div></div>}
+      /> : <h1 className="text-Paragraph italic">Nr</h1>}
     </ThemeProvider>
   );
 }

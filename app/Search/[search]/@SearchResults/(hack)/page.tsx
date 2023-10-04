@@ -1,9 +1,8 @@
 import PersonCard from "@/app/(Content)/People/components/personCard";
 import GridResults from "@/components/GridResults";
 import { Content } from "@/types/ContentType";
-import { PersonResult } from "@/types/PeopleType";
-import { notFound } from "next/navigation";
-import React from "react";
+
+import React, { Suspense } from "react";
 
 const MadeUrl = (page: string, resultstate: string, search: string) => {
   return `https://api.themoviedb.org/3/search/${resultstate}?language=en-US&query=${search}&page=${page}&api_key=${process.env.NEXT_PUBLIC_DB_key}`;
@@ -26,7 +25,7 @@ export default async function Page({
   params: { search: "movie" | "tv" | "person" };
   searchParams?: { [key: string]: string | undefined };
 }) {
-  const page = searchParams?.page ?? "1";
+  const page = searchParams?.page;
   const Query = searchParams?.q;
   const res = await fetch(MadeUrl(page ?? "1", params.search, Query ?? ""), {
     next: { revalidate: 3600 },
@@ -36,7 +35,10 @@ export default async function Page({
   return (
     <>
       {data.results.length ? (
-        <div className="">
+        <div
+          className=""
+          key={MadeUrl(page ?? "1", params.search, Query ?? "")} // it for make a react determine that is new component to display a loading (Maybe)
+        >
           {params.search !== "person" ? (
             <GridResults
               media={params.search === "movie" ? "Movies" : "TvShow"}
@@ -44,7 +46,7 @@ export default async function Page({
               data={data}
             />
           ) : (
-            <div className="grid grid-cols-auto-fit    gap-5 mb-5  px-10">
+            <div className="grid grid-cols-auto-fit gap-5 mb-5  px-10">
               {data.results.map((item: any) => (
                 <PersonCard key={item.id} person={item} />
               ))}

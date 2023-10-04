@@ -84,7 +84,7 @@ function Trending() {
             </div>
 
             {/* Movies List Component */}
-            <div className='overflow-scroll   overflow-y-hidden  removeScroll animate__animated animate__fadeIn'>
+            <div className='overflow-scroll   overflow-y-hidden  md:pb-8 Custome-Scroll max-md:removeScroll animate__animated animate__fadeIn'>
                 <div className='flex flex-row gap-3  w-[4000px]   ml-6 ' >
                     <Suspense fallback={<Loading/>}>
                         <MoviesList

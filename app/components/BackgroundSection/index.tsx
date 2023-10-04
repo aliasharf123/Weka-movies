@@ -34,7 +34,7 @@ export default async function BackgroundSection() {
         fill
         priority
         quality={100}
-        className="object-cover object-top w-full brightness-75 lg:rounded-xl   shadow-white bg-HeaderColor"
+        className="object-cover object-centers w-full brightness-75 lg:rounded-xl   shadow-white bg-HeaderColor"
         src={`https://www.themoviedb.org/t/p/w1280${data.backdrop_path}`}
         alt="main"
       />

@@ -16,8 +16,8 @@ export default function DetaildContentCard({ movie }: { movie: ContentItem }) {
 
   return (
     <Link href={`/${type}/${movie.id}-${title?.replaceAll(" ", "-")}`}>
-      <div className="group bg-[#1D1F21]   rounded-xl ">
-        <div className="overflow-hidden w-full h-[300px] rounded-t-xl  relative">
+      <div className="group  animate__animated  animate__fadeIn bg-[#1D1F21]  h-full  rounded-xl ">
+        <div className="overflow-hidden w-full  max-sm:h-[250px] h-[300px] rounded-t-xl  relative">
           <Image
             fill
             className="object-cover rounded-t-xl group-hover:brightness-75  duration-300 group-hover:scale-105"
@@ -32,14 +32,14 @@ export default function DetaildContentCard({ movie }: { movie: ContentItem }) {
         </div>
         <div className=" text-white p-3 rounded-b-xl flex flex-col gap-1">
           <div className="flex justify-between">
-            <h1 className="font-medium text-lg truncate group-hover:text-redColor duration-300">
+            <h1 className="font-medium text-lg  group-hover:text-redColor duration-300">
               {title}
             </h1>
             <div
               onClick={(e) => {
                 e.preventDefault();
               }}
-              className=" p-1 rounded-3xl  hover:scale-105 duration-200   right-0 "
+              className="  rounded-3xl  text-xl hover:scale-105 duration-200   right-0 "
             >
               <AddFavorite movie={movie}/>
             </div>

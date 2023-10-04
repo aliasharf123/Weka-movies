@@ -4,7 +4,7 @@ import SingleSeason from "./SingleSeason";
 import Link from 'next/link'
 export default function SeasonSection({ Cotent }: { Cotent: SingleTVSeries }) {
   return (
-    <div className="md:px-10  text-white flex flex-col gap-4">
+    <div className="  text-white grid  gap-4">
       <div className="flex items-end max-md:px-6 font-medium justify-between">
         <h1 className="text-2xl ">Last Season</h1>
         {/* Link to view all Seasons */}
@@ -12,7 +12,7 @@ export default function SeasonSection({ Cotent }: { Cotent: SingleTVSeries }) {
           className="text-[rgba(255,255,255,0.7)]"
           href={`/TvShow/${Cotent.id}-${Cotent.name?.replaceAll(" ", "-")}/seasons`}
         >
-          View All
+          All Seasons
         </Link>}
       </div>
       <div className="max-md:px-6 ">

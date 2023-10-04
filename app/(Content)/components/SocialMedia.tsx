@@ -9,9 +9,9 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import Link from "next/link";
-export default function SocialMedia({ person }: { person: SinglePerson }) {
+export default function SocialMedia({ id , Type }: { id: number ,Type : 'person' | 'tv' | 'movie' }) {
   const {data , isLoading} : {data :  SocialMediaType,isLoading : boolean } = useSWR(
-    `https://api.themoviedb.org/3/person/${person.id}/external_ids?api_key=${process.env.NEXT_PUBLIC_DB_key}
+    `https://api.themoviedb.org/3/${Type}/${id}/external_ids?api_key=${process.env.NEXT_PUBLIC_DB_key}
    `,
     fetcher
   ); 

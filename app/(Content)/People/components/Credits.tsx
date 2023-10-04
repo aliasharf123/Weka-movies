@@ -41,7 +41,7 @@ export default async function Credits({ id }: { id: number }) {
       <div className="grid gap-3">
         <h1 className="text-lg max-lg:px-6 font-medium">Known For</h1>
         {/* most popular movies  */}
-        <div className="overflow-scroll   overflow-y-hidden  removeScroll">
+        <div className="overflow-scroll   overflow-y-hidden  md:pb-5 Custome-Scroll max-md:removeScroll   ">
           <div className="flex flex-row gap-3  animate__animated animate__fadeIn  max-lg:ml-6 ">
             {Known_For.map((content: any, index) => (
               <div className="flex flex-col">

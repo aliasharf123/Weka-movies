@@ -26,7 +26,7 @@ export default async function Reviews({ Content }: { Content: ContentItem }) {
   const review = Reviews.results[0];
 
   return (
-    <div className=" flex flex-col gap-4 px-6 md:px-10 text-white">
+    <div className=" grid gap-4 max-md:px-6 text-white">
       <div className="flex items-end  font-medium justify-between">
         <div className="flex gap-1 text-2xl items-center">
           <h1 className=" ">Reviews</h1>
@@ -39,7 +39,7 @@ export default async function Reviews({ Content }: { Content: ContentItem }) {
           className="text-[rgba(255,255,255,0.7)]"
           href={`/${type}/${Content.id}-${title?.replaceAll(" ", "-")}/Reviews`}
         >
-          View All
+          All Reviews
         </Link>}
       </div>
 

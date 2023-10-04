@@ -8,6 +8,7 @@ import Link from "next/link";
 import RatingClient from "@/components/clientBottomTree/RatingClient";
 import { PlayCircleOutlined } from "@ant-design/icons";
 import { defaultImage } from "@/src/defaultImage";
+import { SingleTVSeries } from "@/types/SingleTvShow";
 
 export default async function ContentBanner({
   Content,
@@ -17,6 +18,9 @@ export default async function ContentBanner({
   const { title, type, realseData } = getInfo(Content as any); // get a title of movie
 
   function convertMinutesToHoursAndMinutesORSeasons(minutes: number): string {
+    // if minutes null and minutes null 
+    if(!(Content as any).number_of_seasons && !minutes) return 'Nr'
+
     // turn a time to (hour)h (minutes)m or if it is null return a number of seasons
     if (!minutes) return `${(Content as any).number_of_seasons} s`;
     const hours = Math.floor(minutes / 60);
@@ -62,15 +66,13 @@ export default async function ContentBanner({
                 <DotIconClient /> {/* GET a client icon*/}
               </div>
               <div
-                className={`flex gap-2 items-center ${
-                  type === "TvShow" && "hidden"
-                }`}
+                className={`flex gap-2 items-center`}
               >
                 {/* Coutries and a year realease */}
                 <div>
                   {Content.production_countries[0] &&
                     Content.production_countries[0].iso_3166_1}{" "}
-                  {new Date(Content.release_date).getFullYear()}
+                  {new Date(Content.release_date || ((Content as any).first_air_date)).getFullYear()}
                 </div>
                 {/* break */}
                 <div className="text-[0.4rem]">
@@ -83,7 +85,7 @@ export default async function ContentBanner({
               </div>
             </div>
             {/* Rating  */}
-            {Content.vote_average && (
+            {Content.vote_average > 0 && (
               <div className="flex items-center gap-2 text-lg font-medium">
                 <RatingClient rate={Content.vote_average / 2} />
                 {(Content.vote_average / 2).toFixed(1)}
@@ -138,7 +140,7 @@ export default async function ContentBanner({
                 <AddFavorite movie={Content} />
               </div>
             </div>
-            {Content.vote_average && (
+            {Content.vote_average > 0  && (
               <div className="flex items-center gap-1 text-lg font-medium">
                 <RatingClient rate={Content.vote_average / 2} />{" "}
                 {(Content.vote_average / 2).toFixed(1)}

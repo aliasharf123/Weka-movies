@@ -154,7 +154,7 @@ function Video() {
           )}
         </div>
       </div>
-      <div className=" overflow-scroll   overflow-y-hidden  pt-8  removeScroll">
+      <div className=" overflow-scroll Custome-Scroll max-md:removeScroll   overflow-y-hidden  pt-8 ">
         <div className="flex flex-row gap-4 ml-7  w-[8000px]  animate__animated animate__fadeIn  ">
           <Suspense fallback={<Loading />}>
             {" "}
