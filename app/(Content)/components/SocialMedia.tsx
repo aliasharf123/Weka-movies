@@ -16,6 +16,7 @@ export default function SocialMedia({ id , Type }: { id: number ,Type : 'person'
     fetcher
   ); 
   if(isLoading) return <h1 className="">Loading....</h1>
+  
   return (
     <div className="text-3xl  flex flex-wrap gap-3">
         {data.facebook_id && <Link href={`https://www.facebook.com/${data.facebook_id}`}>
