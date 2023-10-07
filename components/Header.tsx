@@ -11,13 +11,12 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase/Clients";
 import {
   Menu,
-  Button,
   Burger,
   Drawer,
   Loader,
   MantineProvider,
 } from "@mantine/core";
-import { revalidateTag } from "next/cache";
+import SearchBar from "./SearchBar";
 
 // Array of Navigation
 const Links = ["", "Movies", "TvShow", "People"];
@@ -27,7 +26,6 @@ export default function Header() {
   // State variables for search input and navigation drawer
   const Query = useSearchParams().get("q") ?? "";
   const [search, setSearch] = useState(Query);
-  const router = useRouter();
   const [user, loading, error] = useAuthState(auth);
   const [opened, setOpen] = useState(false);
   const [opened1, setOpened] = useState(false);
@@ -35,13 +33,6 @@ export default function Header() {
   // Set title for the navigation drawer
   const title = opened ? "Close navigation" : "Open navigation";
 
-  // Function to handle form submission
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    if (search) {
-      router.push(`/Search/movie/?q=${search}`);
-    }
-  };
   const NavigateHandler = () => {
     // close A searchbar and remove search
     setOpen(false);
@@ -102,7 +93,10 @@ export default function Header() {
           <button
             className="text-white my-auto"
             onClick={() => {
-              if (!Query) setOpen(!opened);
+              if (!Query) {
+                setOpen(!opened)
+                setSearch('')
+              };
             }}
           >
             <SearchIcon />
@@ -124,7 +118,7 @@ export default function Header() {
                       src={user.photoURL ? user.photoURL : logo1}
                       width={200}
                       height={200}
-                      className="rounded-full w-full h-full object-cover"
+                      className="rounded-full w-10 h-10 object-cover"
                       unoptimized
                     />
                   </button>
@@ -177,30 +171,7 @@ export default function Header() {
         </div>
       </div>
       {/* Search input field */}
-      <div
-        className={`bottom-0 h-14 bg-HeaderColor  text-white justify-center flex w-full border-t-[0.5px] border-[#F4181C] duration-300 transition-all z-50 absolute ${
-          !opened ? "" : "translate-y-full"
-        }`}
-      >
-        <form
-          onSubmit={handleSubmit}
-          className="bg-[#1F1F1F] flex w-[70%] px-2"
-        >
-          <input
-            value={search}
-            type="text"
-            onChange={(e) => setSearch(e.target.value)}
-            className="outline-none text-white p-2 w-full bg-[#1F1F1F]"
-            placeholder="i am looking for..."
-          />
-          <button
-            className="bg-[#F4181C] p-2 rounded-md px-4 hover:bg-red-600 m-auto "
-            type="submit"
-          >
-            Search
-          </button>
-        </form>
-      </div>
+      <SearchBar search={search} setSearch={setSearch} opened={opened}/>
     </nav>
   );
 }
