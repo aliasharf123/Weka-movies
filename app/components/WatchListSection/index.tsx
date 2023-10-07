@@ -15,10 +15,10 @@ export default function WatchListSection() {
   const q = user ? query(users, where("uid", "==", user.uid)) : null;
   const [movies] = useCollectionData(q);
 
-  if (loading || !movies) return <Loading />;
+  if (loading) return <Loading />;
   if (!user) return <NoUser />; // Mange Auth
+  if(!movies) return <Loading /> // mange a movies  loading 
   if (movies && !movies.length) return <NoList />;
-
   return (
     <div className="overflow-scroll overflow-y-auto md:pb-8 Custome-Scroll max-md:removeScroll ">
       <div className="flex  gap-5  ml-6  animate__animated animate__fadeIn">
