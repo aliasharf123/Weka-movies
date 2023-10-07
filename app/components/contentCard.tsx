@@ -21,8 +21,8 @@ export default function ContentCard({
       key={movie.id}
       className={`relative   ${
         isPersonProfile
-          ? "min-w-[11rem] max-w-[11rem] h-64"
-          : "min-w-[12rem] max-w-[11rem] h-72"
+          ? " md:min-w-[11rem] max-w-[10rem] min-w-[10rem]  md:max-w-[11rem] h-64"
+          : "md:min-w-[12rem] max-w-[11rem] min-w-[11rem] md:max-w-[12rem] h-[17rem] md:h-72"
       }   group  animate__animated animate__fadeIn`}
     >
       <Image
