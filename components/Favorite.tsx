@@ -1,30 +1,26 @@
 // Import necessary modules and components
 "use client";
-import { auth } from "../firebase/Clients";
+import { auth, users } from "../firebase/Clients";
 import { useRouter } from "next/navigation";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useCollectionData } from "react-firebase-hooks/firestore";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { message } from "antd";
 import { AddtoFavorite } from "@/src/AddFavorite";
-import { useEffect, useState } from "react";
-import { FindMovie } from "@/src/CRUD/FindMovie";
+import { collection, query, where } from "firebase/firestore";
 // A Favorite Button icon component
 function AddFavorite({ movie }: any) {
   const [user] = useAuthState(auth); // Get the authenticated user
-  const [isInWatchList, setIsInWatchList] = useState(false);
+  // get a real time update from firebase store 
+  const q =user ?  query(users, where("uid", "==", user?.uid) , where('movie.id' , '==' , movie.id)) : null
+  const [data] = useCollectionData(q)
+  // determine if there is a movie in a watch list
+  const isInWatchList = data?.length ? true : false
   const router = useRouter();
   const [messageApiLoading, contextHolderLoading] = message.useMessage(); // message to determine a state of requests
   const [messageApiResult, contextHolderResult] = message.useMessage(); // message to determine a state of requests
-  const Determine = async () => {
-    if (user) {
-      const res = await FindMovie(movie, user);
-      setIsInWatchList(Boolean(res));
-    }
-  };
-  useEffect(() => {
-    Determine();
-  }, []);
+
   return (
     <div>
       <button

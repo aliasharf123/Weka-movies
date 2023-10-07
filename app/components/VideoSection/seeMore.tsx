@@ -11,31 +11,25 @@ import getInfo from "@/src/getInfo";
 import { message } from "antd";
 import { AddtoFavorite } from "@/src/AddFavorite";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "@/firebase/Clients";
+import { auth, users } from "@/firebase/Clients";
 import { useRouter } from "next/navigation";
-import { FindMovie } from "@/src/CRUD/FindMovie";
+import { query, where } from "firebase/firestore";
+import { useCollectionData } from "react-firebase-hooks/firestore";
 export default function SeeMore({ movie }: { movie: ContentItem }) {
   const { title } = getInfo(movie);
-  const [user, loading] = useAuthState(auth);
+  const [user] = useAuthState(auth);
   const router = useRouter();
-  const [isInWatchList, setIsInWatchList] = useState(false);
-
+  // get a real time update from firebase store 
+  const q =user ?  query(users, where("uid", "==", user?.uid) , where('movie.id' , '==' , movie.id)) : null
+  const [data] = useCollectionData(q)
+  // determine if there is a movie in a watch list
+  const isInWatchList = data?.length ? true : false
   const [messageApiLoading, contextHolderLoading] = message.useMessage(); // message to determine a state of requests
   const [messageApiResult, contextHolderResult] = message.useMessage(); // message to determine a state of requests
 
   const ClickSeeMore = (e: any) => {
     e.preventDefault();
   };
-  const Determine = async () => {
-    if (user) {
-      const res = await FindMovie(movie, user);
-      setIsInWatchList(Boolean(res));
-    }
-  };
-  useEffect(() => {
-    Determine();
-  }, [movie.id]);
-
   return (
     <MantineProvider theme={{ colorScheme: "dark" }}>
       <Menu shadow="md"  position="bottom-end"  withArrow>
