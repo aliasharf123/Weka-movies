@@ -122,7 +122,7 @@ export default async function Page({
           <BiographyParagraphs biography={person.biography} />
         </div>
         {/* credits section */}
-        <Suspense fallback={<h1>Loading.........</h1>}>
+        <Suspense fallback={<h1 className="text-center">Loading.........</h1>}>
           <Credits id={person.id}/>
         </Suspense>
       </div>
