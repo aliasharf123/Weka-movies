@@ -17,7 +17,8 @@ export function makeQueryClient() {
       // If not, set a new promise in the cache by calling the query function.
       fetchMap.set(name, query());
     }
-    
+    // remove cach after 3000000 ms 
+    setTimeout(() =>  fetchMap.delete(name), 30000000)
     // Return the promise associated with this query name (either existing or newly created).
     return fetchMap.get(name)!;
   };

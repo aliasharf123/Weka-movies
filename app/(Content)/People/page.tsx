@@ -16,7 +16,7 @@ export default async function Page({
   const page = searchParams?.page ?? "1";
   const res = await fetch(
     `https://api.themoviedb.org/3/person/popular?language=en-US&page=${page}&api_key=${process.env.NEXT_PUBLIC_DB_key}`
-  );
+  , {next : {revalidate : 3000}});
 
   const people: PageResult = await res.json();
   return (
