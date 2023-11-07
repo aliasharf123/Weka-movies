@@ -13,9 +13,9 @@ export default async function Results({
   page: string;
 }) {
   const data = await queryClient(url, () =>
-    fetch(url + `&api_key=${process.env.NEXT_PUBLIC_DB_key}`).then((res) =>
-      res.json()
-    )
+    fetch(url + `&api_key=${process.env.NEXT_PUBLIC_DB_key}`, {
+      next: { revalidate: 3000 },
+    }).then((res) => res.json())
   );
   return (
     <>
