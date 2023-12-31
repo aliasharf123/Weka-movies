@@ -27,12 +27,11 @@ export default function DetaildContentCard({ movie }: { movie: ContentItem }) {
                 : defaultImage
             }
             alt={title as any}
-            
           />
         </div>
         <div className=" text-white p-3 rounded-b-xl flex flex-col gap-1">
           <div className="flex justify-between">
-            <h1 className="font-medium text-lg  group-hover:text-redColor duration-300">
+            <h1 className="font-medium text-lg truncate group-hover:text-redColor duration-300">
               {title}
             </h1>
             <div
@@ -41,7 +40,7 @@ export default function DetaildContentCard({ movie }: { movie: ContentItem }) {
               }}
               className="  rounded-3xl  text-xl hover:scale-105 duration-200   right-0 "
             >
-              <AddFavorite movie={movie}/>
+              <AddFavorite movie={movie} />
             </div>
           </div>
           <h1 className="text-[#515457] flex gap-2 textLine text-sm truncate">

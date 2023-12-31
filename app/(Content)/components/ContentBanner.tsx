@@ -18,8 +18,8 @@ export default async function ContentBanner({
   const { title, type, realseData } = getInfo(Content as any); // get a title of movie
 
   function convertMinutesToHoursAndMinutesORSeasons(minutes: number): string {
-    // if minutes null and minutes null 
-    if(!(Content as any).number_of_seasons && !minutes) return 'Nr'
+    // if minutes null and minutes null
+    if (!(Content as any).number_of_seasons && !minutes) return "Nr";
 
     // turn a time to (hour)h (minutes)m or if it is null return a number of seasons
     if (!minutes) return `${(Content as any).number_of_seasons} s`;
@@ -65,14 +65,14 @@ export default async function ContentBanner({
               <div className="text-[0.4rem]">
                 <DotIconClient /> {/* GET a client icon*/}
               </div>
-              <div
-                className={`flex gap-2 items-center`}
-              >
+              <div className={`flex gap-2 items-center`}>
                 {/* Coutries and a year realease */}
                 <div>
                   {Content.production_countries[0] &&
                     Content.production_countries[0].iso_3166_1}{" "}
-                  {new Date(Content.release_date || ((Content as any).first_air_date)).getFullYear()}
+                  {new Date(
+                    Content.release_date || (Content as any).first_air_date
+                  ).getFullYear()}
                 </div>
                 {/* break */}
                 <div className="text-[0.4rem]">
@@ -119,7 +119,7 @@ export default async function ContentBanner({
           style={{
             backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),url(https://www.themoviedb.org/t/p/original${Content.backdrop_path})`,
           }}
-          className=" relative Fade h-[35vh] md:h-[40vh]  bg-center bg-cover bg-no-repeat  "
+          className=" relative Fade h-[40vh]  bg-center bg-cover bg-no-repeat  "
         ></div>
         <div className="flex flex-col gap-3">
           <div className="relative z-40 px-6 md:px-10 text-white ">
@@ -140,7 +140,7 @@ export default async function ContentBanner({
                 <AddFavorite movie={Content} />
               </div>
             </div>
-            {Content.vote_average > 0  && (
+            {Content.vote_average > 0 && (
               <div className="flex items-center gap-1 text-lg font-medium">
                 <RatingClient rate={Content.vote_average / 2} />{" "}
                 {(Content.vote_average / 2).toFixed(1)}

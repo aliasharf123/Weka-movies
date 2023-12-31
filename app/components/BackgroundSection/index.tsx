@@ -39,11 +39,11 @@ export default async function BackgroundSection() {
         alt="main"
       />
       {/* Content Overlay */}
-      <div className="absolute z-20 text-slate-100 bottom-0 p-8 lg:p-14 flex flex-col gap-8">
+      <div className="absolute z-20 text-slate-100 bottom-0 pl-4 pb-4 lg:p-14 flex flex-col gap-8">
         <div className="grid gap-4">
           <h1 className="font-bold text-4xl">{title}</h1>
           <div className="flex gap-2 items-center">
-            <h1 className="text flex text-slate-300 gap-1">
+            <h1 className="text flex truncate text-slate-300 gap-1">
               {data.genre_ids.length ? (
                 data.genre_ids.slice(0, 2).map((genreId, index) => {
                   const GeneryName =

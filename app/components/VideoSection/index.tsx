@@ -21,11 +21,11 @@ function Video() {
 
   const handleToggleState = () => {
     if (enabled === "In Theaters") {
-      return "w-28 left-0";
+      return "md:w-28 left-0";
     } else if (enabled === "On Tv") {
-      return "w-24 left-28 ";
+      return "md:w-24 left-28 ";
     } else if (enabled === "Streaming") {
-      return "w-28 left-[12.82rem]";
+      return "md:w-28 left-[12.82rem]";
     }
   };
   const handleToggle1 = () => {
