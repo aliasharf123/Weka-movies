@@ -8,6 +8,7 @@ import Recommendation from "./Recommendation";
 import Model from "@/components/TrailerModel";
 import SeasonSection from "./Seasons/SeasonSection";
 import ContentInfo from "./SideContentInfo";
+import Collection from "./Collection";
 
 export default function SingleContent({
   Cotent,
@@ -25,6 +26,9 @@ export default function SingleContent({
           {Cotent.last_episode_to_air && <SeasonSection Cotent={Cotent} />}
           <Reviews Content={Cotent} />
           <Photos Content={Cotent} />
+          {Cotent.belongs_to_collection && (
+            <Collection collection={Cotent.belongs_to_collection} />
+          )}
           <Recommendation Content={Cotent} />
         </div>
         <ContentInfo Content={Cotent as any} />
