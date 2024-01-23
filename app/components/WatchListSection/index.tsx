@@ -17,7 +17,7 @@ export default function WatchListSection() {
 
   if (loading) return <Loading />;
   if (!user) return <NoUser />; // Mange Auth
-  if(!movies) return <Loading /> // mange a movies  loading 
+  if (!movies) return <Loading />; // mange a movies  loading
   if (movies && !movies.length) return <NoList />;
   return (
     <div className="overflow-scroll overflow-y-auto md:pb-8 Custome-Scroll max-md:removeScroll ">
