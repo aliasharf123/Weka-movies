@@ -106,7 +106,7 @@ function Video() {
         </div>
         <div className="relative   sm:hidden  flex">
           <button
-            className={`bg-[#F4181C]  w-32 py-1 ${
+            className={`bg-[#F4181C]  w-36 py-1 ${
               !open1 ? "rounded-lg" : "rounded-t-lg"
             }  flex justify-between px-3`}
             onClick={() => {
@@ -123,7 +123,7 @@ function Video() {
           {open1 && (
             <div className="absolute top-8 z-10">
               <button
-                className=" text-white bg-[#F4181C]  w-32 py-1 "
+                className=" text-white bg-[#F4181C]  w-36 py-1 "
                 onClick={() => {
                   setOpen1(false);
                   setEnabled(refButton1.current?.innerHTML);
@@ -137,7 +137,7 @@ function Video() {
                 </h1>
               </button>
               <button
-                className=" text-white bg-[#F4181C]  w-32 py-1 rounded-b-lg"
+                className=" text-white bg-[#F4181C]  w-36 py-1 rounded-b-lg"
                 onClick={() => {
                   setOpen1(false);
                   setEnabled(refButton2.current?.innerHTML);
